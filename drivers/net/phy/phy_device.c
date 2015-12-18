@@ -204,6 +204,9 @@ static void features_init(void)
 			       ARRAY_SIZE(phy_10gbit_fec_features_array),
 			       phy_10gbit_fec_features);
 }
+static const int first_phy_addr = 1;
+static int num_phys = 1;
+module_param(num_phys, int, S_IRUSR | S_IWUSR | S_IRGRP | S_IWGRP);
 
 void phy_device_free(struct phy_device *phydev)
 {
@@ -1819,6 +1822,32 @@ int genphy_read_status(struct phy_device *phydev)
 }
 EXPORT_SYMBOL(genphy_read_status);
 
+/*
+ * In case 'phy_driver.num_phy=1' this function should behave like genphy_read_status()
+ *
+ * Embedded systems such as Beckhoff CX9020 use more than one KSZ886X port
+ * to connect to the outside world. To report 'link up' until all outside
+ * ports are disconnected, this function checks for any port to be up.
+ *
+ * Return: the status of the first phy found to report a link. If no phy
+ * reports a connection, the status for the last phy is returned.
+ *
+ * This multiplexing feature is disabled by default. To enable it set the
+ * bootarg 'phy_driver.num_phys' to something > 1.
+ */
+static int genphy_read_status_multiplexed(struct phy_device *phydev)
+{
+	for (phydev->mdio.addr = first_phy_addr; phydev->mdio.addr <= num_phys;
+		++phydev->mdio.addr) {
+		int ret = genphy_read_status(phydev);
+		if (ret || phydev->link) {
+			return ret;
+		}
+	}
+	return 0;
+}
+
+
 /**
  * genphy_soft_reset - software reset the PHY via BMCR_RESET bit
  * @phydev: target phy_device struct
@@ -1839,6 +1868,20 @@ int genphy_soft_reset(struct phy_device *phydev)
 	return phy_poll_reset(phydev);
 }
 EXPORT_SYMBOL(genphy_soft_reset);
+
+int genphy_soft_reset_multiplexed(struct phy_device *phydev)
+{
+        int ret;
+
+        for (phydev->mdio.addr = first_phy_addr; phydev->mdio.addr <= num_phys;
+             ++phydev->mdio.addr) {
+                ret = genphy_soft_reset(phydev);
+                if (ret)
+                        break;
+        }
+        phydev->mdio.addr = first_phy_addr;
+        return ret;
+}
 
 int genphy_config_init(struct phy_device *phydev)
 {
@@ -2330,10 +2373,11 @@ static struct phy_driver genphy_driver = {
 	.phy_id		= 0xffffffff,
 	.phy_id_mask	= 0xffffffff,
 	.name		= "Generic PHY",
-	.soft_reset	= genphy_no_soft_reset,
+	.soft_reset	= genphy_soft_reset_multiplexed,
 	.config_init	= genphy_config_init,
 	.features	= PHY_GBIT_ALL_PORTS_FEATURES,
 	.aneg_done	= genphy_aneg_done,
+	.read_status	= genphy_read_status_multiplexed,
 	.suspend	= genphy_suspend,
 	.resume		= genphy_resume,
 	.set_loopback   = genphy_loopback,
