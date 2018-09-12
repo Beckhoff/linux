@@ -1,6 +1,6 @@
-linux-raspi2 (4.18.0-1004.4) cosmic; urgency=medium
+linux-raspi2 (4.18.0-1004.5) cosmic; urgency=medium
 
-  * linux-raspi2: 4.18.0-1004.4 -proposed tracker (LP: #1792009)
+  * linux-raspi2: 4.18.0-1004.5 -proposed tracker (LP: #1792009)
 
   * Miscellaneous Ubuntu changes
     - [Config] updatconfigs after rebase to Ubuntu-4.18.0-8.9
