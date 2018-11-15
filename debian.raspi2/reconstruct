@@ -2,7 +2,9 @@
 [ ! -L 'arch/arm64/boot/dts/broadcom/bcm283x-rpi-lan7515.dtsi' ] && ln -sf '../../../../arm/boot/dts/bcm283x-rpi-lan7515.dtsi' 'arch/arm64/boot/dts/broadcom/bcm283x-rpi-lan7515.dtsi'
 [ ! -L 'arch/arm64/boot/dts/overlays' ] && ln -sf '../../../arm/boot/dts/overlays' 'arch/arm64/boot/dts/overlays'
 # Remove any files deleted from the orig.
+rm -f 'drivers/s390/crypto/ap_asm.h'
 rm -f 'include/crypto/vmac.h'
+rm -f 'tools/testing/selftests/android/ion/config'
 chmod +x 'arch/arm/boot/dts/overlays/mcp2515-can0-overlay.dts'
 chmod +x 'arch/arm/boot/dts/overlays/mcp3008-overlay.dts'
 chmod +x 'arch/arm/boot/dts/overlays/mcp3202-overlay.dts'
