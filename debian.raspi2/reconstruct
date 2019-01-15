@@ -2,7 +2,13 @@
 [ ! -L 'arch/arm64/boot/dts/broadcom/bcm283x-rpi-lan7515.dtsi' ] && ln -sf '../../../../arm/boot/dts/bcm283x-rpi-lan7515.dtsi' 'arch/arm64/boot/dts/broadcom/bcm283x-rpi-lan7515.dtsi'
 [ ! -L 'arch/arm64/boot/dts/overlays' ] && ln -sf '../../../arm/boot/dts/overlays' 'arch/arm64/boot/dts/overlays'
 # Remove any files deleted from the orig.
+rm -f 'arch/arm/crypto/speck-neon-core.S'
+rm -f 'arch/arm/crypto/speck-neon-glue.c'
+rm -f 'arch/arm64/crypto/speck-neon-core.S'
+rm -f 'arch/arm64/crypto/speck-neon-glue.c'
+rm -f 'crypto/speck.c'
 rm -f 'drivers/s390/crypto/ap_asm.h'
+rm -f 'include/crypto/speck.h'
 rm -f 'include/crypto/vmac.h'
 rm -f 'tools/testing/selftests/android/ion/config'
 chmod +x 'arch/arm/boot/dts/overlays/mcp2515-can0-overlay.dts'
