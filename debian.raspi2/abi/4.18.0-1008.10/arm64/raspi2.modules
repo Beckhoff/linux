@@ -3231,8 +3231,6 @@ speakup_ltlk
 speakup_soft
 speakup_spkout
 speakup_txprt
-speck
-speck-neon
 speedtch
 spi-altera
 spi-axi-spi-engine
