@@ -693,10 +693,6 @@ struct task_struct {
 	int				normal_prio;
 	unsigned int			rt_priority;
 
-#ifdef CONFIG_SCHED_CORE
-	unsigned int			core_occupation;
-#endif
-
 #ifdef CONFIG_UCLAMP_TASK
 	/*
 	 * Clamp values requested for a scheduling entity.
