@@ -25,6 +25,9 @@
 #include "permissive.h"
 
 DEFINE_PER_TASK(struct kcsan_ctx, kcsan_ctx);
+#ifdef CONFIG_TRACE_IRQFLAGS
+DEFINE_PER_TASK(struct irqtrace_events, kcsan_save_irqtrace);
+#endif
 
 static bool kcsan_early_enable = IS_ENABLED(CONFIG_KCSAN_EARLY_ENABLE);
 unsigned int kcsan_udelay_task = CONFIG_KCSAN_UDELAY_TASK;
@@ -330,14 +333,14 @@ static void delay_access(int type)
 void kcsan_save_irqtrace(struct task_struct *task)
 {
 #ifdef CONFIG_TRACE_IRQFLAGS
-	task->kcsan_save_irqtrace = task->irqtrace;
+	per_task(task, kcsan_save_irqtrace) = task->irqtrace;
 #endif
 }
 
 void kcsan_restore_irqtrace(struct task_struct *task)
 {
 #ifdef CONFIG_TRACE_IRQFLAGS
-	task->irqtrace = task->kcsan_save_irqtrace;
+	task->irqtrace = per_task(task, kcsan_save_irqtrace);
 #endif
 }
 

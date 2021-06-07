@@ -854,12 +854,6 @@ struct task_struct {
 	unsigned int			kasan_depth;
 #endif
 
-#ifdef CONFIG_KCSAN
-#ifdef CONFIG_TRACE_IRQFLAGS
-	struct irqtrace_events		kcsan_save_irqtrace;
-#endif
-#endif
-
 #if IS_ENABLED(CONFIG_KUNIT)
 	struct kunit			*kunit_test;
 #endif
