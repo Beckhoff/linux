@@ -1720,10 +1720,7 @@ static inline kgid_t kgid_from_mnt(struct user_namespace *mnt_userns,
  *
  * Return: the caller's current fsuid mapped up according to @mnt_userns.
  */
-static inline kuid_t mapped_fsuid(struct user_namespace *mnt_userns)
-{
-	return kuid_from_mnt(mnt_userns, current_fsuid());
-}
+extern kuid_t mapped_fsuid(struct user_namespace *mnt_userns);
 
 /**
  * mapped_fsgid - return caller's fsgid mapped up into a mnt_userns
@@ -1737,10 +1734,7 @@ static inline kuid_t mapped_fsuid(struct user_namespace *mnt_userns)
  *
  * Return: the caller's current fsgid mapped up according to @mnt_userns.
  */
-static inline kgid_t mapped_fsgid(struct user_namespace *mnt_userns)
-{
-	return kgid_from_mnt(mnt_userns, current_fsgid());
-}
+extern kgid_t mapped_fsgid(struct user_namespace *mnt_userns);
 
 /**
  * inode_fsuid_set - initialize inode's i_uid field with callers fsuid
