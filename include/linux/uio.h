@@ -6,8 +6,6 @@
 #define __LINUX_UIO_H
 
 #include <linux/minmax.h>
-#include <linux/kernel.h>
-#include <linux/thread_info.h>
 #include <linux/check_size.h>
 
 #include <uapi/linux/uio.h>
