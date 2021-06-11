@@ -39,6 +39,13 @@
 #include <linux/skbuff.h>
 #include <linux/notifier.h>
 
+#include <linux/seq_file_net.h>
+
+#ifndef CONFIG_NET_NS
+#include <linux/sched.h>
+#include <linux/nsproxy.h>
+#endif
+
 struct user_namespace;
 struct proc_dir_entry;
 struct net_device;
@@ -178,8 +185,6 @@ struct net {
 #endif
 } __randomize_layout;
 
-#include <linux/seq_file_net.h>
-
 /* Init's network namespace */
 extern struct net init_net;
 
@@ -194,8 +199,6 @@ void net_ns_barrier(void);
 struct ns_common *get_net_ns(struct ns_common *ns);
 struct net *get_net_ns_by_fd(int fd);
 #else /* CONFIG_NET_NS */
-#include <linux/sched.h>
-#include <linux/nsproxy.h>
 static inline struct net *copy_net_ns(unsigned long flags,
 	struct user_namespace *user_ns, struct net *old_net)
 {
