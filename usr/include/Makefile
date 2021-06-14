@@ -105,4 +105,4 @@ quiet_cmd_hdrtest = HDRTEST $<
 $(obj)/%.hdrtest: $(obj)/%.h FORCE
 	$(call if_changed_dep,hdrtest)
 
-clean-files += $(filter-out Makefile, $(notdir $(wildcard $(obj)/*)))
+clean-files += $(filter-out uapi, $(filter-out Makefile, $(notdir $(wildcard $(obj)/*))))
