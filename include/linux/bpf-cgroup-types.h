@@ -4,13 +4,9 @@
 
 #include <linux/bpf_defs.h>
 
-#include <uapi/linux/bpf.h>
-
-#include <linux/errno.h>
-#include <linux/jump_label.h>
-#include <linux/percpu.h>
 #include <linux/percpu-refcount-types.h>
 #include <linux/rbtree.h>
+#include <linux/jump_label.h>
 
 struct sock;
 struct sockaddr;
