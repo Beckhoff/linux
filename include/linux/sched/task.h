@@ -170,4 +170,27 @@ static inline bool task_on_another_cpu(struct task_struct *task)
 #endif
 }
 
+#define TASK_REPORT_IDLE	(TASK_REPORT + 1)
+#define TASK_REPORT_MAX		(TASK_REPORT_IDLE << 1)
+
+static inline unsigned int task_state_index(struct task_struct *tsk)
+{
+	unsigned int tsk_state = READ_ONCE(tsk->__state);
+	unsigned int state = (tsk_state | tsk->exit_state) & TASK_REPORT;
+
+	BUILD_BUG_ON_NOT_POWER_OF_2(TASK_REPORT_MAX);
+
+	if (tsk_state == TASK_IDLE)
+		state = TASK_REPORT_IDLE;
+
+	return fls(state);
+}
+
+extern char task_index_to_char(unsigned int state);
+
+static inline char task_state_to_char(struct task_struct *tsk)
+{
+	return task_index_to_char(task_state_index(tsk));
+}
+
 #endif /* _LINUX_SCHED_TASK_H */
