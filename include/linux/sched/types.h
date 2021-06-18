@@ -20,4 +20,7 @@ struct task_cputime {
 	unsigned long long		sum_exec_runtime;
 };
 
+/* Task command name length: */
+#define TASK_COMM_LEN			16
+
 #endif
