@@ -3181,6 +3181,16 @@ out:
 }
 #endif /* CONFIG_NUMA_BALANCING */
 
+void scheduler_ipi(void)
+{
+	/*
+	 * Fold TIF_NEED_RESCHED into the preempt_count; anybody setting
+	 * TIF_NEED_RESCHED remotely (for the first time) will also send
+	 * this IPI.
+	 */
+	preempt_fold_need_resched();
+}
+
 /*
  * wait_task_inactive - wait for a thread to unschedule.
  *
