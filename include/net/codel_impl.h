@@ -1,6 +1,8 @@
 #ifndef __NET_SCHED_CODEL_IMPL_H
 #define __NET_SCHED_CODEL_IMPL_H
 
+#include <net/inet_ecn.h>
+
 /*
  * Codel - The Controlled-Delay Active Queue Management algorithm
  *
