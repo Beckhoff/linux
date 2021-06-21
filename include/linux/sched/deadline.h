@@ -9,6 +9,7 @@
  */
 
 #include <linux/sched/per_task.h>
+#include <linux/sched.h>
 #include <linux/hrtimer.h>
 
 struct sched_dl_entity {
