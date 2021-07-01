@@ -23,6 +23,8 @@ struct task_cputime {
 /* Task command name length: */
 #define TASK_COMM_LEN			16
 
+#define	MAX_SCHEDULE_TIMEOUT		LONG_MAX
+
 /*
  * Task state bitmask. NOTE! These bits are also
  * encoded in fs/proc/array.c: get_task_state().
