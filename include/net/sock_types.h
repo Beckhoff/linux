@@ -557,4 +557,10 @@ enum sk_pacing {
 	SK_PACING_FQ		= 2,
 };
 
+static inline
+struct net *sock_net(const struct sock *sk)
+{
+	return read_pnet(&sk->sk_net);
+}
+
 #endif	/* _SOCK_TYPES_H */
