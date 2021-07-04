@@ -4,8 +4,11 @@
 #define __NET_BAREUDP_H
 
 #include <linux/types.h>
+#include <linux/string.h>
 #include <linux/skbuff.h>
-#include <net/rtnetlink.h>
+#include <linux/netdevice_types.h>
+
+#include <net/rtnetlink_api.h>
 
 struct bareudp_conf {
 	__be16 ethertype;
