@@ -355,7 +355,7 @@ fi
 kallsymso=""
 kallsymso_prev=""
 kallsyms_vmlinux=""
-if [ -n "${CONFIG_KALLSYMS}" ]; then
+if [ -n "${CONFIG_KALLSYMS_GENERIC}" ]; then
 
 	# kallsyms support
 	# Generate section listing all symbols and add it into vmlinux
@@ -412,7 +412,7 @@ info SYSMAP System.map
 mksysmap vmlinux System.map
 
 # step a (see comment above)
-if [ -n "${CONFIG_KALLSYMS}" ]; then
+if [ -n "${CONFIG_KALLSYMS_GENERIC}" ]; then
 	mksysmap ${kallsyms_vmlinux} .tmp_System.map
 
 	if ! cmp -s System.map .tmp_System.map; then
