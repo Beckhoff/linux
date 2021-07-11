@@ -3258,6 +3258,8 @@ extern long copy_huge_page_from_user(struct page *dst_page,
 				unsigned int pages_per_huge_page,
 				bool allow_pagefault);
 
+extern bool vma_is_dax(const struct vm_area_struct *vma);
+
 /**
  * vma_is_special_huge - Are transhuge page-table entries considered special?
  * @vma: Pointer to the struct vm_area_struct to consider
