@@ -6,6 +6,7 @@
 #define _KERNEL_SCHED_SCHED_H
 
 #include <linux/sched.h>
+#include <linux/cpumask.h>
 
 #include <linux/sched/affinity.h>
 #include <linux/sched/autogroup.h>
