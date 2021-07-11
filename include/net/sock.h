@@ -56,7 +56,7 @@
 #include <linux/wait_types.h>
 #include <linux/cgroup_types.h>
 #include <linux/rbtree.h>
-#include <linux/filter.h>
+#include <linux/prandom.h>
 #include <linux/rculist_nulls.h>
 #include <linux/sockptr.h>
 #include <linux/indirect_call_wrapper.h>
