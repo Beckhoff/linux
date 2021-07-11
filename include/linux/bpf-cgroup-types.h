@@ -2,7 +2,7 @@
 #ifndef _BPF_CGROUP_TYPES_H
 #define _BPF_CGROUP_TYPES_H
 
-#include <linux/bpf.h>
+#include <linux/bpf_defs.h>
 
 #include <uapi/linux/bpf.h>
 
