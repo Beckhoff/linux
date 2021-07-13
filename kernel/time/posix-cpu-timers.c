@@ -16,7 +16,6 @@
 #include <linux/workqueue.h>
 #include <linux/compat.h>
 #include <linux/sched/deadline.h>
-#include <linux/sched/posix-timers.h>
 
 #include "posix-timers.h"
 
