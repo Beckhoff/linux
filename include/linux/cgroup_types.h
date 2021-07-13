@@ -19,7 +19,7 @@
 #include <linux/percpu_rwsem.h>
 #include <linux/u64_stats_sync.h>
 #include <linux/workqueue.h>
-#include <linux/bpf-cgroup.h>
+#include <linux/bpf-cgroup-types.h>
 #include <linux/psi_types.h>
 #include <linux/kernel_stat.h>
 #include <linux/sched/types.h>
