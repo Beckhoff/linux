@@ -10,6 +10,7 @@
 #include <linux/crypto.h>
 #include <linux/list.h>
 #include <linux/kernel.h>
+#include <linux/align.h>
 
 /*
  * Maximum values for blocksize and alignmask, used to allocate

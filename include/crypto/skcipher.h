@@ -11,6 +11,7 @@
 #include <linux/crypto.h>
 #include <linux/kernel.h>
 #include <linux/slab.h>
+#include <linux/string.h>
 
 /**
  *	struct skcipher_request - Symmetric key cipher request
