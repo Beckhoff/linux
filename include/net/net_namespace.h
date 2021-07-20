@@ -145,13 +145,6 @@ static inline int check_net(const struct net *net)
 #define net_drop_ns NULL
 #endif
 
-static inline void write_pnet(possible_net_t *pnet, struct net *net)
-{
-#ifdef CONFIG_NET_NS
-	pnet->net = net;
-#endif
-}
-
 /* Protected by net_rwsem */
 #define for_each_net(VAR)				\
 	list_for_each_entry(VAR, &net_namespace_list, list)
