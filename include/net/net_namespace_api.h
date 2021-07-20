@@ -63,8 +63,6 @@ static inline struct net *get_net_ns_by_fd(int fd)
 #endif /* CONFIG_NET_NS */
 
 
-extern struct list_head net_namespace_list;
-
 struct net *get_net_ns_by_pid(pid_t pid);
 
 #ifdef CONFIG_SYSCTL
@@ -132,14 +130,6 @@ static inline int check_net(const struct net *net)
 
 #define net_drop_ns NULL
 #endif
-
-/* Protected by net_rwsem */
-#define for_each_net(VAR)				\
-	list_for_each_entry(VAR, &net_namespace_list, list)
-#define for_each_net_continue_reverse(VAR)		\
-	list_for_each_entry_continue_reverse(VAR, &net_namespace_list, list)
-#define for_each_net_rcu(VAR)				\
-	list_for_each_entry_rcu(VAR, &net_namespace_list, list)
 
 int peernet2id_alloc(struct net *net, struct net *peer, gfp_t gfp);
 int peernet2id(const struct net *net, struct net *peer);
