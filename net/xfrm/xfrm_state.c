@@ -497,6 +497,29 @@ void xfrm_state_free(struct xfrm_state *x)
 }
 EXPORT_SYMBOL(xfrm_state_free);
 
+#ifdef CONFIG_XFRM_OFFLOAD
+
+static inline void xfrm_dev_state_free(struct xfrm_state *x)
+{
+	struct xfrm_state_offload *xso = &x->xso;
+	struct net_device *dev = xso->dev;
+
+	if (dev && dev->xfrmdev_ops) {
+		if (dev->xfrmdev_ops->xdo_dev_state_free)
+			dev->xfrmdev_ops->xdo_dev_state_free(x);
+		xso->dev = NULL;
+		dev_put(dev);
+	}
+}
+
+#else
+
+static inline void xfrm_dev_state_free(struct xfrm_state *x)
+{
+}
+
+#endif
+
 static void ___xfrm_state_destroy(struct xfrm_state *x)
 {
 	hrtimer_cancel(&x->mtimer);
