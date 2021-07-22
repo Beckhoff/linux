@@ -23,7 +23,6 @@
 #include <linux/sysfs_types.h>
 #include <linux/compiler.h>
 #include <linux/spinlock.h>
-#include <linux/kref_api.h>
 #include <linux/kobject_ns.h>
 #include <linux/kernel.h>
 #include <linux/wait.h>
