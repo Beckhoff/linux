@@ -11,6 +11,7 @@
 #include <linux/cpumask_api.h>
 #include <linux/sched.h>
 #include <linux/cpumask.h>
+#include <linux/ktime_api.h>
 
 #include <linux/sched/affinity.h>
 #include <linux/sched/autogroup.h>
