@@ -2055,6 +2055,4 @@ struct net_device {
 
 #define	NETDEV_ALIGN		32
 
-#include <linux/netdevice_api.h>
-
 #endif	/* _LINUX_NETDEVICE_H */
