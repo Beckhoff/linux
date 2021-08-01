@@ -121,7 +121,9 @@
 #include <linux/nmi.h>
 #endif
 
-#if defined(CONFIG_SYSCTL)
+#ifdef CONFIG_SYSCTL
+
+extern struct ctl_table key_sysctls[];
 
 /* Constants used for minimum and  maximum */
 #ifdef CONFIG_LOCKUP_DETECTOR
