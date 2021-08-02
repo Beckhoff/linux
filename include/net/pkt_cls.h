@@ -258,28 +258,19 @@ static inline void tcf_exts_put_net(struct tcf_exts *exts)
 	for (; 0; (void)(i), (void)(a), (void)(exts))
 #endif
 
+#ifdef CONFIG_NET_CLS_ACT
+void
+tcf_exts_stats_update(const struct tcf_exts *exts,
+		      u64 bytes, u64 packets, u64 drops, u64 lastuse,
+		      u8 used_hw_stats, bool used_hw_stats_valid);
+#else
 static inline void
 tcf_exts_stats_update(const struct tcf_exts *exts,
 		      u64 bytes, u64 packets, u64 drops, u64 lastuse,
 		      u8 used_hw_stats, bool used_hw_stats_valid)
 {
-#ifdef CONFIG_NET_CLS_ACT
-	int i;
-
-	preempt_disable();
-
-	for (i = 0; i < exts->nr_actions; i++) {
-		struct tc_action *a = exts->actions[i];
-
-		tcf_action_stats_update(a, bytes, packets, drops,
-					lastuse, true);
-		a->used_hw_stats = used_hw_stats;
-		a->used_hw_stats_valid = used_hw_stats_valid;
-	}
-
-	preempt_enable();
-#endif
 }
+#endif
 
 /**
  * tcf_exts_has_actions - check if at least one action is present
@@ -296,26 +287,9 @@ static inline bool tcf_exts_has_actions(struct tcf_exts *exts)
 #endif
 }
 
-/**
- * tcf_exts_exec - execute tc filter extensions
- * @skb: socket buffer
- * @exts: tc filter extensions handle
- * @res: desired result
- *
- * Executes all configured extensions. Returns TC_ACT_OK on a normal execution,
- * a negative number if the filter must be considered unmatched or
- * a positive action code (TC_ACT_*) which must be returned to the
- * underlying layer.
- */
-static inline int
+int
 tcf_exts_exec(struct sk_buff *skb, struct tcf_exts *exts,
-	      struct tcf_result *res)
-{
-#ifdef CONFIG_NET_CLS_ACT
-	return tcf_action_exec(skb, exts->actions, exts->nr_actions, res);
-#endif
-	return TC_ACT_OK;
-}
+	      struct tcf_result *res);
 
 int tcf_exts_validate(struct net *net, struct tcf_proto *tp,
 		      struct nlattr **tb, struct nlattr *rate_tlv,
