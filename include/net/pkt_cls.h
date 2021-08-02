@@ -5,11 +5,14 @@
 #include <linux/skbuff_api.h>
 #include <linux/pkt_cls.h>
 #include <linux/workqueue.h>
+#include <linux/slab.h>
 
 #include <net/rtnetlink_api.h>
 #include <net/sch_generic.h>
-#include <net/act_api.h>
 #include <net/net_namespace_api.h>
+
+struct tcf_proto;
+struct tcf_proto_ops;
 
 /* TC action not accessible from user space */
 #define TC_ACT_CONSUMED		(TC_ACT_VALUE_MAX + 1)
