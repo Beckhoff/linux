@@ -1048,6 +1048,14 @@ static inline unsigned int compound_order(struct page *page)
 	return page[1].compound_order;
 }
 
+/* Returns the number of pages in this potentially compound page. */
+static inline unsigned long compound_nr(struct page *page)
+{
+	if (!((1UL << PG_head) & page->flags))
+		return 1;
+	return page[1].compound_nr;
+}
+
 /* Returns the number of bytes in this potentially compound page. */
 static inline unsigned long page_size(struct page *page)
 {
