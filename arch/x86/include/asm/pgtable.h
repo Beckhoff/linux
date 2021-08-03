@@ -26,8 +26,7 @@
 
 #ifndef __ASSEMBLY__
 #include <asm/x86_init.h>
-#include <asm/pkru.h>
-#include <asm/fpu/api.h>
+#include <asm/cpufeature.h>
 #include <asm-generic/pgtable_uffd.h>
 
 extern pgd_t early_top_pgt[PTRS_PER_PGD];
