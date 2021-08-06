@@ -20,7 +20,6 @@
 
 #include <asm/mmu.h>
 
-#include <linux/mm_page_address.h>
 #include <linux/mm_types_task.h>
 
 #include <linux/spinlock_types.h>
