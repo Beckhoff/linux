@@ -7,9 +7,6 @@
 #include <linux/mem_encrypt.h>
 #include <linux/mm_types.h>
 #include <linux/mmdebug.h>
-#include <linux/log2.h>
-
-#include <asm-generic/pgtable_uffd.h>
 
 #include <asm/page.h>
 #include <asm/x86_init.h>
