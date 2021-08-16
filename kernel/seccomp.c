@@ -33,6 +33,8 @@
 #include <asm/syscall.h>
 #endif
 
+DEFINE_PER_TASK(struct seccomp, seccomp);
+
 #ifdef CONFIG_SECCOMP_FILTER
 #include <linux/file.h>
 #include <linux/filter.h>
@@ -399,7 +401,7 @@ static u32 seccomp_run_filters(const struct seccomp_data *sd,
 	u32 ret = SECCOMP_RET_ALLOW;
 	/* Make sure cross-thread synced filter points somewhere sane. */
 	struct seccomp_filter *f =
-			READ_ONCE(current->seccomp.filter);
+			READ_ONCE(per_task(current, seccomp).filter);
 
 	/* Ensure unexpected behavior doesn't result in failing open. */
 	if (WARN_ON(f == NULL))
@@ -428,7 +430,7 @@ static inline bool seccomp_may_assign_mode(unsigned long seccomp_mode)
 {
 	assert_spin_locked(&current->sighand->siglock);
 
-	if (current->seccomp.mode && current->seccomp.mode != seccomp_mode)
+	if (per_task(current, seccomp).mode && per_task(current, seccomp).mode != seccomp_mode)
 		return false;
 
 	return true;
@@ -442,7 +444,7 @@ static inline void seccomp_assign_mode(struct task_struct *task,
 {
 	assert_spin_locked(&task->sighand->siglock);
 
-	task->seccomp.mode = seccomp_mode;
+	per_task(task, seccomp).mode = seccomp_mode;
 	/*
 	 * Make sure SYSCALL_WORK_SECCOMP cannot be set before the mode (and
 	 * filter) is set.
@@ -493,10 +495,10 @@ static inline pid_t seccomp_can_sync_threads(void)
 		if (thread == caller)
 			continue;
 
-		if (thread->seccomp.mode == SECCOMP_MODE_DISABLED ||
-		    (thread->seccomp.mode == SECCOMP_MODE_FILTER &&
-		     is_ancestor(thread->seccomp.filter,
-				 caller->seccomp.filter)))
+		if (per_task(thread, seccomp).mode == SECCOMP_MODE_DISABLED ||
+		    (per_task(thread, seccomp).mode == SECCOMP_MODE_FILTER &&
+		     is_ancestor(per_task(thread, seccomp).filter,
+				 per_task(caller, seccomp).filter)))
 			continue;
 
 		/* Return the first thread that cannot be synchronized. */
@@ -556,13 +558,13 @@ static void __seccomp_filter_release(struct seccomp_filter *orig)
  */
 void seccomp_filter_release(struct task_struct *tsk)
 {
-	struct seccomp_filter *orig = tsk->seccomp.filter;
+	struct seccomp_filter *orig = per_task(tsk, seccomp).filter;
 
 	/* We are effectively holding the siglock by not having any sighand. */
 	WARN_ON(tsk->sighand != NULL);
 
 	/* Detach task from its filter tree. */
-	tsk->seccomp.filter = NULL;
+	per_task(tsk, seccomp).filter = NULL;
 	__seccomp_filter_release(orig);
 }
 
@@ -596,13 +598,13 @@ static inline void seccomp_sync_threads(unsigned long flags)
 		 * current's path will hold a reference.  (This also
 		 * allows a put before the assignment.)
 		 */
-		__seccomp_filter_release(thread->seccomp.filter);
+		__seccomp_filter_release(per_task(thread, seccomp).filter);
 
 		/* Make our new filter tree visible. */
-		smp_store_release(&thread->seccomp.filter,
-				  caller->seccomp.filter);
-		atomic_set(&thread->seccomp.filter_count,
-			   atomic_read(&caller->seccomp.filter_count));
+		smp_store_release(&per_task(thread, seccomp).filter,
+				  per_task(caller, seccomp).filter);
+		atomic_set(&per_task(thread, seccomp).filter_count,
+			   atomic_read(&per_task(caller, seccomp).filter_count));
 
 		/*
 		 * Don't let an unprivileged task work around
@@ -619,7 +621,7 @@ static inline void seccomp_sync_threads(unsigned long flags)
 		 * equivalent (see ptrace_may_access), it is safe to
 		 * allow one thread to transition the other.
 		 */
-		if (thread->seccomp.mode == SECCOMP_MODE_DISABLED)
+		if (per_task(thread, seccomp).mode == SECCOMP_MODE_DISABLED)
 			seccomp_assign_mode(thread, SECCOMP_MODE_FILTER,
 					    flags);
 	}
@@ -869,7 +871,7 @@ static long seccomp_attach_filter(unsigned int flags,
 
 	/* Validate resulting filter length. */
 	total_insns = filter->prog->len;
-	for (walker = current->seccomp.filter; walker; walker = walker->prev)
+	for (walker = per_task(current, seccomp).filter; walker; walker = walker->prev)
 		total_insns += walker->prog->len + 4;  /* 4 instr penalty */
 	if (total_insns > MAX_INSNS_PER_PATH)
 		return -ENOMEM;
@@ -895,10 +897,10 @@ static long seccomp_attach_filter(unsigned int flags,
 	 * If there is an existing filter, make it the prev and don't drop its
 	 * task reference.
 	 */
-	filter->prev = current->seccomp.filter;
+	filter->prev = per_task(current, seccomp).filter;
 	seccomp_cache_prepare(filter);
-	current->seccomp.filter = filter;
-	atomic_inc(&current->seccomp.filter_count);
+	per_task(current, seccomp).filter = filter;
+	atomic_inc(&per_task(current, seccomp).filter_count);
 
 	/* Now that the new filter is in place, synchronize to all threads. */
 	if (flags & SECCOMP_FILTER_FLAG_TSYNC)
@@ -915,7 +917,7 @@ static void __get_seccomp_filter(struct seccomp_filter *filter)
 /* get_seccomp_filter - increments the reference count of the filter on @tsk */
 void get_seccomp_filter(struct task_struct *tsk)
 {
-	struct seccomp_filter *orig = tsk->seccomp.filter;
+	struct seccomp_filter *orig = per_task(tsk, seccomp).filter;
 	if (!orig)
 		return;
 	__get_seccomp_filter(orig);
@@ -1017,7 +1019,7 @@ static void __secure_computing_strict(int this_syscall)
 #ifndef CONFIG_HAVE_ARCH_SECCOMP_FILTER
 void secure_computing_strict(int this_syscall)
 {
-	int mode = current->seccomp.mode;
+	int mode = per_task(current, seccomp).mode;
 
 	if (IS_ENABLED(CONFIG_CHECKPOINT_RESTORE) &&
 	    unlikely(current->ptrace & PT_SUSPEND_SECCOMP))
@@ -1293,7 +1295,7 @@ static int __seccomp_filter(int this_syscall, const struct seccomp_data *sd,
 
 int __secure_computing(const struct seccomp_data *sd)
 {
-	int mode = current->seccomp.mode;
+	int mode = per_task(current, seccomp).mode;
 	int this_syscall;
 
 	if (IS_ENABLED(CONFIG_CHECKPOINT_RESTORE) &&
@@ -1317,7 +1319,7 @@ int __secure_computing(const struct seccomp_data *sd)
 
 long prctl_get_seccomp(void)
 {
-	return current->seccomp.mode;
+	return per_task(current, seccomp).mode;
 }
 
 /**
@@ -1774,7 +1776,7 @@ static bool has_duplicate_listener(struct seccomp_filter *new_child)
 
 	if (!new_child->notif)
 		return false;
-	for (cur = current->seccomp.filter; cur; cur = cur->prev) {
+	for (cur = per_task(current, seccomp).filter; cur; cur = cur->prev) {
 		if (cur->notif)
 			return true;
 	}
@@ -2010,12 +2012,12 @@ static struct seccomp_filter *get_nth_filter(struct task_struct *task,
 	 */
 	spin_lock_irq(&task->sighand->siglock);
 
-	if (task->seccomp.mode != SECCOMP_MODE_FILTER) {
+	if (per_task(task, seccomp).mode != SECCOMP_MODE_FILTER) {
 		spin_unlock_irq(&task->sighand->siglock);
 		return ERR_PTR(-EINVAL);
 	}
 
-	orig = task->seccomp.filter;
+	orig = per_task(task, seccomp).filter;
 	__get_seccomp_filter(orig);
 	spin_unlock_irq(&task->sighand->siglock);
 
@@ -2052,7 +2054,7 @@ long seccomp_get_filter(struct task_struct *task, unsigned long filter_off,
 	long ret;
 
 	if (!capable(CAP_SYS_ADMIN) ||
-	    current->seccomp.mode != SECCOMP_MODE_DISABLED) {
+	    per_task(current, seccomp).mode != SECCOMP_MODE_DISABLED) {
 		return -EACCES;
 	}
 
@@ -2090,7 +2092,7 @@ long seccomp_get_metadata(struct task_struct *task,
 	struct seccomp_metadata kmd = {};
 
 	if (!capable(CAP_SYS_ADMIN) ||
-	    current->seccomp.mode != SECCOMP_MODE_DISABLED) {
+	    per_task(current, seccomp).mode != SECCOMP_MODE_DISABLED) {
 		return -EACCES;
 	}
 
@@ -2391,7 +2393,7 @@ int proc_pid_seccomp_cache(struct seq_file *m, struct pid_namespace *ns,
 	if (!lock_task_sighand(task, &flags))
 		return -ESRCH;
 
-	f = READ_ONCE(task->seccomp.filter);
+	f = READ_ONCE(per_task(task, seccomp).filter);
 	if (!f) {
 		unlock_task_sighand(task, &flags);
 		return 0;
