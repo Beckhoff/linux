@@ -253,22 +253,6 @@ static inline bool ipv6_anycast_destination(const struct dst_entry *dst,
 int ip6_fragment(struct net *net, struct sock *sk, struct sk_buff *skb,
 		 int (*output)(struct net *, struct sock *, struct sk_buff *));
 
-static inline unsigned int ip6_skb_dst_mtu(struct sk_buff *skb)
-{
-	unsigned int mtu;
-
-	struct ipv6_pinfo *np = skb->sk && !dev_recursion_level() ?
-				inet6_sk(skb->sk) : NULL;
-
-	if (np && np->pmtudisc >= IPV6_PMTUDISC_PROBE) {
-		mtu = READ_ONCE(skb_dst(skb)->dev->mtu);
-		mtu -= lwtunnel_headroom(skb_dst(skb)->lwtstate, mtu);
-	} else
-		mtu = dst_mtu(skb_dst(skb));
-
-	return mtu;
-}
-
 static inline bool ip6_sk_accept_pmtu(const struct sock *sk)
 {
 	return inet6_sk(sk)->pmtudisc != IPV6_PMTUDISC_INTERFACE &&
