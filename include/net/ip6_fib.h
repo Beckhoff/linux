@@ -37,6 +37,7 @@
 
 struct rt6_info;
 struct fib6_info;
+struct fib_rule;
 
 struct fib6_config {
 	u32		fc_table;
