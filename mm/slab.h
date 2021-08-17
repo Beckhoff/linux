@@ -5,6 +5,8 @@
  * Internal slab definitions
  */
 
+#include <linux/gfp_api.h>
+
 #ifdef CONFIG_SLOB
 /*
  * Common fields provided in kmem_cache by all slab allocators
