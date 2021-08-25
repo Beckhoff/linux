@@ -2,8 +2,8 @@
 #ifndef _NF_CONNTRACK_COMMON_H
 #define _NF_CONNTRACK_COMMON_H
 
-#include <linux/atomic_api.h>
-#include <linux/atomic.h>
+#include <linux/types.h>
+
 #include <uapi/linux/netfilter/nf_conntrack_common.h>
 
 struct ip_conntrack_stat {
@@ -28,17 +28,5 @@ struct ip_conntrack_stat {
 struct nf_conntrack {
 	atomic_t use;
 };
-
-void nf_conntrack_destroy(struct nf_conntrack *nfct);
-static inline void nf_conntrack_put(struct nf_conntrack *nfct)
-{
-	if (nfct && atomic_dec_and_test(&nfct->use))
-		nf_conntrack_destroy(nfct);
-}
-static inline void nf_conntrack_get(struct nf_conntrack *nfct)
-{
-	if (nfct)
-		atomic_inc(&nfct->use);
-}
 
 #endif /* _NF_CONNTRACK_COMMON_H */
