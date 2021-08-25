@@ -2573,6 +2573,4 @@ static inline int seal_check_future_write(int seals, struct vm_area_struct *vma)
 
 #endif /* !__ASSEMBLY__ */
 
-#include <linux/mm_api_extra.h>
-
 #endif /* _LINUX_MM_API_H */
