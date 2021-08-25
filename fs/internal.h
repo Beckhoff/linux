@@ -16,6 +16,8 @@ struct shrink_control;
 struct fs_context;
 struct user_namespace;
 struct pipe_inode_info;
+struct qstr;
+struct statx;
 
 /*
  * block/bdev.c
