@@ -5,6 +5,7 @@
 #include <net/ip.h>
 
 #include <linux/netdevice_api.h>
+#include <linux/netdevice_api_extra.h>
 
 static inline __wsum inet_gro_compute_pseudo(struct sk_buff *skb, int proto)
 {
