@@ -6,7 +6,6 @@
 #include <linux/numa_types.h>
 #include <linux/timer.h>
 #include <linux/err.h>
-#include <linux/sched.h>
 
 struct mm_struct;
 
