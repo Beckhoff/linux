@@ -18,7 +18,7 @@
 #include <linux/rcupdate.h>
 #include <linux/page-flags-layout.h>
 #include <linux/workqueue.h>
-#include <linux/seqlock.h>
+#include <linux/seqcount_types.h>
 
 #include <asm/mmu.h>
 
