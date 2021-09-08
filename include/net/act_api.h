@@ -11,6 +11,8 @@
 #include <linux/mutex_api.h>
 #include <linux/jiffies.h>
 #include <linux/refcount.h>
+#include <linux/slab.h>
+
 #include <net/sch_generic.h>
 #include <net/pkt_sched.h>
 #include <net/net_namespace.h>
