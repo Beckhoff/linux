@@ -58,7 +58,6 @@
 #include <linux/rbtree.h>
 #include <linux/filter.h>
 #include <linux/rculist_nulls.h>
-#include <linux/poll.h>
 #include <linux/sockptr.h>
 #include <linux/indirect_call_wrapper.h>
 #include <linux/atomic.h>
