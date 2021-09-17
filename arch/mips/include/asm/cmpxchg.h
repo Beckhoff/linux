@@ -14,6 +14,8 @@
 #include <asm/llsc.h>
 #include <asm/sync.h>
 #include <asm/war.h>
+#include <asm/cpu-features.h>
+#include <asm/barrier.h>
 
 /*
  * These functions doesn't exist, so if they are called you'll either:
