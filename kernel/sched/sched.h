@@ -7,6 +7,7 @@
 
 #include <linux/sched.h>
 
+#include <linux/sched/affinity.h>
 #include <linux/sched/autogroup.h>
 #include <linux/sched/clock.h>
 #include <linux/sched/coredump.h>
@@ -1510,7 +1511,7 @@ static inline bool sched_group_cookie_match(struct rq *rq,
 	if (!sched_core_enabled(rq))
 		return true;
 
-	for_each_cpu_and(cpu, sched_group_span(group), p->cpus_ptr) {
+	for_each_cpu_and(cpu, sched_group_span(group), per_task(p, cpus_ptr)) {
 		if (sched_core_cookie_match(rq, p))
 			return true;
 	}
