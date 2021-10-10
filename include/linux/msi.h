@@ -401,6 +401,7 @@ enum {
 	MSI_FLAG_LEVEL_CAPABLE		= (1 << 6),
 };
 
+struct cpumask;
 int msi_domain_set_affinity(struct irq_data *data, const struct cpumask *mask,
 			    bool force);
 
