@@ -54,7 +54,7 @@
 #include <linux/page_counter.h>
 #include <linux/static_key.h>
 #include <linux/wait.h>
-#include <linux/cgroup-defs.h>
+#include <linux/cgroup_types.h>
 #include <linux/rbtree.h>
 #include <linux/filter.h>
 #include <linux/rculist_nulls.h>
