@@ -10,6 +10,8 @@
 #ifndef _LINUX_SKBUFF_TYPES_H
 #define _LINUX_SKBUFF_TYPES_H
 
+#include <linux/skbuff_types_head.h>
+
 #include <linux/ktime_types.h>
 #include <linux/bvec.h>
 #include <linux/refcount_types.h>
@@ -271,17 +273,6 @@ struct tc_skb_ext {
 	bool post_ct;
 };
 #endif
-
-struct sk_buff_head {
-	/* These two members must be first. */
-	struct sk_buff	*next;
-	struct sk_buff	*prev;
-
-	__u32		qlen;
-	spinlock_t	lock;
-};
-
-struct sk_buff;
 
 /* To allow 64K frame to be packed as single skb without frag_list we
  * require 64K/PAGE_SIZE pages plus 1 additional page to allow for
