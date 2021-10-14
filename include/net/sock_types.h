@@ -42,7 +42,7 @@
 #include <linux/timer.h>
 #include <linux/netdevice_types.h>
 #include <linux/wait_types.h>
-#include <linux/cgroup_types.h>
+#include <linux/cgroup_types_sock.h>
 
 #include <net/tcp_states.h>
 #include <net/net_namespace_types_possible.h>
