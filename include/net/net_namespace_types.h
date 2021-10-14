@@ -9,6 +9,7 @@
 
 #include <linux/refcount.h>
 #include <linux/sysctl.h>
+#include <linux/llist_types.h>
 
 #include <uapi/linux/in6.h>
 
@@ -35,7 +36,7 @@
 #include <net/netns/mctp.h>
 
 #include <linux/ns_common.h>
-#include <linux/idr.h>
+#include <linux/idr_types.h>
 #include <linux/skbuff_types.h>
 
 struct user_namespace;
