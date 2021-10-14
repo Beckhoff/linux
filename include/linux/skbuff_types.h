@@ -12,7 +12,7 @@
 
 #include <linux/ktime_types.h>
 #include <linux/bvec.h>
-#include <linux/refcount.h>
+#include <linux/refcount_types.h>
 #include <linux/rbtree_types.h>
 #include <linux/spinlock_types.h>
 
