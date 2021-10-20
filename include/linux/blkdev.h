@@ -17,6 +17,8 @@
 #include <linux/blkzoned.h>
 #include <linux/sbitmap.h>
 
+#include <asm/cacheflush.h>
+
 struct module;
 struct request_queue;
 struct elevator_queue;
