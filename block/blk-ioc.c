@@ -18,6 +18,7 @@
  */
 static struct kmem_cache *iocontext_cachep;
 
+
 /**
  * get_io_context - increment reference count to io_context
  * @ioc: io_context to get
@@ -412,6 +413,31 @@ struct io_cq *ioc_create_icq(struct io_context *ioc, struct request_queue *q,
 	spin_unlock_irq(&q->queue_lock);
 	radix_tree_preload_end();
 	return icq;
+}
+
+
+/**
+ * get_io_context_active - get active reference on ioc
+ * @ioc: ioc of interest
+ *
+ * Only iocs with active reference can issue new IOs.  This function
+ * acquires an active reference on @ioc.  The caller must already have an
+ * active reference on @ioc.
+ */
+inline void get_io_context_active(struct io_context *ioc)
+{
+	WARN_ON_ONCE(atomic_long_read(&ioc->refcount) <= 0);
+	WARN_ON_ONCE(atomic_read(&ioc->active_ref) <= 0);
+	atomic_long_inc(&ioc->refcount);
+	atomic_inc(&ioc->active_ref);
+}
+
+void ioc_task_link(struct io_context *ioc)
+{
+	get_io_context_active(ioc);
+
+	WARN_ON_ONCE(atomic_read(&ioc->nr_tasks) <= 0);
+	atomic_inc(&ioc->nr_tasks);
 }
 
 static int __init blk_ioc_init(void)

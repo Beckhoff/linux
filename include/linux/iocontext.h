@@ -122,21 +122,9 @@ struct io_context {
  * acquires an active reference on @ioc.  The caller must already have an
  * active reference on @ioc.
  */
-static inline void get_io_context_active(struct io_context *ioc)
-{
-	WARN_ON_ONCE(atomic_long_read(&ioc->refcount) <= 0);
-	WARN_ON_ONCE(atomic_read(&ioc->active_ref) <= 0);
-	atomic_long_inc(&ioc->refcount);
-	atomic_inc(&ioc->active_ref);
-}
+void get_io_context_active(struct io_context *ioc);
 
-static inline void ioc_task_link(struct io_context *ioc)
-{
-	get_io_context_active(ioc);
-
-	WARN_ON_ONCE(atomic_read(&ioc->nr_tasks) <= 0);
-	atomic_inc(&ioc->nr_tasks);
-}
+void ioc_task_link(struct io_context *ioc);
 
 struct task_struct;
 #ifdef CONFIG_BLOCK
