@@ -7,6 +7,8 @@
  * Copyright (C) 2017-2018 SUSE, Frederic Weisbecker
  *
  */
+#include <linux/sched/affinity.h>
+
 #include "sched.h"
 
 DEFINE_STATIC_KEY_FALSE(housekeeping_overridden);
