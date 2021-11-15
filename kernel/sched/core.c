@@ -8,6 +8,7 @@
  */
 #define CREATE_TRACE_POINTS
 #include <linux/sched/cond_resched.h>
+#include <linux/sched/rseq_api.h>
 #include <trace/events/sched.h>
 #undef CREATE_TRACE_POINTS
 

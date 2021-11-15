@@ -24,6 +24,7 @@
 #include <linux/sched/nohz.h>
 #include <linux/sched/numa_balancing.h>
 #include <linux/sched/prio.h>
+#include <linux/sched/rseq_api.h>
 #include <linux/sched/rt.h>
 #include <linux/sched/signal.h>
 #include <linux/sched/smt.h>
