@@ -1008,7 +1008,7 @@ static void update_curr_rt(struct rq *rq)
 	u64 delta_exec;
 	u64 now;
 
-	if (curr->sched_class != &rt_sched_class)
+	if (per_task(curr, sched_class) != &rt_sched_class)
 		return;
 
 	now = rq_clock_task(rq);
@@ -1716,7 +1716,7 @@ static inline void set_next_task_rt(struct rq *rq, struct task_struct *p, bool f
 	 * utilization. We only care of the case where we start to schedule a
 	 * rt task
 	 */
-	if (rq->curr->sched_class != &rt_sched_class)
+	if (per_task(rq->curr, sched_class) != &rt_sched_class)
 		update_rt_rq_load_avg(rq_clock_pelt(rq), rq, 0);
 
 	rt_queue_push_tasks(rq);
