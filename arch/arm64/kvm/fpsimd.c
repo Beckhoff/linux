@@ -28,7 +28,7 @@ int kvm_arch_vcpu_run_map_fp(struct kvm_vcpu *vcpu)
 {
 	int ret;
 
-	struct thread_info *ti = &current->thread_info;
+	struct thread_info *ti = current_thread_info();
 	struct user_fpsimd_state *fpsimd = &current->thread.uw.fpsimd_state;
 
 	/*
