@@ -23,7 +23,7 @@ static inline void xstate_init_xcomp_bv(struct xregs_state *xsave, u64 mask)
 static inline u64 xstate_get_host_group_perm(void)
 {
 	/* Pairs with WRITE_ONCE() in xstate_request_perm() */
-	return READ_ONCE(current->group_leader->thread.fpu->perm.__state_perm);
+	return READ_ONCE(task_thread(current->group_leader).fpu->perm.__state_perm);
 }
 
 enum xstate_copy_mode {
@@ -245,7 +245,7 @@ static inline int xsave_to_user_sigframe(struct xregs_state __user *buf)
 	 * internally, e.g. PKRU. That's user space ABI and also required
 	 * to allow the signal handler to modify PKRU.
 	 */
-	struct fpstate *fpstate = current->thread.fpu->fpstate;
+	struct fpstate *fpstate = task_thread(current).fpu->fpstate;
 	u64 mask = fpstate->user_xfeatures;
 	u32 lmask;
 	u32 hmask;
@@ -276,7 +276,7 @@ static inline int xrstor_from_user_sigframe(struct xregs_state __user *buf, u64 
 	u32 hmask = mask >> 32;
 	int err;
 
-	xfd_validate_state(current->thread.fpu->fpstate, mask, true);
+	xfd_validate_state(task_thread(current).fpu->fpstate, mask, true);
 
 	stac();
 	XSTATE_OP(XRSTOR, xstate, lmask, hmask, err);

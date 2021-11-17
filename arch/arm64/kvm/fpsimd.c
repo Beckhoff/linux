@@ -29,7 +29,7 @@ int kvm_arch_vcpu_run_map_fp(struct kvm_vcpu *vcpu)
 	int ret;
 
 	struct thread_info *ti = current_thread_info();
-	struct user_fpsimd_state *fpsimd = &current->thread.uw.fpsimd_state;
+	struct user_fpsimd_state *fpsimd = &task_thread(current).uw.fpsimd_state;
 
 	/*
 	 * Make sure the host task thread flags and fpsimd state are

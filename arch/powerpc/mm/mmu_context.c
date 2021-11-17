@@ -17,7 +17,7 @@ static inline void switch_mm_pgdir(struct task_struct *tsk,
 				   struct mm_struct *mm)
 {
 	/* 32-bit keeps track of the current PGDIR in the thread struct */
-	tsk->thread.pgdir = mm->pgd;
+	task_thread(tsk).pgdir = mm->pgd;
 }
 #elif defined(CONFIG_PPC_BOOK3E_64)
 static inline void switch_mm_pgdir(struct task_struct *tsk,

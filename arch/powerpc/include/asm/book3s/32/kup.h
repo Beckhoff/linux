@@ -114,7 +114,7 @@ static inline void kuap_unlock(unsigned long addr, bool ool)
 
 static inline void kuap_save_and_lock(struct pt_regs *regs)
 {
-	unsigned long kuap = current->thread.kuap;
+	unsigned long kuap = task_thread(current).kuap;
 
 	if (kuap_is_disabled())
 		return;
@@ -123,7 +123,7 @@ static inline void kuap_save_and_lock(struct pt_regs *regs)
 	if (unlikely(kuap == KUAP_NONE))
 		return;
 
-	current->thread.kuap = KUAP_NONE;
+	task_thread(current).kuap = KUAP_NONE;
 	kuap_lock(kuap, false);
 }
 
@@ -137,21 +137,21 @@ static inline void kuap_kernel_restore(struct pt_regs *regs, unsigned long kuap)
 		return;
 
 	if (unlikely(kuap != KUAP_NONE)) {
-		current->thread.kuap = KUAP_NONE;
+		task_thread(current).kuap = KUAP_NONE;
 		kuap_lock(kuap, false);
 	}
 
 	if (likely(regs->kuap == KUAP_NONE))
 		return;
 
-	current->thread.kuap = regs->kuap;
+	task_thread(current).kuap = regs->kuap;
 
 	kuap_unlock(regs->kuap, false);
 }
 
 static inline unsigned long kuap_get_and_assert_locked(void)
 {
-	unsigned long kuap = current->thread.kuap;
+	unsigned long kuap = task_thread(current).kuap;
 
 	if (kuap_is_disabled())
 		return KUAP_NONE;
@@ -177,13 +177,13 @@ static __always_inline void allow_user_access(void __user *to, const void __user
 	if (!(dir & KUAP_WRITE))
 		return;
 
-	current->thread.kuap = (__force u32)to;
+	task_thread(current).kuap = (__force u32)to;
 	kuap_unlock_one((__force u32)to);
 }
 
 static __always_inline void prevent_user_access(unsigned long dir)
 {
-	u32 kuap = current->thread.kuap;
+	u32 kuap = task_thread(current).kuap;
 
 	if (kuap_is_disabled())
 		return;
@@ -193,19 +193,19 @@ static __always_inline void prevent_user_access(unsigned long dir)
 	if (!(dir & KUAP_WRITE))
 		return;
 
-	current->thread.kuap = KUAP_NONE;
+	task_thread(current).kuap = KUAP_NONE;
 	kuap_lock(kuap, true);
 }
 
 static inline unsigned long prevent_user_access_return(void)
 {
-	unsigned long flags = current->thread.kuap;
+	unsigned long flags = task_thread(current).kuap;
 
 	if (kuap_is_disabled())
 		return KUAP_NONE;
 
 	if (flags != KUAP_NONE) {
-		current->thread.kuap = KUAP_NONE;
+		task_thread(current).kuap = KUAP_NONE;
 		kuap_lock(flags, true);
 	}
 
@@ -218,7 +218,7 @@ static inline void restore_user_access(unsigned long flags)
 		return;
 
 	if (flags != KUAP_NONE) {
-		current->thread.kuap = flags;
+		task_thread(current).kuap = flags;
 		kuap_unlock(flags, true);
 	}
 }

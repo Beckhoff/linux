@@ -4623,19 +4623,19 @@ static int kvmppc_vcpu_run_hv(struct kvm_vcpu *vcpu)
 	 * (they will get restored by the TM unavailable interrupt).
 	 */
 #ifdef CONFIG_PPC_TRANSACTIONAL_MEM
-	if (cpu_has_feature(CPU_FTR_TM) && current->thread.regs &&
-	    (current->thread.regs->msr & MSR_TM)) {
-		if (MSR_TM_ACTIVE(current->thread.regs->msr)) {
+	if (cpu_has_feature(CPU_FTR_TM) && task_thread(current).regs &&
+	    (task_thread(current).regs->msr & MSR_TM)) {
+		if (MSR_TM_ACTIVE(task_thread(current).regs->msr)) {
 			run->exit_reason = KVM_EXIT_FAIL_ENTRY;
 			run->fail_entry.hardware_entry_failure_reason = 0;
 			return -EINVAL;
 		}
 		/* Enable TM so we can read the TM SPRs */
 		mtmsr(mfmsr() | MSR_TM);
-		current->thread.tm_tfhar = mfspr(SPRN_TFHAR);
-		current->thread.tm_tfiar = mfspr(SPRN_TFIAR);
-		current->thread.tm_texasr = mfspr(SPRN_TEXASR);
-		current->thread.regs->msr &= ~MSR_TM;
+		task_thread(current).tm_tfhar = mfspr(SPRN_TFHAR);
+		task_thread(current).tm_tfiar = mfspr(SPRN_TFIAR);
+		task_thread(current).tm_texasr = mfspr(SPRN_TEXASR);
+		task_thread(current).regs->msr &= ~MSR_TM;
 	}
 #endif
 

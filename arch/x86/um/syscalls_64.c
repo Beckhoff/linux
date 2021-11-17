@@ -35,7 +35,7 @@ long arch_prctl(struct task_struct *task, int option,
 	switch (option) {
 	case ARCH_SET_FS:
 	case ARCH_SET_GS:
-		ret = restore_registers(pid, &current->thread.regs.regs);
+		ret = restore_registers(pid, &task_thread(current).regs.regs);
 		if (ret)
 			return ret;
 		break;
@@ -58,11 +58,11 @@ long arch_prctl(struct task_struct *task, int option,
 
 	switch (option) {
 	case ARCH_SET_FS:
-		current->thread.arch.fs = (unsigned long) ptr;
-		ret = save_registers(pid, &current->thread.regs.regs);
+		task_thread(current).arch.fs = (unsigned long) ptr;
+		ret = save_registers(pid, &task_thread(current).regs.regs);
 		break;
 	case ARCH_SET_GS:
-		ret = save_registers(pid, &current->thread.regs.regs);
+		ret = save_registers(pid, &task_thread(current).regs.regs);
 		break;
 	case ARCH_GET_FS:
 		ret = put_user(tmp, arg2);
@@ -82,8 +82,8 @@ SYSCALL_DEFINE2(arch_prctl, int, option, unsigned long, arg2)
 
 void arch_switch_to(struct task_struct *to)
 {
-	if ((to->thread.arch.fs == 0) || (to->mm == NULL))
+	if ((task_thread(to).arch.fs == 0) || (to->mm == NULL))
 		return;
 
-	arch_prctl(to, ARCH_SET_FS, (void __user *) to->thread.arch.fs);
+	arch_prctl(to, ARCH_SET_FS, (void __user *) task_thread(to).arch.fs);
 }

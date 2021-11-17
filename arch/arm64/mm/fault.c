@@ -393,7 +393,7 @@ static void __do_kernel_fault(unsigned long addr, unsigned int esr,
 
 static void set_thread_esr(unsigned long address, unsigned int esr)
 {
-	current->thread.fault_address = address;
+	task_thread(current).fault_address = address;
 
 	/*
 	 * If the faulting address is in the kernel, we must sanitize the ESR.
@@ -407,7 +407,7 @@ static void set_thread_esr(unsigned long address, unsigned int esr)
 	 * type", so we ignore this wrinkle and just return the translation
 	 * fault.)
 	 */
-	if (!is_ttbr0_addr(current->thread.fault_address)) {
+	if (!is_ttbr0_addr(task_thread(current).fault_address)) {
 		switch (ESR_ELx_EC(esr)) {
 		case ESR_ELx_EC_DABT_LOW:
 			/*
@@ -445,7 +445,7 @@ static void set_thread_esr(unsigned long address, unsigned int esr)
 		}
 	}
 
-	current->thread.fault_code = esr;
+	task_thread(current).fault_code = esr;
 }
 
 static void do_bad_area(unsigned long far, unsigned int esr,
