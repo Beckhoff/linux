@@ -26,6 +26,7 @@
 #include <linux/sched/task.h>
 #include <linux/sched/task_stack.h>
 #include <linux/sched/cputime.h>
+#include <linux/sched/posix-timers.h>
 #include <linux/seq_file.h>
 #include <linux/rtmutex.h>
 #include <linux/init.h>
@@ -2132,7 +2133,7 @@ static __latent_entropy struct task_struct *copy_process(
 	task_io_accounting_init(&p->ioac);
 	acct_clear_integrals(p);
 
-	posix_cputimers_init(&p->posix_cputimers);
+	posix_cputimers_init(&per_task(p, posix_cputimers));
 
 	p->io_context = NULL;
 	audit_set_context(p, NULL);

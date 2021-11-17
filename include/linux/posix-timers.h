@@ -170,10 +170,14 @@ static inline void posix_cputimers_rt_watchdog(struct posix_cputimers *pct,
 	INIT_CPU_TIMERBASE(b[2]),					\
 }
 
-#define INIT_CPU_TIMERS(s)						\
-	.posix_cputimers = {						\
+#define __INIT_CPU_TIMERS(s)						\
+	{								\
 		.bases = INIT_CPU_TIMERBASES(s.posix_cputimers.bases),	\
-	},
+	}
+
+#define INIT_CPU_TIMERS(s)						\
+	.posix_cputimers = __INIT_CPU_TIMERS(s),
+
 #else
 struct posix_cputimers { };
 struct cpu_timer { };

@@ -4,8 +4,9 @@
  * policies)
  */
 #include "sched.h"
-
 #include "pelt.h"
+
+#include <linux/sched/posix-timers.h>
 
 int sched_rr_timeslice = RR_TIMESLICE;
 int sysctl_sched_rr_timeslice = (MSEC_PER_SEC / HZ) * RR_TIMESLICE;
@@ -2556,7 +2557,7 @@ static void watchdog(struct rq *rq, struct task_struct *p)
 
 		next = DIV_ROUND_UP(min(soft, hard), USEC_PER_SEC/HZ);
 		if (p->rt.timeout > next) {
-			posix_cputimers_rt_watchdog(&p->posix_cputimers,
+			posix_cputimers_rt_watchdog(&per_task(p, posix_cputimers),
 						    p->se.sum_exec_runtime);
 		}
 	}

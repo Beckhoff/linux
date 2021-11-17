@@ -86,6 +86,7 @@
 #include <linux/sched/clock.h>
 #include <linux/sched/task.h>
 #include <linux/sched/task_stack.h>
+#include <linux/sched/posix-timers.h>
 #include <linux/context_tracking.h>
 #include <linux/random.h>
 #include <linux/list.h>
@@ -927,6 +928,11 @@ asmlinkage __visible void __init __no_sanitize_address start_kernel(void)
 	char *after_dashes;
 
 	set_task_stack_end_magic(&init_task);
+
+#ifdef CONFIG_POSIX_TIMERS
+	per_task(&init_task, posix_cputimers) = (struct posix_cputimers) __INIT_CPU_TIMERS(init_task);
+#endif
+
 	smp_setup_processor_id();
 	debug_objects_early_init();
 	init_vmlinux_build_id();
