@@ -8,6 +8,10 @@
  * NORMAL/BATCH tasks.
  */
 
+#include <linux/sched/per_task.h>
+
+DECLARE_PER_TASK(struct sched_dl_entity, dl);
+
 #define MAX_DL_PRIO		0
 
 static inline int dl_prio(int prio)
