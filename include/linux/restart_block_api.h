@@ -12,7 +12,7 @@
 #include <linux/time64.h>
 #include <linux/errno.h>
 
-#include <linux/thread_info.h>
+#include <linux/sched/thread_info_api.h>
 
 extern long do_no_restart_syscall(struct restart_block *parm);
 

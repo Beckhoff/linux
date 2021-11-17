@@ -16,6 +16,7 @@
  */
 
 #include <linux/sched/cond_resched.h>
+#include <linux/restart_block_api.h>
 #include <linux/kernel.h>
 #include <linux/sched/signal.h>
 #include <linux/sched/rt.h>
