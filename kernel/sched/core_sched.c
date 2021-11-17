@@ -69,14 +69,14 @@ static unsigned long sched_core_update_cookie(struct task_struct *p,
 	 * a cookie until after we've removed it, we must have core scheduling
 	 * enabled here.
 	 */
-	SCHED_WARN_ON((p->core_cookie || cookie) && !sched_core_enabled(rq));
+	SCHED_WARN_ON((per_task(p, core_cookie) || cookie) && !sched_core_enabled(rq));
 
 	enqueued = sched_core_enqueued(p);
 	if (enqueued)
 		sched_core_dequeue(rq, p);
 
-	old_cookie = p->core_cookie;
-	p->core_cookie = cookie;
+	old_cookie = per_task(p, core_cookie);
+	per_task(p, core_cookie) = cookie;
 
 	if (enqueued)
 		sched_core_enqueue(rq, p);
@@ -99,7 +99,7 @@ static unsigned long sched_core_clone_cookie(struct task_struct *p)
 	unsigned long cookie, flags;
 
 	raw_spin_lock_irqsave(&p->pi_lock, flags);
-	cookie = sched_core_get_cookie(p->core_cookie);
+	cookie = sched_core_get_cookie(per_task(p, core_cookie));
 	raw_spin_unlock_irqrestore(&p->pi_lock, flags);
 
 	return cookie;
@@ -108,12 +108,12 @@ static unsigned long sched_core_clone_cookie(struct task_struct *p)
 void sched_core_fork(struct task_struct *p)
 {
 	RB_CLEAR_NODE(&per_task(p, core_node));
-	p->core_cookie = sched_core_clone_cookie(current);
+	per_task(p, core_cookie) = sched_core_clone_cookie(current);
 }
 
 void sched_core_free(struct task_struct *p)
 {
-	sched_core_put_cookie(p->core_cookie);
+	sched_core_put_cookie(per_task(p, core_cookie));
 }
 
 static void __sched_core_set(struct task_struct *p, unsigned long cookie)
