@@ -686,8 +686,6 @@ struct task_struct {
 
 #ifdef CONFIG_SMP
 	struct __call_single_node	wake_entry;
-
-	int				wake_cpu;
 #endif
 
 	int				prio;
