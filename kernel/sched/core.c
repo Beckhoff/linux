@@ -81,6 +81,11 @@ DEFINE_PER_TASK(unsigned int,				core_occupation);
  * Must be updated with task_rq_lock() held.
  */
 DEFINE_PER_TASK(struct uclamp_se,			uclamp_req[UCLAMP_CNT]);
+/*
+ * Effective clamp values used for a scheduling entity.
+ * Must be updated with task_rq_lock() held.
+ */
+DEFINE_PER_TASK(struct uclamp_se,			uclamp[UCLAMP_CNT]);
 #endif
 
 /*
@@ -1529,8 +1534,8 @@ unsigned long uclamp_eff_value(struct task_struct *p, enum uclamp_id clamp_id)
 	struct uclamp_se uc_eff;
 
 	/* Task currently refcounted: use back-annotated (effective) value */
-	if (p->uclamp[clamp_id].active)
-		return (unsigned long)p->uclamp[clamp_id].value;
+	if (per_task(p, uclamp)[clamp_id].active)
+		return (unsigned long) per_task(p, uclamp)[clamp_id].value;
 
 	uc_eff = uclamp_eff_get(p, clamp_id);
 
@@ -1551,13 +1556,13 @@ static inline void uclamp_rq_inc_id(struct rq *rq, struct task_struct *p,
 				    enum uclamp_id clamp_id)
 {
 	struct uclamp_rq *uc_rq = &rq->uclamp[clamp_id];
-	struct uclamp_se *uc_se = &p->uclamp[clamp_id];
+	struct uclamp_se *uc_se = &per_task(p, uclamp)[clamp_id];
 	struct uclamp_bucket *bucket;
 
 	lockdep_assert_rq_held(rq);
 
 	/* Update task effective clamp */
-	p->uclamp[clamp_id] = uclamp_eff_get(p, clamp_id);
+	per_task(p, uclamp)[clamp_id] = uclamp_eff_get(p, clamp_id);
 
 	bucket = &uc_rq->bucket[uc_se->bucket_id];
 	bucket->tasks++;
@@ -1589,7 +1594,7 @@ static inline void uclamp_rq_dec_id(struct rq *rq, struct task_struct *p,
 				    enum uclamp_id clamp_id)
 {
 	struct uclamp_rq *uc_rq = &rq->uclamp[clamp_id];
-	struct uclamp_se *uc_se = &p->uclamp[clamp_id];
+	struct uclamp_se *uc_se = &per_task(p, uclamp)[clamp_id];
 	struct uclamp_bucket *bucket;
 	unsigned int bkt_clamp;
 	unsigned int rq_clamp;
@@ -1698,7 +1703,7 @@ static inline void uclamp_rq_dec(struct rq *rq, struct task_struct *p)
 static inline void uclamp_rq_reinc_id(struct rq *rq, struct task_struct *p,
 				      enum uclamp_id clamp_id)
 {
-	if (!p->uclamp[clamp_id].active)
+	if (!per_task(p, uclamp)[clamp_id].active)
 		return;
 
 	uclamp_rq_dec_id(rq, p, clamp_id);
@@ -1947,7 +1952,7 @@ static void uclamp_fork(struct task_struct *p)
 	 * as the task is still at its early fork stages.
 	 */
 	for_each_clamp_id(clamp_id)
-		p->uclamp[clamp_id].active = false;
+		per_task(p, uclamp)[clamp_id].active = false;
 
 	if (likely(!p->sched_reset_on_fork))
 		return;
