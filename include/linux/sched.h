@@ -1302,10 +1302,6 @@ struct task_struct {
 	int				mce_count;
 #endif
 
-#ifdef CONFIG_KRETPROBES
-	struct llist_head               kretprobe_instances;
-#endif
-
 #ifdef CONFIG_ARCH_HAS_PARANOID_L1D_FLUSH
 	/*
 	 * If L1D flush is supported on mm context switch

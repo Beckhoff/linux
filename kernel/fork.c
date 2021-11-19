@@ -2306,7 +2306,7 @@ static __latent_entropy struct task_struct *copy_process(
 	clear_posix_cputimers_work(p);
 
 #ifdef CONFIG_KRETPROBES
-	p->kretprobe_instances.first = NULL;
+	per_task(p, kretprobe_instances).first = NULL;
 #endif
 
 	/*
