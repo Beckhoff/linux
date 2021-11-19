@@ -49,6 +49,8 @@ int  __read_mostly futex_cmpxchg_enabled;
 #endif
 
 
+DEFINE_PER_TASK(struct mutex, futex_exit_mutex);
+
 /*
  * The base of the bucket array and its size are always used together
  * (after initialization only in futex_hash()), so ensure that they
@@ -484,7 +486,7 @@ void wait_for_owner_exiting(int ret, struct task_struct *exiting)
 	if (WARN_ON_ONCE(ret == -EBUSY && !exiting))
 		return;
 
-	mutex_lock(&exiting->futex_exit_mutex);
+	mutex_lock(&per_task(exiting, futex_exit_mutex));
 	/*
 	 * No point in doing state checking here. If the waiter got here
 	 * while the task was in exec()->exec_futex_release() then it can
@@ -493,7 +495,7 @@ void wait_for_owner_exiting(int ret, struct task_struct *exiting)
 	 * already. Highly unlikely and not a problem. Just one more round
 	 * through the futex maze.
 	 */
-	mutex_unlock(&exiting->futex_exit_mutex);
+	mutex_unlock(&per_task(exiting, futex_exit_mutex));
 
 	put_task_struct(exiting);
 }
@@ -1059,7 +1061,7 @@ void futex_exit_recursive(struct task_struct *tsk)
 {
 	/* If the state is FUTEX_STATE_EXITING then futex_exit_mutex is held */
 	if (tsk->futex_state == FUTEX_STATE_EXITING)
-		mutex_unlock(&tsk->futex_exit_mutex);
+		mutex_unlock(&per_task(tsk, futex_exit_mutex));
 	tsk->futex_state = FUTEX_STATE_DEAD;
 }
 
@@ -1071,7 +1073,7 @@ static void futex_cleanup_begin(struct task_struct *tsk)
 	 * tsk->futex_exit_mutex when it observes FUTEX_STATE_EXITING in
 	 * attach_to_pi_owner().
 	 */
-	mutex_lock(&tsk->futex_exit_mutex);
+	mutex_lock(&per_task(tsk, futex_exit_mutex));
 
 	/*
 	 * Switch the state to FUTEX_STATE_EXITING under tsk->pi_lock.
@@ -1100,7 +1102,7 @@ static void futex_cleanup_end(struct task_struct *tsk, int state)
 	 * Drop the exit protection. This unblocks waiters which observed
 	 * FUTEX_STATE_EXITING to reevaluate the state.
 	 */
-	mutex_unlock(&tsk->futex_exit_mutex);
+	mutex_unlock(&per_task(tsk, futex_exit_mutex));
 }
 
 void futex_exec_release(struct task_struct *tsk)
