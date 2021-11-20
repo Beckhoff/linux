@@ -1005,7 +1005,7 @@ lpfc_do_work(void *p)
 	int rc;
 
 	set_user_nice(current, MIN_NICE);
-	current->flags |= PF_NOFREEZE;
+	task_flags(current) |= PF_NOFREEZE;
 	phba->data_flags = 0;
 
 	while (!kthread_should_stop()) {

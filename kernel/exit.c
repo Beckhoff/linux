@@ -430,7 +430,7 @@ retry:
 	 * Search through everything else, we should not get here often.
 	 */
 	for_each_process(g) {
-		if (g->flags & PF_KTHREAD)
+		if (task_flags(g) & PF_KTHREAD)
 			continue;
 		for_each_thread(g, c) {
 			if (c->mm == mm)
@@ -518,7 +518,7 @@ static struct task_struct *find_alive_thread(struct task_struct *p)
 	struct task_struct *t;
 
 	for_each_thread(p, t) {
-		if (!(t->flags & PF_EXITING))
+		if (!(task_flags(t) & PF_EXITING))
 			return t;
 	}
 	return NULL;
@@ -781,7 +781,7 @@ void __noreturn do_exit(long code)
 	 * We're taking recursive faults here in do_exit. Safest is to just
 	 * leave this task alone and wait for reboot.
 	 */
-	if (unlikely(tsk->flags & PF_EXITING)) {
+	if (unlikely(task_flags(tsk) & PF_EXITING)) {
 		pr_alert("Fixing recursive fault but reboot is needed!\n");
 		futex_exit_recursive(tsk);
 		set_current_state(TASK_UNINTERRUPTIBLE);

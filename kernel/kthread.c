@@ -72,7 +72,7 @@ enum KTHREAD_BITS {
 
 static inline struct kthread *to_kthread(struct task_struct *k)
 {
-	WARN_ON(!(k->flags & PF_KTHREAD));
+	WARN_ON(!(task_flags(k) & PF_KTHREAD));
 	return (__force void *)k->set_child_tid;
 }
 
@@ -90,7 +90,7 @@ static inline struct kthread *to_kthread(struct task_struct *k)
 static inline struct kthread *__to_kthread(struct task_struct *p)
 {
 	void *kthread = (__force void *)p->set_child_tid;
-	if (kthread && !(p->flags & PF_KTHREAD))
+	if (kthread && !(task_flags(p) & PF_KTHREAD))
 		kthread = NULL;
 	return kthread;
 }
@@ -471,7 +471,7 @@ static void __kthread_bind_mask(struct task_struct *p, const struct cpumask *mas
 	/* It's safe because the task is inactive. */
 	raw_spin_lock_irqsave(&per_task(p, pi_lock), flags);
 	do_set_cpus_allowed(p, mask);
-	p->flags |= PF_NO_SETAFFINITY;
+	task_flags(p) |= PF_NO_SETAFFINITY;
 	raw_spin_unlock_irqrestore(&per_task(p, pi_lock), flags);
 }
 
@@ -532,7 +532,7 @@ void kthread_set_per_cpu(struct task_struct *k, int cpu)
 	if (!kthread)
 		return;
 
-	WARN_ON_ONCE(!(k->flags & PF_NO_SETAFFINITY));
+	WARN_ON_ONCE(!(task_flags(k) & PF_NO_SETAFFINITY));
 
 	if (cpu < 0) {
 		clear_bit(KTHREAD_IS_PER_CPU, &kthread->flags);
@@ -595,7 +595,7 @@ int kthread_park(struct task_struct *k)
 {
 	struct kthread *kthread = to_kthread(k);
 
-	if (WARN_ON(k->flags & PF_EXITING))
+	if (WARN_ON(task_flags(k) & PF_EXITING))
 		return -ENOSYS;
 
 	if (WARN_ON_ONCE(test_bit(KTHREAD_SHOULD_PARK, &kthread->flags)))
@@ -666,7 +666,7 @@ int kthreadd(void *unused)
 	set_cpus_allowed_ptr(tsk, housekeeping_cpumask(HK_FLAG_KTHREAD));
 	set_mems_allowed(node_states[N_MEMORY]);
 
-	current->flags |= PF_NOFREEZE;
+	task_flags(current) |= PF_NOFREEZE;
 	cgroup_init_kthreadd();
 
 	for (;;) {
@@ -1349,7 +1349,7 @@ void kthread_use_mm(struct mm_struct *mm)
 	struct mm_struct *active_mm;
 	struct task_struct *tsk = current;
 
-	WARN_ON_ONCE(!(tsk->flags & PF_KTHREAD));
+	WARN_ON_ONCE(!(task_flags(tsk) & PF_KTHREAD));
 	WARN_ON_ONCE(tsk->mm);
 
 	task_lock(tsk);
@@ -1395,7 +1395,7 @@ void kthread_unuse_mm(struct mm_struct *mm)
 {
 	struct task_struct *tsk = current;
 
-	WARN_ON_ONCE(!(tsk->flags & PF_KTHREAD));
+	WARN_ON_ONCE(!(task_flags(tsk) & PF_KTHREAD));
 	WARN_ON_ONCE(!tsk->mm);
 
 	force_uaccess_end(to_kthread(tsk)->oldfs);
@@ -1435,7 +1435,7 @@ void kthread_associate_blkcg(struct cgroup_subsys_state *css)
 {
 	struct kthread *kthread;
 
-	if (!(current->flags & PF_KTHREAD))
+	if (!(task_flags(current) & PF_KTHREAD))
 		return;
 	kthread = to_kthread(current);
 	if (!kthread)
@@ -1461,7 +1461,7 @@ struct cgroup_subsys_state *kthread_blkcg(void)
 {
 	struct kthread *kthread;
 
-	if (current->flags & PF_KTHREAD) {
+	if (task_flags(current) & PF_KTHREAD) {
 		kthread = to_kthread(current);
 		if (kthread)
 			return kthread->blkcg_css;

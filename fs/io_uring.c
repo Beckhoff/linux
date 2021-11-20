@@ -2319,7 +2319,7 @@ static void io_req_task_submit(struct io_kiocb *req, bool *locked)
 
 	io_tw_lock(ctx, locked);
 	/* req->task == current here, checking PF_EXITING is safe */
-	if (likely(!(req->task->flags & PF_EXITING)))
+	if (likely(!(task_flags(req->task) & PF_EXITING)))
 		__io_queue_sqe(req);
 	else
 		io_req_complete_failed(req, -EFAULT);
@@ -5335,7 +5335,7 @@ static bool io_poll_rewait(struct io_kiocb *req, struct io_poll_iocb *poll)
 	struct io_ring_ctx *ctx = req->ctx;
 
 	/* req->task == current here, checking PF_EXITING is safe */
-	if (unlikely(req->task->flags & PF_EXITING))
+	if (unlikely(task_flags(req->task) & PF_EXITING))
 		WRITE_ONCE(poll->canceled, true);
 
 	if (!req->result && !READ_ONCE(poll->canceled)) {

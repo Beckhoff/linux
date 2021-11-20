@@ -276,7 +276,7 @@ int create_task_io_context(struct task_struct *task, gfp_t gfp_flags, int node)
 	 */
 	task_lock(task);
 	if (!task->io_context &&
-	    (task == current || !(task->flags & PF_EXITING)))
+	    (task == current || !(task_flags(task) & PF_EXITING)))
 		task->io_context = ioc;
 	else
 		kmem_cache_free(iocontext_cachep, ioc);

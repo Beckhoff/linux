@@ -975,7 +975,7 @@ static int __unmap_and_move(struct page *page, struct page *newpage,
 		 * avoid the use of lock_page for direct compaction
 		 * altogether.
 		 */
-		if (current->flags & PF_MEMALLOC)
+		if (task_flags(current) & PF_MEMALLOC)
 			goto out;
 
 		lock_page(page);
@@ -1448,7 +1448,7 @@ int migrate_pages(struct list_head *from, new_page_t get_new_page,
 	bool is_thp = false;
 	struct page *page;
 	struct page *page2;
-	int swapwrite = current->flags & PF_SWAPWRITE;
+	int swapwrite = task_flags(current) & PF_SWAPWRITE;
 	int rc, nr_subpages;
 	LIST_HEAD(ret_pages);
 	bool nosplit = (reason == MR_NUMA_MISPLACED);
@@ -1456,7 +1456,7 @@ int migrate_pages(struct list_head *from, new_page_t get_new_page,
 	trace_mm_migrate_pages_start(mode, reason);
 
 	if (!swapwrite)
-		current->flags |= PF_SWAPWRITE;
+		task_flags(current) |= PF_SWAPWRITE;
 
 	for (pass = 0; pass < 10 && (retry || thp_retry); pass++) {
 		retry = 0;
@@ -1588,7 +1588,7 @@ out:
 			       nr_thp_failed, nr_thp_split, mode, reason);
 
 	if (!swapwrite)
-		current->flags &= ~PF_SWAPWRITE;
+		task_flags(current) &= ~PF_SWAPWRITE;
 
 	if (ret_succeeded)
 		*ret_succeeded = nr_succeeded;
