@@ -1309,8 +1309,8 @@ int begin_new_exec(struct linux_binprm * bprm)
 	 */
 	force_uaccess_begin();
 
-	me->flags &= ~(PF_RANDOMIZE | PF_FORKNOEXEC | PF_KTHREAD |
-					PF_NOFREEZE | PF_NO_SETAFFINITY);
+	task_flags(me) &= ~(PF_RANDOMIZE | PF_FORKNOEXEC | PF_KTHREAD | PF_NOFREEZE | PF_NO_SETAFFINITY);
+
 	flush_thread();
 	me->personality &= ~bprm->per_clear;
 

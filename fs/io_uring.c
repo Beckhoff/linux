@@ -6932,7 +6932,7 @@ static void io_req_task_link_timeout(struct io_kiocb *req, bool *locked)
 	int ret = -ENOENT;
 
 	if (prev) {
-		if (!(req->task->flags & PF_EXITING))
+		if (!(task_flags(req->task) & PF_EXITING))
 			ret = io_try_cancel_userdata(req, prev->user_data);
 		io_req_complete_post(req, ret ?: -ETIME, 0);
 		io_put_req(prev);
@@ -7491,7 +7491,7 @@ static int io_sq_thread(void *data)
 		set_cpus_allowed_ptr(current, cpumask_of(sqd->sq_cpu));
 	else
 		set_cpus_allowed_ptr(current, cpu_online_mask);
-	current->flags |= PF_NO_SETAFFINITY;
+	task_flags(current) |= PF_NO_SETAFFINITY;
 
 	audit_alloc_kernel(current);
 

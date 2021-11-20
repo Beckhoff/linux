@@ -452,7 +452,7 @@ extern spinlock_t css_set_lock;
 	rcu_dereference_check((task)->cgroups,				\
 		lockdep_is_held(&cgroup_mutex) ||			\
 		lockdep_is_held(&css_set_lock) ||			\
-		((task)->flags & PF_EXITING) || (__c))
+		(task_flags(task) & PF_EXITING) || (__c))
 #else
 #define task_css_set_check(task, __c)					\
 	rcu_dereference((task)->cgroups)

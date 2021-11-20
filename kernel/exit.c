@@ -356,14 +356,14 @@ static void coredump_task_exit(struct task_struct *tsk)
 	 * group without PF_POSTCOREDUMP set.
 	 */
 	spin_lock_irq(&tsk->sighand->siglock);
-	tsk->flags |= PF_POSTCOREDUMP;
+	task_flags(tsk) |= PF_POSTCOREDUMP;
 	core_state = tsk->signal->core_state;
 	spin_unlock_irq(&tsk->sighand->siglock);
 	if (core_state) {
 		struct core_thread self;
 
 		self.task = current;
-		if (self.task->flags & PF_SIGNALED)
+		if (task_flags(self.task) & PF_SIGNALED)
 			self.next = xchg(&core_state->dumper.next, &self);
 		else
 			self.task = NULL;
