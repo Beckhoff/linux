@@ -30,6 +30,7 @@
  * SOFTWARE.
  */
 
+#include <linux/sched/cond_resched.h>
 #include <linux/platform_device.h>
 #include <linux/acpi.h>
 #include <linux/etherdevice.h>

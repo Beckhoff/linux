@@ -3,6 +3,7 @@
  * Copyright (C) 2017-2018 HUAWEI, Inc.
  *             https://www.huawei.com/
  */
+#include <linux/sched/cond_resched.h>
 #include <linux/module.h>
 #include <linux/buffer_head.h>
 #include <linux/statfs.h>

@@ -7,6 +7,7 @@
  *  Copyright (C) 1991-2002  Linus Torvalds
  */
 #define CREATE_TRACE_POINTS
+#include <linux/sched/cond_resched.h>
 #include <trace/events/sched.h>
 #undef CREATE_TRACE_POINTS
 

@@ -21,6 +21,7 @@
  * IN THE SOFTWARE.
  */
 
+#include <linux/sched/cond_resched.h>
 #include <linux/pm_runtime.h>
 #include <asm/iosf_mbi.h>
 

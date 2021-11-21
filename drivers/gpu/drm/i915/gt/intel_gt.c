@@ -3,6 +3,8 @@
  * Copyright © 2019 Intel Corporation
  */
 
+#include <linux/sched/cond_resched.h>
+
 #include "intel_gt_debugfs.h"
 
 #include "gem/i915_gem_lmem.h"

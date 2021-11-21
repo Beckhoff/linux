@@ -53,6 +53,7 @@
                                    R: do_xxxx()
    L: receive_xxxx_reply()     <-  R: send_xxxx_reply()
 */
+#include <linux/sched/cond_resched.h>
 #include <linux/types.h>
 #include <linux/rbtree.h>
 #include <linux/slab.h>

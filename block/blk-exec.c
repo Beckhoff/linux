@@ -2,6 +2,7 @@
 /*
  * Functions related to setting various queue properties from drivers
  */
+#include <linux/sched/cond_resched.h>
 #include <linux/kernel.h>
 #include <linux/module.h>
 #include <linux/bio.h>
