@@ -5,6 +5,7 @@
 #ifndef _KERNEL_SCHED_SCHED_H
 #define _KERNEL_SCHED_SCHED_H
 
+#include <linux/wait_api.h>
 #include <linux/sched/cond_resched.h>
 #include <linux/lockdep_api.h>
 #include <linux/irq_work.h>
