@@ -41,6 +41,8 @@
 #include <linux/sched/cond_resched.h>
 
 #include "sched.h"
+#include "stats.h"
+#include "autogroup.h"
 
 #ifdef CONFIG_SMP
 DEFINE_PER_TASK(unsigned int, wakee_flips);
