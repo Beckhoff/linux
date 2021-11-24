@@ -1560,11 +1560,6 @@ static inline int arch_make_folio_accessible(struct folio *folio)
 }
 #endif
 
-/*
- * Some inline functions in vmstat.h depend on page_zone()
- */
-#include <linux/vmstat.h>
-
 extern void *page_rmapping(struct page *page);
 extern struct anon_vma *page_anon_vma(struct page *page);
 extern pgoff_t __page_file_index(struct page *page);
