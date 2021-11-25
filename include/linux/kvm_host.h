@@ -3,6 +3,7 @@
 #define __KVM_HOST_H
 
 
+#include <linux/mm_api_kvmalloc.h>
 #include <linux/refcount_api.h>
 #include <linux/mm_page_address.h>
 #include <linux/lockdep_api.h>
