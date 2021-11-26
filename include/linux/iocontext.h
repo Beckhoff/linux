@@ -3,9 +3,8 @@
 #define IOCONTEXT_H
 
 #include <linux/radix-tree.h>
-#include <linux/rcupdate.h>
-#include <linux/workqueue.h>
-#include <linux/atomic_api.h>
+#include <linux/workqueue_types.h>
+#include <linux/bug.h>
 
 enum {
 	ICQ_EXITED		= 1 << 2,
