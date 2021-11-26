@@ -53,37 +53,7 @@
 #include <linux/kasan.h>
 #include <linux/fcntl.h>
 
-static inline atomic_t *compound_mapcount_ptr(struct page *page)
-{
-	return &page[1].compound_mapcount;
-}
-
-static inline atomic_t *compound_pincount_ptr(struct page *page)
-{
-	return &page[2].hpage_pinned_refcount;
-}
-
-#define page_private(page)		((page)->private)
-
-static inline void set_page_private(struct page *page, unsigned long private)
-{
-	page->private = private;
-}
-
 extern void mm_init_cpumask(struct mm_struct *mm);
-
-/* Future-safe accessor for struct mm_struct's cpu_vm_mask. */
-static inline cpumask_t *mm_cpumask(struct mm_struct *mm)
-{
-	return (struct cpumask *)&mm->cpu_bitmap;
-}
-
-/* to align the pointer to the (next) page boundary */
-#define PAGE_ALIGN(addr) ALIGN(addr, PAGE_SIZE)
-
-/* test whether an address (unsigned long or pointer) is aligned to PAGE_SIZE */
-#define PAGE_ALIGNED(addr)	IS_ALIGNED((unsigned long)(addr), PAGE_SIZE)
-
 
 struct mempolicy;
 struct anon_vma;
@@ -613,13 +583,6 @@ static inline void destroy_compound_page(struct page *page)
 	compound_page_dtors[page[1].compound_dtor](page);
 }
 
-static inline unsigned int compound_order(struct page *page)
-{
-	if (!PageHead(page))
-		return 0;
-	return page[1].compound_order;
-}
-
 /**
  * folio_order - The allocation order of a folio.
  * @folio: The folio.
@@ -669,18 +632,6 @@ static inline unsigned long compound_nr(struct page *page)
 	if (!PageHead(page))
 		return 1;
 	return page[1].compound_nr;
-}
-
-/* Returns the number of bytes in this potentially compound page. */
-static inline unsigned long page_size(struct page *page)
-{
-	return PAGE_SIZE << compound_order(page);
-}
-
-/* Returns the number of bits needed for the number of bytes in a page */
-static inline unsigned int page_shift(struct page *page)
-{
-	return PAGE_SHIFT + compound_order(page);
 }
 
 void free_compound_page(struct page *page);
