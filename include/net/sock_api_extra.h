@@ -99,4 +99,18 @@ sk_dst_reset(struct sock *sk)
 	sk_dst_set(sk, NULL);
 }
 
+static inline void sock_confirm_neigh(struct sk_buff *skb, struct neighbour *n)
+{
+	if (skb_get_dst_pending_confirm(skb)) {
+		struct sock *sk = skb->sk;
+		unsigned long now = jiffies;
+
+		/* avoid dirtying neighbour */
+		if (READ_ONCE(n->confirmed) != now)
+			WRITE_ONCE(n->confirmed, now);
+		if (sk && READ_ONCE(sk->sk_dst_pending_confirm))
+			WRITE_ONCE(sk->sk_dst_pending_confirm, 0);
+	}
+}
+
 #endif	/* _SOCK_API_EXTRA_H */
