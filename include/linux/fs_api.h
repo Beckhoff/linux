@@ -472,31 +472,6 @@ extern void f_delown(struct file *filp);
 extern pid_t f_getown(struct file *filp);
 extern int send_sigurg(struct fown_struct *fown);
 
-/* Helper functions so that in most cases filesystems will
- * not need to deal directly with kuid_t and kgid_t and can
- * instead deal with the raw numeric values that are stored
- * in the filesystem.
- */
-static inline uid_t i_uid_read(const struct inode *inode)
-{
-	return from_kuid(inode->i_sb->s_user_ns, inode->i_uid);
-}
-
-static inline gid_t i_gid_read(const struct inode *inode)
-{
-	return from_kgid(inode->i_sb->s_user_ns, inode->i_gid);
-}
-
-static inline void i_uid_write(struct inode *inode, uid_t uid)
-{
-	inode->i_uid = make_kuid(inode->i_sb->s_user_ns, uid);
-}
-
-static inline void i_gid_write(struct inode *inode, gid_t gid)
-{
-	inode->i_gid = make_kgid(inode->i_sb->s_user_ns, gid);
-}
-
 /**
  * kuid_into_mnt - map a kuid down into a mnt_userns
  * @mnt_userns: user namespace of the relevant mount
@@ -637,26 +612,6 @@ static inline void inode_fsgid_set(struct inode *inode,
 	inode->i_gid = mapped_fsgid(mnt_userns);
 }
 
-/**
- * fsuidgid_has_mapping() - check whether caller's fsuid/fsgid is mapped
- * @sb: the superblock we want a mapping in
- * @mnt_userns: user namespace of the relevant mount
- *
- * Check whether the caller's fsuid and fsgid have a valid mapping in the
- * s_user_ns of the superblock @sb. If the caller is on an idmapped mount map
- * the caller's fsuid and fsgid according to the @mnt_userns first.
- *
- * Return: true if fsuid and fsgid is mapped, false if not.
- */
-static inline bool fsuidgid_has_mapping(struct super_block *sb,
-					struct user_namespace *mnt_userns)
-{
-	struct user_namespace *s_user_ns = sb->s_user_ns;
-
-	return kuid_has_mapping(s_user_ns, mapped_fsuid(mnt_userns)) &&
-	       kgid_has_mapping(s_user_ns, mapped_fsgid(mnt_userns));
-}
-
 extern struct timespec64 current_time(struct inode *inode);
 
 bool inode_owner_or_capable(struct user_namespace *mnt_userns,
@@ -770,8 +725,6 @@ static inline enum rw_hint file_write_hint(struct file *file)
 
 	return file_inode(file)->i_write_hint;
 }
-
-static inline int iocb_flags(struct file *file);
 
 static inline u16 ki_hint_validate(enum rw_hint hint)
 {
@@ -1211,18 +1164,6 @@ static inline errseq_t filemap_sample_wb_err(struct address_space *mapping)
 	return errseq_sample(&mapping->wb_err);
 }
 
-/**
- * file_sample_sb_err - sample the current errseq_t to test for later errors
- * @file: file pointer to be sampled
- *
- * Grab the most current superblock-level errseq_t value for the given
- * struct file.
- */
-static inline errseq_t file_sample_sb_err(struct file *file)
-{
-	return errseq_sample(&file->f_path.dentry->d_sb->s_wb_err);
-}
-
 extern int vfs_fsync_range(struct file *file, loff_t start, loff_t end,
 			   int datasync);
 extern int vfs_fsync(struct file *file, int datasync);
@@ -1590,20 +1531,6 @@ void setattr_copy(struct user_namespace *, struct inode *inode,
 
 extern int file_update_time(struct file *file);
 
-static inline int iocb_flags(struct file *file)
-{
-	int res = 0;
-	if (file->f_flags & O_APPEND)
-		res |= IOCB_APPEND;
-	if (file->f_flags & O_DIRECT)
-		res |= IOCB_DIRECT;
-	if ((file->f_flags & O_DSYNC) || IS_SYNC(file->f_mapping->host))
-		res |= IOCB_DSYNC;
-	if (file->f_flags & __O_SYNC)
-		res |= IOCB_SYNC;
-	return res;
-}
-
 static inline int kiocb_set_rw_flags(struct kiocb *ki, rwf_t flags)
 {
 	int kiocb_flags = 0;
@@ -1726,31 +1653,6 @@ static inline int check_sticky(struct user_namespace *mnt_userns,
 		return 0;
 
 	return __check_sticky(mnt_userns, dir, inode);
-}
-
-static inline void inode_has_no_xattr(struct inode *inode)
-{
-	if (!is_sxid(inode->i_mode) && (inode->i_sb->s_flags & SB_NOSEC))
-		inode->i_flags |= S_NOSEC;
-}
-
-static inline bool is_root_inode(struct inode *inode)
-{
-	return inode == inode->i_sb->s_root->d_inode;
-}
-
-static inline bool dir_relax(struct inode *inode)
-{
-	inode_unlock(inode);
-	inode_lock(inode);
-	return !IS_DEADDIR(inode);
-}
-
-static inline bool dir_relax_shared(struct inode *inode)
-{
-	inode_unlock_shared(inode);
-	inode_lock_shared(inode);
-	return !IS_DEADDIR(inode);
 }
 
 extern bool path_noexec(const struct path *path);
