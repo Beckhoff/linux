@@ -6,7 +6,6 @@
 #include <linux/fs_types.h>
 
 #include <linux/stat.h>
-#include <linux/percpu_rwsem_api.h>
 #include <linux/lockdep_api.h>
 #include <linux/rwsem_api.h>
 #include <linux/wait_bit.h>
