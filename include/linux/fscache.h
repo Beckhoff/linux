@@ -17,7 +17,6 @@
 #include <linux/radix-tree.h>
 #include <linux/fs.h>
 #include <linux/list.h>
-#include <linux/pagemap.h>
 #include <linux/pagevec.h>
 #include <linux/list_bl.h>
 #include <linux/netfs.h>
