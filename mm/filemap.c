@@ -3951,3 +3951,20 @@ int try_to_release_page(struct page *page, gfp_t gfp_mask)
 }
 
 EXPORT_SYMBOL(try_to_release_page);
+
+void __mapping_set_error(struct address_space *mapping, int error)
+{
+	/* Record in wb_err for checkers using errseq_t based tracking */
+	__filemap_set_wb_err(mapping, error);
+
+	/* Record it in superblock */
+	if (mapping->host)
+		errseq_set(&mapping->host->i_sb->s_wb_err, error);
+
+	/* Record it in flags for now, for legacy callers */
+	if (error == -ENOSPC)
+		set_bit(AS_ENOSPC, &mapping->flags);
+	else
+		set_bit(AS_EIO, &mapping->flags);
+}
+EXPORT_SYMBOL(__mapping_set_error);
