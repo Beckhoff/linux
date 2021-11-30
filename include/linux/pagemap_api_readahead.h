@@ -7,7 +7,8 @@
  */
 
 #include <linux/xarray_api.h>
-#include <linux/pagemap.h>
+#include <linux/huge_mm.h>
+#include <linux/fs_types.h>
 
 /**
  * struct readahead_control - Describes a readahead request.
