@@ -2059,7 +2059,8 @@ static __latent_entropy struct task_struct *copy_process(
 		 * fatal or STOP
 		 */
 		p->flags |= PF_IO_WORKER;
-		siginitsetinv(&p->blocked, sigmask(SIGKILL)|sigmask(SIGSTOP));
+		siginitsetinv(&per_task(p, blocked),
+			      sigmask(SIGKILL)|sigmask(SIGSTOP));
 	}
 
 	/*
