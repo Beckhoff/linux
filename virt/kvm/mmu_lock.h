@@ -3,6 +3,8 @@
 #ifndef KVM_MMU_LOCK_H
 #define KVM_MMU_LOCK_H 1
 
+#include <linux/types.h>
+
 /*
  * Architectures can choose whether to use an rwlock or spinlock
  * for the mmu_lock.  These macros, for use in common code

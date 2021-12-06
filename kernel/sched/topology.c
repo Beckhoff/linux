@@ -4,6 +4,8 @@
  */
 #include "sched.h"
 
+#include <linux/types.h>
+
 DEFINE_MUTEX(sched_domains_mutex);
 
 /* Protected by sched_domains_mutex: */
