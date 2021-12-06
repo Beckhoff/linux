@@ -15,17 +15,6 @@
  *                    Michael Trimarchi <michael@amarulasolutions.com>,
  *                    Fabio Checconi <fchecconi@gmail.com>
  */
-#include <linux/topology.h>
-#include <linux/spinlock_api.h>
-#include <linux/sched/task.h>
-#include <linux/sched/signal.h>
-#include <linux/lockdep_api.h>
-#include <linux/ktime_api.h>
-#include <linux/hrtimer_api.h>
-#include <linux/cpumask_api.h>
-
-#include "sched.h"
-#include "pelt.h"
 
 struct dl_bandwidth def_dl_bandwidth;
 

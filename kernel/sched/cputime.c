@@ -2,14 +2,6 @@
 /*
  * Simple CPU accounting cgroup controller
  */
-#include <linux/u64_stats_sync_api.h>
-#include <linux/spinlock_api.h>
-#include <linux/softirq.h>
-#include <linux/sched/signal.h>
-#include <linux/lockdep_api.h>
-#include <linux/interrupt.h>
-
-#include "sched.h"
 
 #ifdef CONFIG_VIRT_CPU_ACCOUNTING_GEN
 DEFINE_PER_TASK(struct vtime, vtime);

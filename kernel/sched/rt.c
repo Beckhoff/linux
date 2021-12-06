@@ -3,20 +3,6 @@
  * Real-Time Scheduling Class (mapped to the SCHED_FIFO and SCHED_RR
  * policies)
  */
-#include "sched.h"
-#include "pelt.h"
-
-#include <linux/topology.h>
-#include <linux/spinlock_api.h>
-#include <linux/slab.h>
-#include <linux/sched/task.h>
-#include <linux/sched/signal.h>
-#include <linux/rculist.h>
-#include <linux/ktime_api.h>
-#include <linux/jiffies.h>
-#include <linux/hrtimer_api.h>
-#include <linux/cpumask_api.h>
-#include <linux/posix-timers.h>
 
 int sched_rr_timeslice = RR_TIMESLICE;
 int sysctl_sched_rr_timeslice = (MSEC_PER_SEC / HZ) * RR_TIMESLICE;
