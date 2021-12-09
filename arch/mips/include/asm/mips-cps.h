@@ -7,7 +7,7 @@
 #ifndef __MIPS_ASM_MIPS_CPS_H__
 #define __MIPS_ASM_MIPS_CPS_H__
 
-#include <linux/io.h>
+#include <asm/io.h>
 #include <linux/types.h>
 
 extern unsigned long __cps_access_bad_size(void)
