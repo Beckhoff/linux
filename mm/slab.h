@@ -5,6 +5,7 @@
  * Internal slab definitions
  */
 
+#include <linux/mm_api_extra.h>
 #include <linux/gfp_api.h>
 
 #ifdef CONFIG_SLOB
