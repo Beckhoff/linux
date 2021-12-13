@@ -823,6 +823,16 @@ static inline void set_max_mapnr(unsigned long limit)
 static inline void set_max_mapnr(unsigned long limit) { }
 #endif
 
+static inline int is_highmem_idx(enum zone_type idx)
+{
+#ifdef CONFIG_HIGHMEM
+	return (idx == ZONE_HIGHMEM ||
+		(idx == ZONE_MOVABLE && movable_zone == ZONE_HIGHMEM));
+#else
+	return 0;
+#endif
+}
+
 #endif /* !__GENERATING_BOUNDS.H */
 
 #endif /* _LINUX_MMZONE_TYPES_H */
