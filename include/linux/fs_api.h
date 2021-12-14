@@ -3,6 +3,7 @@
 #define _LINUX_FS_API_H
 
 #include <linux/fs_types.h>
+#include <linux/fs_types_sb.h>
 
 #include <linux/stat.h>
 #include <linux/lockdep_api.h>
