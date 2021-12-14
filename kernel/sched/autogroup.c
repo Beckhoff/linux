@@ -1,15 +1,8 @@
 // SPDX-License-Identifier: GPL-2.0
+
 /*
  * Auto-group scheduling implementation:
  */
-#include <linux/slab.h>
-#include <linux/sched/signal.h>
-#include <linux/rwsem_api.h>
-#include <linux/kref_api.h>
-#include <linux/jiffies.h>
-#include <linux/capability.h>
-#include <linux/nospec.h>
-#include "sched.h"
 
 unsigned int __read_mostly sysctl_sched_autogroup_enabled = 1;
 static struct autogroup autogroup_default;

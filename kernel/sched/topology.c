@@ -2,17 +2,6 @@
 /*
  * Scheduler topology setup/handling methods
  */
-#include "sched.h"
-
-#include <linux/topology.h>
-#include <linux/slab.h>
-#include <linux/percpu.h>
-#include <linux/lockdep_api.h>
-#include <linux/jiffies.h>
-#include <linux/cpumask_api.h>
-#include <linux/capability.h>
-#include <linux/bitmap.h>
-#include <linux/types.h>
 
 DEFINE_MUTEX(sched_domains_mutex);
 
@@ -37,6 +26,7 @@ static inline bool sched_debug(void)
 
 #define SD_FLAG(_name, mflags) [__##_name] = { .meta_flags = mflags, .name = #_name },
 const struct sd_flag_debug sd_flag_debug[] = {
+#include <linux/percpu.h>
 #include <linux/sched/sd_flags.h>
 };
 #undef SD_FLAG

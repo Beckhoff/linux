@@ -2,13 +2,10 @@
 /*
  * <linux/swait.h> (simple wait queues ) implementation:
  */
-#include <linux/wait_api.h>
-#include <linux/swait_api.h>
-#include <linux/spinlock_api.h>
-#include <linux/sched/signal.h>
-#include <linux/lockdep_api.h>
 
-#include "sched.h"
+/*
+ * <linux/swait.h> (simple wait queues ) implementation:
+ */
 
 void __init_swait_queue_head(struct swait_queue_head *q, const char *name,
 			     struct lock_class_key *key)

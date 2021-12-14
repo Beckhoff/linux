@@ -5,6 +5,7 @@
 #ifndef _KERNEL_SCHED_SCHED_H
 #define _KERNEL_SCHED_SCHED_H
 
+#include <linux/nospec.h>
 #include <linux/wait_api.h>
 #include <linux/sched/cond_resched.h>
 #include <linux/lockdep_api.h>
@@ -14,6 +15,20 @@
 #include <linux/cpumask.h>
 #include <linux/ktime_api.h>
 #include <linux/cgroup_api.h>
+#include <linux/topology.h>
+#include <linux/prctl.h>
+#include <linux/ptrace_api.h>
+#include <linux/gfp_api.h>
+#include <linux/sched/clock.h>
+#include <linux/workqueue_api.h>
+#include <linux/tick.h>
+#include <linux/ktime_api.h>
+#include <linux/swait_api.h>
+#include <linux/hashtable_api.h>
+#include <linux/cpufreq.h>
+#include <linux/utsname.h>
+
+#include <asm/irq_regs.h>
 
 #include <linux/sched/affinity.h>
 #include <linux/sched/autogroup.h>
@@ -98,6 +113,40 @@
 #else
 # define SCHED_WARN_ON(x)	({ (void)(x), 0; })
 #endif
+
+#include <linux/bitmap.h>
+#include <linux/capability.h>
+#include <linux/cgroup.h>
+#include <linux/cpufreq.h>
+#include <linux/cpumask_api.h>
+#include <linux/ctype.h>
+#include <linux/file.h>
+#include <linux/jiffies.h>
+#include <linux/kref_api.h>
+#include <linux/lockdep_api.h>
+#include <linux/module.h>
+#include <linux/mutex_api.h>
+#include <linux/poll.h>
+#include <linux/proc_fs.h>
+#include <linux/psi.h>
+#include <linux/sched/affinity.h>
+#include <linux/sched.h>
+#include <linux/sched/loadavg.h>
+#include <linux/sched/mm.h>
+#include <linux/sched/rseq_api.h>
+#include <linux/seq_file.h>
+#include <linux/seqlock.h>
+#include <linux/syscalls_api.h>
+#include <linux/syscalls.h>
+#include <linux/topology.h>
+#include <linux/types.h>
+#include <linux/uaccess.h>
+#include <linux/wait_api.h>
+#include <linux/workqueue_api.h>
+
+#include <trace/events/power.h>
+
+#include "../workqueue_internal.h"
 
 DECLARE_PER_TASK(struct sched_dl_entity,		dl);
 DECLARE_PER_TASK(int,					on_rq);

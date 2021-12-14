@@ -1,4 +1,5 @@
 // SPDX-License-Identifier: GPL-2.0-only
+
 /*
  * sched_clock() for unstable CPU clocks
  *
@@ -53,14 +54,6 @@
  * that is otherwise invisible (TSC gets stopped).
  *
  */
-#include <linux/sched_clock.h>
-#include <linux/workqueue_api.h>
-#include <linux/jiffies.h>
-#include <linux/cpumask_api.h>
-#include <linux/lockdep_api.h>
-#include <linux/sched/clock.h>
-#include <linux/tick.h>
-#include <linux/ktime_api.h>
 
 /*
  * Scheduler clock - returns current time in nanosec units.

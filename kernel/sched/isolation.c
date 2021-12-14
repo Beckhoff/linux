@@ -7,10 +7,6 @@
  * Copyright (C) 2017-2018 SUSE, Frederic Weisbecker
  *
  */
-#include <linux/cpumask_api.h>
-#include <linux/sched/affinity.h>
-
-#include "sched.h"
 
 DEFINE_STATIC_KEY_FALSE(housekeeping_overridden);
 EXPORT_SYMBOL_GPL(housekeeping_overridden);

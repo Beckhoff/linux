@@ -6,18 +6,6 @@
  *
  * Copyright(C) 2007, Red Hat, Inc., Ingo Molnar
  */
-#include <linux/utsname.h>
-#include <linux/uaccess.h>
-#include <linux/timex.h>
-#include <linux/spinlock_api.h>
-#include <linux/sched/task.h>
-#include <linux/sched/signal.h>
-#include <linux/ktime_api.h>
-#include <linux/jiffies.h>
-#include <linux/fs_api.h>
-#include <linux/cpumask_api.h>
-
-#include "sched.h"
 
 /*
  * This allows printing both to /proc/sched_debug and
@@ -60,6 +48,8 @@ static unsigned long nsec_low(unsigned long long nsec)
 	#name ,
 
 static const char * const sched_feat_names[] = {
+#include <linux/uaccess.h>
+
 #include "features.h"
 };
 

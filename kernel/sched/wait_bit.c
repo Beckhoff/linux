@@ -1,15 +1,8 @@
 // SPDX-License-Identifier: GPL-2.0-only
+
 /*
  * The implementation of the wait_bit*() and related waiting APIs:
  */
-#include <linux/wait_api.h>
-#include <linux/spinlock_api.h>
-#include <linux/sched/signal.h>
-#include <linux/jiffies.h>
-#include <linux/hashtable_api.h>
-#include <linux/hash.h>
-
-#include "sched.h"
 
 #define WAIT_TABLE_BITS 8
 #define WAIT_TABLE_SIZE (1 << WAIT_TABLE_BITS)

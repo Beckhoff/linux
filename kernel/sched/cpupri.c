@@ -1,4 +1,5 @@
 // SPDX-License-Identifier: GPL-2.0-only
+
 /*
  *  kernel/sched/cpupri.c
  *
@@ -22,10 +23,6 @@
  *  worst case complexity of O(min(101, nr_domcpus)), though the scenario that
  *  yields the worst case search is fairly contrived.
  */
-#include <linux/slab.h>
-#include <linux/cpumask_api.h>
-
-#include "sched.h"
 
 /*
  * p->rt_priority   p->prio   newpri   cpupri

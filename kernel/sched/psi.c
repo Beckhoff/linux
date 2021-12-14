@@ -1,3 +1,6 @@
+
+#include <linux/uaccess.h>
+
 /*
  * Pressure stall information for CPU, memory and IO
  *
@@ -129,30 +132,6 @@
  * cost-wise, yet way more sensitive and accurate than periodic
  * sampling of the aggregate task states would be.
  */
-
-#include "../workqueue_internal.h"
-#include <linux/workqueue_api.h>
-#include <linux/wait_api.h>
-#include <linux/slab.h>
-#include <linux/mutex_api.h>
-#include <linux/lockdep_api.h>
-#include <linux/kref_api.h>
-#include <linux/jiffies.h>
-#include <linux/cpumask_api.h>
-#include <linux/capability.h>
-#include <linux/sched/loadavg.h>
-#include <linux/seq_file.h>
-#include <linux/proc_fs.h>
-#include <linux/seqlock.h>
-#include <linux/uaccess.h>
-#include <linux/cgroup.h>
-#include <linux/module.h>
-#include <linux/sched.h>
-#include <linux/ctype.h>
-#include <linux/file.h>
-#include <linux/poll.h>
-#include <linux/psi.h>
-#include "sched.h"
 
 static int psi_bug __read_mostly;
 

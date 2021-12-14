@@ -1,15 +1,11 @@
 // SPDX-License-Identifier: GPL-2.0
+
 /*
  * CPU accounting code for task groups.
  *
  * Based on the work by Paul Menage (menage@google.com) and Balbir Singh
  * (balbir@in.ibm.com).
  */
-#include <linux/slab.h>
-#include <linux/jiffies.h>
-#include <linux/cpumask_api.h>
-#include <asm/irq_regs.h>
-#include "sched.h"
 
 /* Time spent by the tasks of the CPU accounting group executing in ... */
 enum cpuacct_stat_index {
