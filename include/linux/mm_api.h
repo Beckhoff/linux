@@ -196,12 +196,6 @@ int overcommit_kbytes_handler(struct ctl_table *, int, void *, size_t *,
 int overcommit_policy_handler(struct ctl_table *, int, void *, size_t *,
 		loff_t *);
 
-#if defined(CONFIG_SPARSEMEM) && !defined(CONFIG_SPARSEMEM_VMEMMAP)
-#define nth_page(page,n) pfn_to_page(page_to_pfn((page)) + (n))
-#else
-#define nth_page(page,n) ((page) + (n))
-#endif
-
 #define lru_to_page(head) (list_entry((head)->prev, struct page, lru))
 
 void setup_initial_init_mm(void *start_code, void *end_code,
