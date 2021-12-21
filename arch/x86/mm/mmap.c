@@ -32,7 +32,7 @@
 
 #include "physaddr.h"
 
-struct va_alignment __read_mostly va_align = {
+struct va_alignment __read_mostly ____cacheline_aligned va_align = {
 	.flags = -1,
 };
 
