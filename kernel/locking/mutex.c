@@ -368,7 +368,7 @@ bool mutex_spin_on_owner(struct mutex *lock, struct task_struct *owner,
 		/*
 		 * Use vcpu_is_preempted to detect lock holder preemption issue.
 		 */
-		if (!owner->on_cpu || need_resched() ||
+		if (!per_task(owner, on_cpu) || need_resched() ||
 				vcpu_is_preempted(task_cpu(owner))) {
 			ret = false;
 			break;
@@ -411,7 +411,7 @@ static inline int mutex_can_spin_on_owner(struct mutex *lock)
 	 */
 
 	if (owner)
-		retval = owner->on_cpu && !vcpu_is_preempted(task_cpu(owner));
+		retval = per_task(owner, on_cpu) && !vcpu_is_preempted(task_cpu(owner));
 
 	/*
 	 * If lock->owner is not set, the mutex has been released. Return true
