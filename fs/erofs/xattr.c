@@ -3,6 +3,7 @@
  * Copyright (C) 2017-2018 HUAWEI, Inc.
  *             https://www.huawei.com/
  */
+#include <linux/wait_bit.h>
 #include <linux/slab.h>
 #include <linux/sched.h>
 #include <linux/pagemap.h>
