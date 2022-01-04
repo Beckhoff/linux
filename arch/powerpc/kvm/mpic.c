@@ -23,6 +23,7 @@
  * THE SOFTWARE.
  */
 
+#include <linux/sched/thread.h>
 #include <linux/mutex_api.h>
 #include <linux/slab.h>
 #include <linux/mutex.h>

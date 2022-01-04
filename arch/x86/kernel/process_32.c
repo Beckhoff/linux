@@ -9,6 +9,7 @@
  * This file handles the architecture-dependent parts of process handling..
  */
 
+#include <linux/sched/thread.h>
 #include <asm/stacktrace.h>
 #include <asm/ptrace.h>
 #include <asm/processor_api.h>
