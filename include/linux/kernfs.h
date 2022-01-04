@@ -6,6 +6,7 @@
 #ifndef __LINUX_KERNFS_H
 #define __LINUX_KERNFS_H
 
+#include <linux/bug.h>
 #include <linux/kernel.h>
 #include <linux/err.h>
 #include <linux/list.h>
