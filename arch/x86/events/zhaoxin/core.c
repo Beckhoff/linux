@@ -5,6 +5,7 @@
 
 #define pr_fmt(fmt) KBUILD_MODNAME ": " fmt
 
+#include <linux/perf_event_api.h>
 #include <asm/processor_api.h>
 #include <asm/msr.h>
 #include <linux/stddef.h>

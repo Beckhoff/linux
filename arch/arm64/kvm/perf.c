@@ -6,6 +6,7 @@
  * Author: Marc Zyngier <marc.zyngier@arm.com>
  */
 
+#include <linux/perf_event_api.h>
 #include <linux/perf_event.h>
 #include <linux/kvm_host.h>
 
