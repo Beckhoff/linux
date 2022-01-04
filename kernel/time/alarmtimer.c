@@ -12,6 +12,7 @@
  *
  * Author: John Stultz <john.stultz@linaro.org>
  */
+#include <linux/ktime_api.h>
 #include <linux/hrtimer_api.h>
 #include <linux/device_api_lock.h>
 #include <linux/device_api.h>

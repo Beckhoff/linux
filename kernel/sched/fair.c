@@ -20,6 +20,7 @@
  *  Adaptive scheduling granularity, math enhancements by Peter Zijlstra
  *  Copyright (C) 2007 Red Hat, Inc., Peter Zijlstra
  */
+#include <linux/ktime_api.h>
 #include <linux/jiffies.h>
 #include <linux/hugetlb_inline.h>
 #include <linux/hrtimer_api.h>

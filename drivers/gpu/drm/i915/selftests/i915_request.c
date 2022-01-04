@@ -22,6 +22,7 @@
  *
  */
 
+#include <linux/ktime_api.h>
 #include <linux/kallsyms.h>
 #include <linux/jiffies.h>
 #include <linux/file.h>
