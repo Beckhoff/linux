@@ -8,6 +8,7 @@
  * the Free Software Foundation.
  */
 
+#include <linux/skbuff_api_extra.h>
 #include <linux/rtnetlink.h>
 #include <linux/rculist.h>
 #include <linux/pm_wakeup.h>

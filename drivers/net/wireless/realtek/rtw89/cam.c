@@ -2,6 +2,7 @@
 /* Copyright(c) 2019-2020  Realtek Corporation
  */
 
+#include <linux/skbuff_api_extra.h>
 #include <linux/bitmap.h>
 
 #include "cam.h"

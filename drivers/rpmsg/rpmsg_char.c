@@ -9,6 +9,7 @@
  * Based on rpmsg performance statistics driver by Michal Simek, which in turn
  * was based on TI & Google OMX rpmsg driver.
  */
+#include <linux/skbuff_api_extra.h>
 #include <linux/sched.h>
 #include <linux/mutex_api.h>
 #include <linux/io.h>

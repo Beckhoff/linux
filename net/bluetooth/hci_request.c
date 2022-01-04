@@ -21,6 +21,7 @@
    SOFTWARE IS DISCLAIMED.
 */
 
+#include <linux/skbuff_api_extra.h>
 #include <linux/rculist.h>
 #include <linux/random.h>
 #include <linux/jiffies.h>

@@ -68,6 +68,7 @@
  *				        - netif_rx() feedback
  */
 
+#include <linux/skbuff_api_extra.h>
 #include <linux/seq_file.h>
 #include <linux/rwsem_api.h>
 #include <linux/refcount_api.h>

@@ -9,6 +9,7 @@
  * Author: Rémi Denis-Courmont
  */
 
+#include <linux/skbuff_api_extra.h>
 #include <linux/mm_api.h>
 #include <linux/capability.h>
 #include <linux/atomic_api.h>

@@ -5,6 +5,7 @@
  * Written by: Atul Gupta (atul.gupta@chelsio.com)
  */
 
+#include <linux/skbuff_api_extra.h>
 #include <linux/random.h>
 #include <linux/netdevice_api.h>
 #include <linux/mm_page_address.h>
