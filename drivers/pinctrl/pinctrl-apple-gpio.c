@@ -10,6 +10,7 @@
  * Copyright (C) 2014 Google, Inc.
  */
 
+#include <linux/bitfield.h>
 #include <dt-bindings/pinctrl/apple.h>
 #include <linux/gpio/driver.h>
 #include <linux/interrupt.h>
