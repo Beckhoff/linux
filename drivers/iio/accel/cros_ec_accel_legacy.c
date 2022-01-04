@@ -9,6 +9,7 @@
  * Accelerometer access is presented through iio sysfs.
  */
 
+#include <linux/bitops.h>
 #include <linux/delay.h>
 #include <linux/device.h>
 #include <linux/iio/buffer.h>

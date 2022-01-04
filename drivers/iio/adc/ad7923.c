@@ -6,6 +6,7 @@
  * Copyright 2012 CS Systemes d'Information
  */
 
+#include <linux/bitops.h>
 #include <linux/device.h>
 #include <linux/kernel.h>
 #include <linux/slab.h>

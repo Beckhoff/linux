@@ -8,6 +8,7 @@
  * Datasheet: https://www.ti.com/lit/ds/symlink/ads131e08.pdf
  */
 
+#include <linux/bitops.h>
 #include <linux/bitfield.h>
 #include <linux/clk.h>
 #include <linux/delay.h>
