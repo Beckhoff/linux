@@ -5,6 +5,7 @@
 #ifndef _KERNEL_SCHED_SCHED_H
 #define _KERNEL_SCHED_SCHED_H
 
+#include <linux/lockdep_api.h>
 #include <linux/irq_work.h>
 #include <linux/cpumask_api.h>
 #include <linux/sched.h>
