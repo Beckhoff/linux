@@ -26,6 +26,7 @@
  *                   '------+------------+
  */
 
+#include <linux/mod_devicetable.h>
 #include <linux/math.h>
 #include <linux/device_api_lock.h>
 #include <linux/err.h>
