@@ -5,6 +5,7 @@
  * Fast user context implementation of getcpu()
  */
 
+#include <asm/segment.h>
 #include <linux/kernel.h>
 #include <linux/getcpu.h>
 #include <linux/time.h>
