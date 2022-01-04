@@ -33,6 +33,7 @@
  *		David S. Miller	:	New socket lookup architecture.
  */
 
+#include <net/ip_extra.h>
 #include <net/dst_api.h>
 #include <linux/wait_api.h>
 #include <linux/spinlock_api.h>
