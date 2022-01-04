@@ -3,6 +3,7 @@
  * Copyright (c) 2019 Microsemi Corporation
  */
 
+#include <net/ipv6_types.h>
 #include <linux/slab.h>
 #include <linux/iopoll.h>
 #include <linux/proc_fs.h>
