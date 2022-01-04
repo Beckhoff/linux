@@ -7,6 +7,7 @@
  * Copyright (C) 2004 Oracle.  All rights reserved.
  */
 
+#include <linux/stringhash.h>
 #include <linux/spinlock_api.h>
 #include <linux/rwsem_api.h>
 #include <linux/kref_api.h>
