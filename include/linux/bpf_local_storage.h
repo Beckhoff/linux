@@ -7,6 +7,7 @@
 #ifndef _BPF_LOCAL_STORAGE_H
 #define _BPF_LOCAL_STORAGE_H
 
+#include <linux/filter.h>
 #include <linux/bpf.h>
 #include <linux/rculist.h>
 #include <linux/list.h>
