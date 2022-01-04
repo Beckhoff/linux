@@ -10,6 +10,7 @@
  *
  */
 
+#include <linux/dev_printk.h>
 #include <linux/mmc/sdio_ids.h>
 
 #include "card.h"
