@@ -10,6 +10,7 @@
  *		Derek Atkins <derek@ihtfp.com>
  */
 
+#include <linux/seq_file.h>
 #include <linux/refcount_api.h>
 #include <linux/mutex_api.h>
 #include <linux/fs_api.h>

@@ -30,6 +30,7 @@
 
 #define pr_fmt(fmt) KBUILD_MODNAME ": " fmt
 
+#include <linux/seq_file.h>
 #include <linux/pagefault_ctrl.h>
 #include <linux/mm_api.h>
 #include <linux/gfp_api.h>

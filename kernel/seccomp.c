@@ -15,6 +15,7 @@
  */
 #define pr_fmt(fmt) "seccomp: " fmt
 
+#include <linux/seq_file.h>
 #include <linux/semaphore.h>
 #include <linux/sched/task_flags.h>
 #include <linux/sched/signal.h>

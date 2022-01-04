@@ -21,6 +21,7 @@
  *
  */
 
+#include <linux/seq_file.h>
 #include <linux/slab.h>
 #include <linux/list.h>
 #include "kfd_device_queue_manager.h"

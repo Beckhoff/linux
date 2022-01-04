@@ -177,6 +177,7 @@
  * 3) Handle more ineligible cases.
  */
 
+#include <linux/seq_file.h>
 #include <linux/sched.h>
 #include <linux/rwsem_api.h>
 #include <linux/mutex_api.h>

@@ -5,6 +5,7 @@
  *
  * This is a group-only pin controller.
  */
+#include <linux/seq_file.h>
 #include <linux/device_api_lock.h>
 #include <linux/err.h>
 #include <linux/init.h>
