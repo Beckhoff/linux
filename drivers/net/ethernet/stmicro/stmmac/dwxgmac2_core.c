@@ -4,6 +4,7 @@
  * stmmac XGMAC support.
  */
 
+#include <linux/netdevice_api.h>
 #include <linux/io.h>
 #include <linux/bitrev.h>
 #include <linux/crc32.h>

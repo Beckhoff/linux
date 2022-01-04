@@ -7,6 +7,7 @@
 
 #define pr_fmt(fmt)				"bcmgenet: " fmt
 
+#include <linux/netdevice_api.h>
 #include <linux/etherdevice_api.h>
 #include <linux/acpi.h>
 #include <linux/kernel.h>

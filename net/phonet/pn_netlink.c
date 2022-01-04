@@ -10,6 +10,7 @@
  *          Remi Denis-Courmont
  */
 
+#include <linux/netdevice_api.h>
 #include <linux/capability.h>
 #include <linux/kernel.h>
 #include <linux/netlink.h>

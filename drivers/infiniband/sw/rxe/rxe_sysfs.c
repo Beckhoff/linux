@@ -4,6 +4,8 @@
  * Copyright (c) 2015 System Fabric Works, Inc. All rights reserved.
  */
 
+#include <linux/netdevice_api.h>
+
 #include "rxe.h"
 #include "rxe_net.h"
 
