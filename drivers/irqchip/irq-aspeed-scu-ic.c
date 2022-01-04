@@ -6,6 +6,7 @@
  * Eddie James <eajames@linux.ibm.com>
  */
 
+#include <linux/irqdesc.h>
 #include <linux/interrupt.h>
 #include <linux/bitops.h>
 #include <linux/irq.h>
