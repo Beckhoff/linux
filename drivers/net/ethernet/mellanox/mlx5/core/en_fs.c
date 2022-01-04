@@ -30,6 +30,7 @@
  * SOFTWARE.
  */
 
+#include <linux/mm_api_kvmalloc.h>
 #include <linux/etherdevice_api.h>
 #include <linux/list.h>
 #include <linux/ip.h>

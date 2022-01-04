@@ -3,6 +3,7 @@
  * Copyright (C) 2015 Facebook.  All rights reserved.
  */
 
+#include <linux/mm_api_kvmalloc.h>
 #include <linux/math64.h>
 #include <linux/kernel.h>
 #include <linux/sched/mm.h>
