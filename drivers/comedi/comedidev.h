@@ -10,6 +10,7 @@
 #ifndef _COMEDIDEV_H
 #define _COMEDIDEV_H
 
+#include <linux/device_api.h>
 #include <asm/io.h>
 #include <linux/dma-mapping.h>
 #include <linux/mutex.h>
