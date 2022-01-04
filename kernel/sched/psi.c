@@ -131,6 +131,7 @@
  */
 
 #include "../workqueue_internal.h"
+#include <linux/capability.h>
 #include <linux/sched/loadavg.h>
 #include <linux/seq_file.h>
 #include <linux/proc_fs.h>

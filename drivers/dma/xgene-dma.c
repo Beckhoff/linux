@@ -9,6 +9,7 @@
  * NOTE: PM support is currently not available.
  */
 
+#include <linux/capability.h>
 #include <linux/acpi.h>
 #include <linux/clk.h>
 #include <linux/delay.h>

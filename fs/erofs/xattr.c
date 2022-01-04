@@ -3,6 +3,7 @@
  * Copyright (C) 2017-2018 HUAWEI, Inc.
  *             https://www.huawei.com/
  */
+#include <linux/capability.h>
 #include <linux/security.h>
 #include "xattr.h"
 

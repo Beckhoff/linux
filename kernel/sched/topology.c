@@ -4,6 +4,7 @@
  */
 #include "sched.h"
 
+#include <linux/capability.h>
 #include <linux/bitmap.h>
 #include <linux/types.h>
 

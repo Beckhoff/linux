@@ -56,6 +56,7 @@
  *
  */
 
+#include <linux/capability.h>
 #include <linux/dma-mapping.h>
 #include <linux/usb/gadget.h>
 #include <linux/module.h>

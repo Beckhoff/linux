@@ -28,6 +28,7 @@
 
 #define pr_fmt(fmt) "[TTM] " fmt
 
+#include <linux/capability.h>
 #include <linux/spinlock.h>
 #include <linux/sched.h>
 #include <linux/wait.h>

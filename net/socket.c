@@ -52,6 +52,7 @@
  *	Based upon Swansea University Computer Society NET3.039
  */
 
+#include <linux/capability.h>
 #include <linux/sched/cond_resched.h>
 #include <linux/ethtool.h>
 #include <linux/mm.h>

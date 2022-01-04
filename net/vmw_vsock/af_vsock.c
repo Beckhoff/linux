@@ -85,6 +85,7 @@
  *   TCP_LISTEN - listening
  */
 
+#include <linux/capability.h>
 #include <linux/types.h>
 #include <linux/bitops.h>
 #include <linux/cred.h>
