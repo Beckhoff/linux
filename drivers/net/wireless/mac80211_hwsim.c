@@ -14,6 +14,7 @@
  * - RX filtering based on filter configuration (data->rx_filter)
  */
 
+#include <net/dst_api.h>
 #include <linux/workqueue_api.h>
 #include <linux/spinlock_api.h>
 #include <linux/skbuff_api_nf.h>
