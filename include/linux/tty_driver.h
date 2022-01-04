@@ -231,6 +231,7 @@
  *	if provided (otherwise ENOTTY will be returned).
  */
 
+#include <linux/kref_api.h>
 #include <linux/err.h>
 #include <linux/export.h>
 #include <linux/fs.h>
