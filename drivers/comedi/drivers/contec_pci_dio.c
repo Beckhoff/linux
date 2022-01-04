@@ -17,6 +17,7 @@
  * Configuration Options: not applicable, uses comedi PCI auto config
  */
 
+#include <linux/io.h>
 #include <linux/module.h>
 
 #include "../comedi_pci.h"

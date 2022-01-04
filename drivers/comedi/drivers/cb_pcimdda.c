@@ -66,6 +66,7 @@
  * -Calin Culianu <calin@ajvar.org>
  */
 
+#include <linux/io.h>
 #include <linux/module.h>
 
 #include "../comedi_pci.h"

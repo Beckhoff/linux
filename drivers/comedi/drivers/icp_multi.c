@@ -34,6 +34,7 @@
  * 4 x 16-bit counters - not implemented
  */
 
+#include <linux/io.h>
 #include <linux/module.h>
 #include <linux/delay.h>
 

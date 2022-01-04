@@ -5,6 +5,7 @@
  * Author: Thierry Reding <treding@nvidia.com>
  */
 
+#include <linux/io.h>
 #include <linux/device_api_lock.h>
 #include <linux/gpio/driver.h>
 #include <linux/interrupt.h>

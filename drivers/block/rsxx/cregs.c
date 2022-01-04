@@ -8,6 +8,7 @@
 * (C) Copyright 2013 IBM Corporation
 */
 
+#include <linux/io.h>
 #include <linux/device_api.h>
 #include <linux/completion.h>
 #include <linux/slab.h>

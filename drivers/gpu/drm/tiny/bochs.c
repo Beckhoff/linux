@@ -1,5 +1,6 @@
 // SPDX-License-Identifier: GPL-2.0-or-later
 
+#include <linux/io.h>
 #include <linux/console.h>
 #include <linux/pci.h>
 

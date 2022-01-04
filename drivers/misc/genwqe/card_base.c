@@ -16,6 +16,7 @@
  * controlled from here.
  */
 
+#include <linux/io.h>
 #include <linux/interrupt.h>
 #include <linux/device/class.h>
 #include <linux/sched/cond_resched.h>

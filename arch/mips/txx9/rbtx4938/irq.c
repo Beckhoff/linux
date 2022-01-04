@@ -62,6 +62,7 @@
  * RBTX4938_IRQ_IOC+06 MODEM
  * RBTX4938_IRQ_IOC+07 SWINT
  */
+#include <linux/io.h>
 #include <linux/init.h>
 #include <linux/interrupt.h>
 #include <linux/irq.h>

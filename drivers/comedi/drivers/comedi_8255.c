@@ -28,6 +28,7 @@
  * supported is mode 0.
  */
 
+#include <linux/io.h>
 #include <linux/module.h>
 #include "../comedidev.h"
 

@@ -3,6 +3,7 @@
 
 #define  _RTW_SECURITY_C_
 
+#include <linux/io.h>
 #include <linux/crc32.h>
 
 #include "../include/osdep_service.h"

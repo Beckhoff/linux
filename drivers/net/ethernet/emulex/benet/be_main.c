@@ -11,6 +11,7 @@
  * Costa Mesa, CA 92626
  */
 
+#include <linux/io.h>
 #include <linux/interrupt.h>
 #include <linux/if_link.h>
 #include <linux/hardirq.h>

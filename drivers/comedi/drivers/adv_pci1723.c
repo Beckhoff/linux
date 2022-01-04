@@ -31,6 +31,7 @@
  * 3. Implement calibration.
  */
 
+#include <linux/io.h>
 #include <linux/module.h>
 
 #include "../comedi_pci.h"
