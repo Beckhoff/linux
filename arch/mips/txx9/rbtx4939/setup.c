@@ -9,6 +9,7 @@
  * licensed "as is" without any warranty of any kind, whether express
  * or implied.
  */
+#include <linux/string.h>
 #include <linux/ioport.h>
 #include <linux/io.h>
 #include <linux/init.h>

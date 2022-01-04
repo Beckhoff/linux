@@ -9,6 +9,7 @@
  * (C) Copyright TOSHIBA CORPORATION 2005-2007
  * All Rights Reserved.
  */
+#include <linux/string.h>
 #include <linux/device_api_lock.h>
 #include <linux/device_api.h>
 #include <linux/device.h>

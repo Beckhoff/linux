@@ -9,6 +9,7 @@
  *
  * Support for TX4938 in 2.6 - Manish Lachwani (mlachwani@mvista.com)
  */
+#include <linux/string.h>
 #include <linux/spinlock_api.h>
 #include <linux/io.h>
 #include <linux/init.h>
