@@ -3,6 +3,7 @@
  * Copyright (C) 2011 STRATO.  All rights reserved.
  */
 
+#include <linux/radix-tree-api.h>
 #include <linux/prefetch.h>
 #include <linux/mutex_api.h>
 #include <linux/lockdep_api.h>

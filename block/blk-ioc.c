@@ -2,6 +2,7 @@
 /*
  * Functions related to io context handling
  */
+#include <linux/radix-tree-api.h>
 #include <linux/lockdep_api.h>
 #include <linux/iocontext.h>
 #include <linux/atomic_api.h>
