@@ -6,6 +6,7 @@
  * Public action API for classifiers/qdiscs
 */
 
+#include <linux/jiffies.h>
 #include <linux/refcount.h>
 #include <net/sch_generic.h>
 #include <net/pkt_sched.h>
