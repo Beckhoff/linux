@@ -12,6 +12,7 @@
 #define STMMAC_RESOURCE_NAME   "stmmaceth"
 #define DRV_MODULE_VERSION	"Jan_2016"
 
+#include <uapi/linux/bpf.h>
 #include <linux/skbuff_api.h>
 #include <linux/netdevice_api.h>
 #include <linux/etherdevice_api.h>
