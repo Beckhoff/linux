@@ -3,6 +3,7 @@
  * Copyright (C) 2011 STRATO.  All rights reserved.
  */
 
+#include <linux/prefetch.h>
 #include <linux/mutex_api.h>
 #include <linux/lockdep_api.h>
 #include <linux/kref_api.h>
