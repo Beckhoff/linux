@@ -4,6 +4,7 @@
  *
  * See COPYING in top-level directory.
  */
+#include <linux/highmem.h>
 #include <asm/cacheflush.h>
 
 #include "protocol.h"
