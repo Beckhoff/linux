@@ -3,6 +3,7 @@
  * Copyright © 2019 Intel Corporation
  */
 
+#include <linux/kobject_api.h>
 #include <linux/jiffies.h>
 #include <linux/kobject.h>
 #include <linux/sysfs.h>

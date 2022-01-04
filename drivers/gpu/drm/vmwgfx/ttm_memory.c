@@ -28,6 +28,7 @@
 
 #define pr_fmt(fmt) "[TTM] " fmt
 
+#include <linux/kobject_api.h>
 #include <linux/highmem.h>
 #include <linux/capability.h>
 #include <linux/spinlock.h>
