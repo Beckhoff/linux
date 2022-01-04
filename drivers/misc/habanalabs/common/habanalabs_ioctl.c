@@ -7,6 +7,7 @@
 
 #define pr_fmt(fmt)	"habanalabs: " fmt
 
+#include <linux/timekeeping.h>
 #include <linux/sched.h>
 #include <linux/jiffies.h>
 #include <linux/atomic_api.h>
