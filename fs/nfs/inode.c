@@ -14,6 +14,7 @@
  *
  */
 
+#include <linux/fs_api_dio.h>
 #include <linux/dcache.h>
 #include <linux/crc32.h>
 #include <linux/atomic_api.h>
