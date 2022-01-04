@@ -4,6 +4,7 @@
  * Copyright (c) 2016 Hisilicon Limited.
  */
 
+#include <linux/delay.h>
 #include <linux/cpumask_api.h>
 
 #include "hisi_sas.h"

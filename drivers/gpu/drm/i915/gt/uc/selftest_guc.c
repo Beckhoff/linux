@@ -3,6 +3,8 @@
  * Copyright �� 2021 Intel Corporation
  */
 
+#include <linux/delay.h>
+
 #include "selftests/intel_scheduler_helpers.h"
 
 static struct i915_request *nop_user_request(struct intel_context *ce,

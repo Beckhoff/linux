@@ -25,6 +25,7 @@
  *
  */
 
+#include <linux/delay.h>
 #include <drm/drm_scdc_helper.h>
 
 #include "i915_drv.h"

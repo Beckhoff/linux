@@ -3,6 +3,8 @@
 
 #define _IOCTL_LINUX_C_
 
+#include <linux/delay.h>
+
 #include "../include/osdep_service.h"
 #include "../include/drv_types.h"
 #include "../include/wlan_bssdef.h"

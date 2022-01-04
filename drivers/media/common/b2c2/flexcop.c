@@ -27,6 +27,8 @@
  * GNU General Public License for more details.
  */
 
+#include <linux/delay.h>
+
 #include "flexcop.h"
 
 #define DRIVER_NAME "B2C2 FlexcopII/II(b)/III digital TV receiver chip"

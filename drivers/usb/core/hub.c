@@ -10,6 +10,7 @@
  * Released under the GPLv2 only.
  */
 
+#include <linux/delay.h>
 #include <linux/capability.h>
 #include <linux/kernel.h>
 #include <linux/errno.h>
