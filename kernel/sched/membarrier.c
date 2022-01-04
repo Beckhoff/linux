@@ -4,6 +4,7 @@
  *
  * membarrier system call
  */
+#include <linux/syscalls.h>
 #include <linux/syscalls_api.h>
 #include <linux/sched/rseq_api.h>
 #include <linux/sched/mm.h>
