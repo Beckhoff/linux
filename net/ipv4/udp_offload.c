@@ -6,6 +6,7 @@
  *	UDPv4 GSO support
  */
 
+#include <net/route_api.h>
 #include <net/ip_api_gro.h>
 #include <net/dst_api.h>
 #include <linux/skbuff_api_extra.h>
