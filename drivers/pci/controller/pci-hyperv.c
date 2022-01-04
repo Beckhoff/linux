@@ -37,6 +37,7 @@
  * the PCI back-end driver in Hyper-V.
  */
 
+#include <asm/x86_irq.h>
 #include <linux/kernel.h>
 #include <linux/module.h>
 #include <linux/pci.h>
