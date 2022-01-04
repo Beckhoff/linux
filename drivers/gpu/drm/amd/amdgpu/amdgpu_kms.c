@@ -27,6 +27,7 @@
  */
 
 #include "amdgpu.h"
+#include <linux/device_api.h>
 #include <linux/atomic_api.h>
 #include <drm/amdgpu_drm.h>
 #include <drm/drm_drv.h>

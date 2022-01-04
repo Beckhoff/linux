@@ -7,6 +7,7 @@
  * Copyright (C) 2016 Christoph Hellwig.
  */
 
+#include <linux/device_api.h>
 #include <linux/capability.h>
 #include <linux/err.h>
 #include <linux/mm.h>

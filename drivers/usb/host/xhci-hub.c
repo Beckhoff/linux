@@ -9,6 +9,7 @@
  */
 
 
+#include <linux/device_api.h>
 #include <linux/delay.h>
 #include <linux/slab.h>
 #include <asm/unaligned.h>

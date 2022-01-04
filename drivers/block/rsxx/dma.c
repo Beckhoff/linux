@@ -8,6 +8,7 @@
 * (C) Copyright 2013 IBM Corporation
 */
 
+#include <linux/device_api.h>
 #include <linux/atomic_api.h>
 #include <linux/slab.h>
 #include "rsxx_priv.h"

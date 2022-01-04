@@ -8,6 +8,7 @@
  * Author: David E. Box <david.e.box@linux.intel.com>
  */
 
+#include <linux/device_api.h>
 #include <linux/bits.h>
 #include <linux/kernel.h>
 #include <linux/mfd/core.h>

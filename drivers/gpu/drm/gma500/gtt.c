@@ -7,6 +7,7 @@
  *	    Alan Cox <alan@linux.intel.com>
  */
 
+#include <linux/device_api.h>
 #include <linux/shmem_fs.h>
 
 #include <asm/set_memory.h>

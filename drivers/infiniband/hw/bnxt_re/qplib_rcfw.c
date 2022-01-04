@@ -38,6 +38,7 @@
 
 #define dev_fmt(fmt) "QPLIB: " fmt
 
+#include <linux/device_api.h>
 #include <linux/interrupt.h>
 #include <linux/spinlock.h>
 #include <linux/pci.h>

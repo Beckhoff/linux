@@ -9,6 +9,7 @@
  * (C) Copyright TOSHIBA CORPORATION 2005-2007
  * All Rights Reserved.
  */
+#include <linux/device_api.h>
 #include <linux/device.h>
 #include <linux/slab.h>
 #include <linux/map_to_7segment.h>

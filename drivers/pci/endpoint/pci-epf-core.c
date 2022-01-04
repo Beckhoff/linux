@@ -6,6 +6,7 @@
  * Author: Kishon Vijay Abraham I <kishon@ti.com>
  */
 
+#include <linux/device_api.h>
 #include <linux/align.h>
 #include <linux/device.h>
 #include <linux/dma-mapping.h>
