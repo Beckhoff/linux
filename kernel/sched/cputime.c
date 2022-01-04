@@ -2,6 +2,7 @@
 /*
  * Simple CPU accounting cgroup controller
  */
+#include <linux/u64_stats_sync_api.h>
 #include <linux/spinlock_api.h>
 #include <linux/softirq.h>
 #include <linux/sched/signal.h>
