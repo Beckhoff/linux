@@ -1,4 +1,5 @@
 // SPDX-License-Identifier: GPL-2.0-only
+#include <linux/minmax.h>
 #include <linux/fs_api.h>
 #include <linux/dcache.h>
 #include <linux/atomic_api.h>
