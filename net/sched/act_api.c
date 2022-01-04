@@ -5,6 +5,7 @@
  * Author:	Jamal Hadi Salim
  */
 
+#include <net/netlink_api.h>
 #include <linux/spinlock_api.h>
 #include <linux/rtnetlink.h>
 #include <linux/refcount_api.h>
