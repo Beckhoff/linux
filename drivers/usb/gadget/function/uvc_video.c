@@ -6,6 +6,7 @@
  *	    Laurent Pinchart (laurent.pinchart@ideasonboard.com)
  */
 
+#include <linux/workqueue_api.h>
 #include <linux/time64_api.h>
 #include <linux/spinlock_api.h>
 #include <linux/slab.h>

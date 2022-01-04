@@ -10,6 +10,7 @@
 
 #define pr_fmt(fmt) fmt
 
+#include <linux/workqueue_api.h>
 #include <linux/notifier_api.h>
 #include <linux/mutex_api.h>
 #include <linux/ktime_api.h>

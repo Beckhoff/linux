@@ -8,6 +8,7 @@
 * (C) Copyright 2013 IBM Corporation
 */
 
+#include <linux/workqueue_api.h>
 #include <linux/vmalloc.h>
 #include <linux/spinlock_api.h>
 #include <linux/mutex_api.h>

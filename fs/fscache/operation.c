@@ -8,6 +8,7 @@
  */
 
 #define FSCACHE_DEBUG_LEVEL OPERATION
+#include <linux/workqueue_api.h>
 #include <linux/wait_bit.h>
 #include <linux/spinlock_api.h>
 #include <linux/jiffies.h>

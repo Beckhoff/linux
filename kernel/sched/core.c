@@ -7,6 +7,7 @@
  *  Copyright (C) 1991-2002  Linus Torvalds
  */
 #define CREATE_TRACE_POINTS
+#include <linux/workqueue_api.h>
 #include <linux/wait_bit.h>
 #include <linux/wait_api.h>
 #include <linux/topology.h>

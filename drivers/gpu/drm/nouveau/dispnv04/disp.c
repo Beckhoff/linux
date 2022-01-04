@@ -22,6 +22,7 @@
  * Author: Ben Skeggs
  */
 
+#include <linux/workqueue_api.h>
 #include <linux/slab.h>
 #include <drm/drm_crtc_helper.h>
 

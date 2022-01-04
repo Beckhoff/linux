@@ -131,6 +131,7 @@
  */
 
 #include "../workqueue_internal.h"
+#include <linux/workqueue_api.h>
 #include <linux/wait_api.h>
 #include <linux/slab.h>
 #include <linux/mutex_api.h>

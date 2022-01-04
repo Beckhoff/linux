@@ -6,6 +6,7 @@
 
 #define INCLUDE_VERMAGIC
 
+#include <linux/workqueue_api.h>
 #include <linux/wait_api.h>
 #include <linux/sched/task_flags.h>
 #include <linux/rwsem_api.h>

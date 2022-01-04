@@ -10,6 +10,7 @@
  *
  */
 
+#include <linux/workqueue_api.h>
 #include <linux/wait_bit.h>
 #include <linux/ktime_api.h>
 #include <linux/device_api_lock.h>

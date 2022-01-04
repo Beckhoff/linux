@@ -28,6 +28,7 @@
 
 #define pr_fmt(fmt) "[TTM] " fmt
 
+#include <linux/workqueue_api.h>
 #include <linux/spinlock_api.h>
 #include <linux/mm_api.h>
 #include <linux/kobject_api.h>

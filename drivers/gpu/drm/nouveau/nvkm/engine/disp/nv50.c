@@ -27,6 +27,7 @@
 #include "channv50.h"
 #include "rootnv50.h"
 
+#include <linux/workqueue_api.h>
 #include <linux/slab.h>
 #include <core/client.h>
 #include <core/ramht.h>
