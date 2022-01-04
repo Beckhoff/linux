@@ -9,6 +9,7 @@
  * Copyright (C) 2001 Peter Bergner, IBM Corp.
  */
 
+#include <linux/pfn.h>
 #include <linux/init.h>
 #include <linux/mm.h>
 #include <asm/dma.h>
