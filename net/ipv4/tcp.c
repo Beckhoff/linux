@@ -243,6 +243,7 @@
 
 #define pr_fmt(fmt) "TCP: " fmt
 
+#include <linux/mmap_lock.h>
 #include <linux/mm_api.h>
 #include <linux/memcontrol.h>
 #include <linux/ktime_api.h>
