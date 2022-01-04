@@ -10,6 +10,7 @@
  * Generic code for virtio server in host kernel.
  */
 
+#include <linux/uaccess.h>
 #include <linux/spinlock_api.h>
 #include <linux/sched.h>
 #include <linux/prefetch.h>

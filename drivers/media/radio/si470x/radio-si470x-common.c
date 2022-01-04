@@ -99,6 +99,7 @@
 
 
 /* kernel includes */
+#include <linux/uaccess.h>
 #include <linux/poll.h>
 #include <linux/module.h>
 #include <linux/jiffies.h>

@@ -8,6 +8,7 @@
 * (C) Copyright 2013 IBM Corporation
 */
 
+#include <linux/uaccess.h>
 #include <linux/spinlock_api.h>
 #include <linux/jiffies.h>
 #include <linux/io.h>

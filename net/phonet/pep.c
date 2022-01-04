@@ -9,6 +9,7 @@
  * Author: Rémi Denis-Courmont
  */
 
+#include <linux/uaccess.h>
 #include <linux/skbuff_api_extra.h>
 #include <linux/mm_api.h>
 #include <linux/capability.h>

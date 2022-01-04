@@ -24,6 +24,7 @@
    SOFTWARE IS DISCLAIMED.
 */
 
+#include <linux/uaccess.h>
 #include <linux/fs_api.h>
 #include <linux/compat.h>
 #include <linux/capability.h>
