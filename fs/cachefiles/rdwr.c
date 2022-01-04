@@ -5,6 +5,7 @@
  * Written by David Howells (dhowells@redhat.com)
  */
 
+#include <linux/pagemap.h>
 #include <linux/mm_api.h>
 #include <linux/highmem.h>
 #include <linux/highmem_extra.h>
