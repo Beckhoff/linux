@@ -10,6 +10,7 @@
 #ifndef _MCP251XFD_H
 #define _MCP251XFD_H
 
+#include <linux/sizes.h>
 #include <linux/can/core.h>
 #include <linux/can/dev.h>
 #include <linux/can/rx-offload.h>
