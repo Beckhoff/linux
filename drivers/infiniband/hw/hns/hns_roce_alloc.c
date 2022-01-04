@@ -31,6 +31,7 @@
  * SOFTWARE.
  */
 
+#include <linux/idr_api.h>
 #include <linux/dma-mapping.h>
 #include <linux/platform_device.h>
 #include <linux/vmalloc.h>

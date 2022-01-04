@@ -31,6 +31,7 @@
  * SOFTWARE.
  */
 
+#include <linux/idr_api.h>
 #include <linux/pci.h>
 #include <linux/platform_device.h>
 #include <rdma/ib_addr.h>

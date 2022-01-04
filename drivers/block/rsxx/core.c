@@ -8,6 +8,7 @@
 * (C) Copyright 2013 IBM Corporation
 */
 
+#include <linux/idr_api.h>
 #include <linux/fs_api.h>
 #include <linux/dma-mapping.h>
 #include <linux/device_api.h>

@@ -30,6 +30,7 @@
  * SOFTWARE.
  */
 
+#include <linux/idr_api.h>
 #include <linux/hardirq.h>
 #include <linux/platform_device.h>
 #include <rdma/ib_umem.h>
