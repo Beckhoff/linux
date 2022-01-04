@@ -30,6 +30,7 @@
 
 #include "cgroup-internal.h"
 
+#include <linux/bpf-cgroup-api.h>
 #include <linux/atomic_api.h>
 #include <linux/cred.h>
 #include <linux/errno.h>
