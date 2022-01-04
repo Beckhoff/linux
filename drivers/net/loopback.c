@@ -24,6 +24,7 @@
  *		Alexey Kuznetsov:	Potential hang under some extreme
  *					cases removed.
  */
+#include <net/sch_generic.h>
 #include <net/sch_generic_api.h>
 #include <net/route_api.h>
 #include <net/dst_api.h>
