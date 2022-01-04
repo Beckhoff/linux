@@ -1,6 +1,8 @@
 // SPDX-License-Identifier: GPL-2.0
 /* Copyright(c) 2007 - 2012 Realtek Corporation. */
 
+#include <linux/sched.h>
+
 #include "../include/drv_types.h"
 #include "../include/rtw_led.h"
 

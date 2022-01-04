@@ -7,6 +7,7 @@
  * warranty of any kind, whether express or implied.
  */
 
+#include <linux/sched.h>
 #include <linux/of_api.h>
 #include <linux/jiffies.h>
 #include <linux/device_api_lock.h>

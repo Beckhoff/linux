@@ -3,6 +3,7 @@
  * Copyright (C) 2017-2018 HUAWEI, Inc.
  *             https://www.huawei.com/
  */
+#include <linux/sched.h>
 #include <linux/pagemap.h>
 #include <linux/mm_api.h>
 #include <linux/highmem.h>

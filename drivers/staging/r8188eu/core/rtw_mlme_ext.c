@@ -3,6 +3,7 @@
 
 #define _RTW_MLME_EXT_C_
 
+#include <linux/sched.h>
 #include <linux/mutex_api.h>
 #include <linux/jiffies.h>
 #include <linux/delay.h>

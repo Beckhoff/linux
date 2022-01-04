@@ -3,6 +3,7 @@
 
 #define  _RTW_SECURITY_C_
 
+#include <linux/sched.h>
 #include <linux/io.h>
 #include <linux/crc32.h>
 

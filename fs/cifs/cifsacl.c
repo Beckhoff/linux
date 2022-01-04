@@ -8,6 +8,7 @@
  *
  */
 
+#include <linux/sched.h>
 #include <linux/fs.h>
 #include <linux/slab.h>
 #include <linux/string.h>

@@ -9,6 +9,7 @@
  * Based on rpmsg performance statistics driver by Michal Simek, which in turn
  * was based on TI & Google OMX rpmsg driver.
  */
+#include <linux/sched.h>
 #include <linux/mutex_api.h>
 #include <linux/io.h>
 #include <linux/idr_api.h>

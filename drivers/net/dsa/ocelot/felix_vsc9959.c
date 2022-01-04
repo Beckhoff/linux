@@ -2,6 +2,7 @@
 /* Copyright 2017 Microsemi Corporation
  * Copyright 2018-2019 NXP
  */
+#include <linux/sched.h>
 #include <linux/of_api.h>
 #include <linux/ktime_api.h>
 #include <linux/ioport.h>
