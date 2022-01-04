@@ -3,6 +3,7 @@
  * Copyright © 2020 Intel Corporation
  */
 
+#include <linux/dma-fence-api.h>
 #include <linux/dma-resv.h>
 
 #include "dma_resv_utils.h"
