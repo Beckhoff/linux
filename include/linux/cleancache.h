@@ -2,6 +2,7 @@
 #ifndef _LINUX_CLEANCACHE_H
 #define _LINUX_CLEANCACHE_H
 
+#include <linux/fs_types_sb.h>
 #include <linux/fs.h>
 #include <linux/exportfs.h>
 #include <linux/mm.h>
