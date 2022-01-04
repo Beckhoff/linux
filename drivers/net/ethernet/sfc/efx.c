@@ -5,6 +5,7 @@
  * Copyright 2005-2013 Solarflare Communications Inc.
  */
 
+#include <linux/random.h>
 #include <linux/netdevice_api.h>
 #include <linux/mutex_api.h>
 #include <linux/filter_api.h>
