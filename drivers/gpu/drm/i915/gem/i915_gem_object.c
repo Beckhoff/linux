@@ -22,6 +22,7 @@
  *
  */
 
+#include <linux/llist_api.h>
 #include <linux/io.h>
 #include <linux/io_extra.h>
 #include <linux/highmem.h>

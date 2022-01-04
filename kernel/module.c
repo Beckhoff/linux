@@ -6,6 +6,7 @@
 
 #define INCLUDE_VERMAGIC
 
+#include <linux/llist_api.h>
 #include <linux/kobject_api.h>
 #include <linux/kmod.h>
 #include <linux/fs_api.h>
