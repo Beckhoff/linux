@@ -22,6 +22,7 @@
  *
  */
 
+#include <linux/module.h>
 #include <linux/vga_switcheroo.h>
 
 #include <drm/drm_drv.h>

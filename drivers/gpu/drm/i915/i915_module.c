@@ -4,6 +4,7 @@
  * Copyright © 2021 Intel Corporation
  */
 
+#include <linux/module.h>
 #include <linux/console.h>
 
 #include "gem/i915_gem_context.h"
