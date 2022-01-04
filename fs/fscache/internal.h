@@ -24,6 +24,7 @@
 
 #define pr_fmt(fmt) "FS-Cache: " fmt
 
+#include <linux/refcount_api.h>
 #include <linux/jiffies.h>
 #include <linux/fscache-cache.h>
 #include <trace/events/fscache.h>
