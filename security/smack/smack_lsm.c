@@ -15,6 +15,7 @@
  *  Copyright (C) 2011 Intel Corporation.
  */
 
+#include <net/ipv6_api.h>
 #include <linux/uaccess.h>
 #include <linux/sched/task_flags.h>
 #include <linux/rculist.h>
