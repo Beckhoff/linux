@@ -12,6 +12,7 @@
 
 #define pr_fmt(fmt) KBUILD_MODNAME ": " fmt
 
+#include <linux/refcount_api.h>
 #include <linux/rculist.h>
 #include <linux/netdevice_api.h>
 #include <linux/ktime_api.h>

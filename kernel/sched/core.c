@@ -7,6 +7,7 @@
  *  Copyright (C) 1991-2002  Linus Torvalds
  */
 #define CREATE_TRACE_POINTS
+#include <linux/refcount_api.h>
 #include <linux/rcuwait_api.h>
 #include <linux/rculist.h>
 #include <linux/prefetch.h>

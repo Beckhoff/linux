@@ -25,6 +25,7 @@
  * Bluetooth RFCOMM core.
  */
 
+#include <linux/refcount_api.h>
 #include <linux/mutex_api.h>
 #include <linux/jiffies.h>
 #include <linux/module.h>

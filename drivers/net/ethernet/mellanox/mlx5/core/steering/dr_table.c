@@ -1,6 +1,8 @@
 // SPDX-License-Identifier: GPL-2.0 OR Linux-OpenIB
 /* Copyright (c) 2019 Mellanox Technologies. */
 
+#include <linux/refcount_api.h>
+
 #include "dr_types.h"
 
 int mlx5dr_table_set_miss_action(struct mlx5dr_table *tbl,
