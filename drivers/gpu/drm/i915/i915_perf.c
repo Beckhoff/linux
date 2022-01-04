@@ -191,6 +191,7 @@
  *   with the rest of the i915 driver.
  */
 
+#include <linux/uuid_api.h>
 #include <linux/uaccess.h>
 #include <linux/sysfs.h>
 #include <linux/sysctl.h>

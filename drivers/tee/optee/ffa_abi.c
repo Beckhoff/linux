@@ -5,6 +5,7 @@
 
 #define pr_fmt(fmt) KBUILD_MODNAME ": " fmt
 
+#include <linux/uuid_api.h>
 #include <linux/sched/cond_resched.h>
 #include <linux/scatterlist_api.h>
 #include <linux/mutex_api.h>

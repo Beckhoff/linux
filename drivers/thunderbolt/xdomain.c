@@ -7,6 +7,7 @@
  *          Mika Westerberg <mika.westerberg@linux.intel.com>
  */
 
+#include <linux/uuid_api.h>
 #include <linux/slab.h>
 #include <linux/mutex_api.h>
 #include <linux/kobject_api.h>
