@@ -5,6 +5,7 @@
  * Author: Florian Westphal <fw@strlen.de>
  */
 
+#include <linux/kallsyms.h>
 #include <linux/module.h>
 #include <linux/kernel.h>
 #include <linux/types.h>

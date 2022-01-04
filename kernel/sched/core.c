@@ -7,6 +7,7 @@
  *  Copyright (C) 1991-2002  Linus Torvalds
  */
 #define CREATE_TRACE_POINTS
+#include <linux/kallsyms.h>
 #include <linux/jiffies.h>
 #include <linux/ioprio.h>
 #include <linux/iocontext.h>
