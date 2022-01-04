@@ -1,6 +1,8 @@
 // SPDX-License-Identifier: GPL-2.0
 /* Copyright (c) 2020, Intel Corporation. */
 
+#include <asm/unaligned.h>
+
 #include "ice.h"
 #include "ice_lib.h"
 #include "ice_devlink.h"
