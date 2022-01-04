@@ -27,6 +27,7 @@
  * GNU General Public License for more details.
  */
 
+#include <linux/slab.h>
 #include <linux/module.h>
 #include <linux/delay.h>
 

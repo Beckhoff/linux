@@ -22,6 +22,7 @@
  *  worst case complexity of O(min(101, nr_domcpus)), though the scenario that
  *  yields the worst case search is fairly contrived.
  */
+#include <linux/slab.h>
 #include <linux/cpumask_api.h>
 
 #include "sched.h"

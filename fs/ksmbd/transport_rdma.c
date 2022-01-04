@@ -19,6 +19,7 @@
 
 #define SUBMOD_NAME	"smb_direct"
 
+#include <linux/slab.h>
 #include <linux/scatterlist_api.h>
 #include <linux/mm_page_address.h>
 #include <linux/atomic_api.h>

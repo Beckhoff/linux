@@ -21,6 +21,8 @@
  *
  */
 
+#include <linux/slab.h>
+
 #include "amdgpu_ras.h"
 
 int amdgpu_umc_ras_late_init(struct amdgpu_device *adev)

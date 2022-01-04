@@ -10,6 +10,7 @@
 
 #include "sched.h"
 
+#include <linux/slab.h>
 #include <linux/kobject_api.h>
 #include <linux/cpumask_api.h>
 #include <linux/sched/cpufreq.h>

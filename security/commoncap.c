@@ -2,6 +2,7 @@
 /* Common capabilities, needed by capability.o.
  */
 
+#include <linux/slab.h>
 #include <linux/sched/task_flags.h>
 #include <linux/fs_api.h>
 #include <linux/dcache.h>

@@ -4,6 +4,7 @@
  * Author: Vincent Abriou <vincent.abriou@st.com> for STMicroelectronics.
  */
 
+#include <linux/slab.h>
 #include <linux/seq_file.h>
 #include <linux/of_api.h>
 #include <linux/jiffies.h>

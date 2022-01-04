@@ -3,6 +3,7 @@
 
 #define _HAL_INIT_C_
 
+#include <linux/slab.h>
 #include <linux/jiffies.h>
 
 #include "../include/linux/firmware.h"

@@ -3,6 +3,7 @@
 
 #define _IOCTL_LINUX_C_
 
+#include <linux/slab.h>
 #include <linux/delay.h>
 
 #include "../include/osdep_service.h"

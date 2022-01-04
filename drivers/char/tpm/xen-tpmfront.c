@@ -4,6 +4,7 @@
  *
  * Author:  Daniel De Graaf <dgdegra@tycho.nsa.gov>
  */
+#include <linux/slab.h>
 #include <linux/sched/thread_info_api.h>
 #include <linux/jiffies.h>
 #include <linux/gfp_api.h>

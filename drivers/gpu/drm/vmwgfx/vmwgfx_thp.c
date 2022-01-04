@@ -5,6 +5,7 @@
  * Copyright (C) 2007-2019 Vmware, Inc. All rights reservedd.
  */
 #include "vmwgfx_drv.h"
+#include <linux/slab.h>
 #include <linux/huge_mm.h>
 #include <drm/ttm/ttm_bo_driver.h>
 #include <drm/ttm/ttm_placement.h>

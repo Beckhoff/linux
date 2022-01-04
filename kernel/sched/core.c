@@ -7,6 +7,7 @@
  *  Copyright (C) 1991-2002  Linus Torvalds
  */
 #define CREATE_TRACE_POINTS
+#include <linux/slab.h>
 #include <linux/sched/task.h>
 #include <linux/sched/signal.h>
 #include <linux/sched/mm.h>

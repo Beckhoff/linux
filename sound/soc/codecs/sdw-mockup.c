@@ -7,6 +7,7 @@
 //
 //
 
+#include <linux/slab.h>
 #include <linux/device_api_lock.h>
 #include <linux/device.h>
 #include <linux/mod_devicetable.h>

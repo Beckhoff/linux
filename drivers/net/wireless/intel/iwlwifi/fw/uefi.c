@@ -10,6 +10,7 @@
 
 #include "fw/uefi.h"
 #include "fw/api/alive.h"
+#include <linux/slab.h>
 #include <linux/efi.h>
 
 #define IWL_EFI_VAR_GUID EFI_GUID(0x92daaf2f, 0xc02b, 0x455b,	\

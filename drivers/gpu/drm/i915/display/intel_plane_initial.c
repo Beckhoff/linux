@@ -3,6 +3,7 @@
  * Copyright © 2021 Intel Corporation
  */
 
+#include <linux/slab.h>
 #include <linux/atomic_api.h>
 
 #include "intel_display_types.h"

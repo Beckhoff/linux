@@ -30,6 +30,7 @@
  * SOFTWARE.
  */
 
+#include <linux/slab.h>
 #include <linux/jiffies.h>
 #include <linux/dmapool.h>
 #include <linux/platform_device.h>

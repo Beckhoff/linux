@@ -24,6 +24,7 @@
 #include "changk104.h"
 #include "user.h"
 
+#include <linux/slab.h>
 #include <core/client.h>
 #include <core/gpuobj.h>
 #include <subdev/bar.h>

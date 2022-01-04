@@ -2,6 +2,7 @@
 /*
  * Auto-group scheduling implementation:
  */
+#include <linux/slab.h>
 #include <linux/sched/signal.h>
 #include <linux/rwsem_api.h>
 #include <linux/kref_api.h>

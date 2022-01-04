@@ -3,6 +3,8 @@
  * Copyright (c) 2014-2015, The Linux Foundation. All rights reserved.
  */
 
+#include <linux/slab.h>
+
 #include "drm/drm_edid.h"
 #include "msm_kms.h"
 #include "edp.h"

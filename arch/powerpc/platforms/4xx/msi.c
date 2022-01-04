@@ -7,6 +7,7 @@
  *		Feng Kan <fkan@apm.com>
  */
 
+#include <linux/slab.h>
 #include <linux/of_api.h>
 #include <linux/io.h>
 #include <linux/dma-mapping.h>

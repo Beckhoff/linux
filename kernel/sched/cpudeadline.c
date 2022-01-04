@@ -6,6 +6,7 @@
  *
  *  Author: Juri Lelli <j.lelli@sssup.it>
  */
+#include <linux/slab.h>
 #include <linux/cpumask_api.h>
 
 #include "sched.h"

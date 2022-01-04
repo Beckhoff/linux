@@ -8,6 +8,7 @@
  *
  ******************************************************************************/
 
+#include <linux/slab.h>
 #include <linux/random.h>
 #include <linux/ptrace_api.h>
 #include <linux/mutex_api.h>
