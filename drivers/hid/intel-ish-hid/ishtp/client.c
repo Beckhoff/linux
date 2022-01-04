@@ -5,6 +5,7 @@
  * Copyright (c) 2003-2016, Intel Corporation.
  */
 
+#include <linux/wait_api.h>
 #include <linux/spinlock_api.h>
 #include <linux/ktime_api.h>
 #include <linux/device_api_lock.h>

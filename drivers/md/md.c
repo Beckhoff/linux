@@ -37,6 +37,7 @@
 
 */
 
+#include <linux/wait_api.h>
 #include <linux/uaccess.h>
 #include <linux/sysfs.h>
 #include <linux/spinlock_api.h>

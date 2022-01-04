@@ -22,6 +22,7 @@
  *
  */
 
+#include <linux/wait_api.h>
 #include <linux/slab.h>
 #include <linux/jiffies.h>
 #include <linux/dma-fence-api.h>

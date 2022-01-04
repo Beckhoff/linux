@@ -5,6 +5,7 @@
  * Copyright (C) 2019-2021 Maximilian Luz <luzmaximilian@gmail.com>
  */
 
+#include <linux/wait_api.h>
 #include <linux/spinlock_api.h>
 #include <linux/sched.h>
 #include <linux/lockdep_api.h>

@@ -4,6 +4,8 @@
  * Copyright © 2018 Intel Corporation
  */
 
+#include <linux/wait_api.h>
+
 #include "igt_reset.h"
 
 #include "gt/intel_engine.h"

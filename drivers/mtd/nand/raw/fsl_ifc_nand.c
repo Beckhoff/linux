@@ -7,6 +7,7 @@
  * Author: Dipen Dudhat <Dipen.Dudhat@freescale.com>
  */
 
+#include <linux/wait_api.h>
 #include <linux/vmalloc.h>
 #include <linux/mutex_api.h>
 #include <linux/mm_api.h>

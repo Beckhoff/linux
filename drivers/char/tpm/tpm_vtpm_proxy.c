@@ -10,6 +10,7 @@
  * Device driver for vTPM (vTPM proxy driver)
  */
 
+#include <linux/wait_api.h>
 #include <linux/slab.h>
 #include <linux/mutex_api.h>
 #include <linux/fs_api.h>

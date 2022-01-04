@@ -4,6 +4,7 @@
  * Author: Rob Clark <robdclark@gmail.com>
  */
 
+#include <linux/wait_api.h>
 #include <linux/slab.h>
 
 #include "hdmi.h"

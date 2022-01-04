@@ -9,6 +9,7 @@
  *     - JMicron (hardware and technical support)
  */
 
+#include <linux/wait_api.h>
 #include <linux/spinlock_api.h>
 #include <linux/scatterlist_api.h>
 #include <linux/property.h>

@@ -7,6 +7,7 @@
  * Copyright IBM Corp. 2018
  */
 
+#include <linux/wait_api.h>
 #include <linux/spinlock_api.h>
 #include <linux/spinlock.h>
 #include <linux/jiffies.h>

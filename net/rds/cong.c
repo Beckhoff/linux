@@ -30,6 +30,7 @@
  * SOFTWARE.
  *
  */
+#include <linux/wait_api.h>
 #include <linux/spinlock_api.h>
 #include <linux/rbtree_api.h>
 #include <linux/gfp_api.h>

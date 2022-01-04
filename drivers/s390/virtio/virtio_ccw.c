@@ -7,6 +7,7 @@
  *    Author(s): Cornelia Huck <cornelia.huck@de.ibm.com>
  */
 
+#include <linux/wait_api.h>
 #include <linux/spinlock_api.h>
 #include <linux/mutex_api.h>
 #include <linux/device_api_lock.h>

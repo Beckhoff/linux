@@ -27,6 +27,7 @@
 
 /* Bluetooth L2CAP sockets. */
 
+#include <linux/wait_api.h>
 #include <linux/uaccess.h>
 #include <linux/sched/task_flags.h>
 #include <linux/sched.h>
