@@ -25,6 +25,7 @@
  * Copyright (C) 2020 Alibaba, Inc, Alex Shi
  */
 
+#include <linux/mmzone_api.h>
 #include <linux/mm_ptlock.h>
 #include <linux/mmap_lock.h>
 #include <linux/mm_api.h>
