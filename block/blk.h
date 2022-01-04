@@ -2,6 +2,7 @@
 #ifndef BLK_INTERNAL_H
 #define BLK_INTERNAL_H
 
+#include <linux/io_extra.h>
 #include <linux/idr.h>
 #include <linux/blk-mq.h>
 #include <linux/part_stat.h>
