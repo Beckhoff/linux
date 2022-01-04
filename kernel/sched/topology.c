@@ -4,6 +4,7 @@
  */
 #include "sched.h"
 
+#include <linux/topology.h>
 #include <linux/slab.h>
 #include <linux/percpu.h>
 #include <linux/lockdep_api.h>

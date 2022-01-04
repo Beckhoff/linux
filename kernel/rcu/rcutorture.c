@@ -12,6 +12,7 @@
 
 #define pr_fmt(fmt) fmt
 
+#include <linux/topology.h>
 #include <linux/spinlock_api.h>
 #include <linux/softirq.h>
 #include <linux/sched.h>
