@@ -30,6 +30,7 @@
  * SOFTWARE.
  */
 
+#include <linux/ioport.h>
 #include <linux/idr_api.h>
 #include <linux/platform_device.h>
 #include <linux/pci.h>

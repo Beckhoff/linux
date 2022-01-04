@@ -39,6 +39,7 @@
  * I/O port base address can be found in the output of 'lspci -v'.
  */
 
+#include <linux/ioport.h>
 #include <linux/module.h>
 #include "../comedidev.h"
 
