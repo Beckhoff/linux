@@ -5,6 +5,7 @@
  * Written by David Howells (dhowells@redhat.com)
  */
 
+#include <linux/sched/thread_info_api.h>
 #include <linux/pagemap.h>
 #include <linux/mm_api.h>
 #include <linux/highmem.h>

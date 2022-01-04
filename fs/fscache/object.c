@@ -9,6 +9,7 @@
  */
 
 #define FSCACHE_DEBUG_LEVEL COOKIE
+#include <linux/sched/thread_info_api.h>
 #include <linux/sched.h>
 #include <linux/radix-tree-api.h>
 #include <linux/jiffies.h>

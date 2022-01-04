@@ -7,6 +7,7 @@
  * Copyright (C) 2001 IBM.
  */
 
+#include <linux/sched/thread_info_api.h>
 #include <linux/preempt.h>
 #include <linux/of_api.h>
 #include <linux/hardirq.h>
