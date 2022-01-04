@@ -6,6 +6,7 @@
  *
  * Copyright(C) 2007, Red Hat, Inc., Ingo Molnar
  */
+#include <linux/sched/task.h>
 #include <linux/sched/signal.h>
 #include <linux/ktime_api.h>
 #include <linux/jiffies.h>

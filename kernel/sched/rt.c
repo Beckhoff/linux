@@ -6,6 +6,7 @@
 #include "sched.h"
 #include "pelt.h"
 
+#include <linux/sched/task.h>
 #include <linux/sched/signal.h>
 #include <linux/rculist.h>
 #include <linux/ktime_api.h>

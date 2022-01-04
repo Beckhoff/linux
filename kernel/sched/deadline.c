@@ -15,6 +15,7 @@
  *                    Michael Trimarchi <michael@amarulasolutions.com>,
  *                    Fabio Checconi <fchecconi@gmail.com>
  */
+#include <linux/sched/task.h>
 #include <linux/sched/signal.h>
 #include <linux/lockdep_api.h>
 #include <linux/ktime_api.h>
