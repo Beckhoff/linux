@@ -30,6 +30,7 @@
  * SOFTWARE.
  */
 
+#include <linux/etherdevice_api.h>
 #include <linux/list.h>
 #include <linux/ip.h>
 #include <linux/ipv6.h>

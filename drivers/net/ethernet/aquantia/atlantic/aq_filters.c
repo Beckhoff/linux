@@ -3,6 +3,8 @@
 
 /* File aq_filters.c: RX filters related functions. */
 
+#include <linux/etherdevice_api.h>
+
 #include "aq_filters.h"
 
 static bool __must_check

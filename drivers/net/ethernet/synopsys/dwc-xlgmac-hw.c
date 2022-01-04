@@ -15,6 +15,7 @@
  * in the SOFTWARE may be the trademarks of their respective owners.
  */
 
+#include <linux/etherdevice_api.h>
 #include <linux/delay.h>
 #include <linux/phy.h>
 #include <linux/mdio.h>

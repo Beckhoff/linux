@@ -33,6 +33,7 @@
  * SOFTWARE.
  */
 
+#include <linux/etherdevice_api.h>
 #include <linux/module.h>
 #include <linux/errno.h>
 #include <linux/slab.h>

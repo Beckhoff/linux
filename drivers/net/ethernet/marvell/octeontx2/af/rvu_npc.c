@@ -5,6 +5,7 @@
  *
  */
 
+#include <linux/etherdevice_api.h>
 #include <linux/device_api_lock.h>
 #include <linux/bitfield.h>
 #include <linux/module.h>

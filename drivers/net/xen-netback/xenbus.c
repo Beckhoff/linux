@@ -7,6 +7,7 @@
 */
 
 #include "common.h"
+#include <linux/etherdevice_api.h>
 #include <linux/device_api_lock.h>
 #include <linux/vmalloc.h>
 #include <linux/rtnetlink.h>
