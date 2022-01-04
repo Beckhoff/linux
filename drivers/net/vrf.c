@@ -9,6 +9,7 @@
  * Based on dummy, team and ipvlan drivers
  */
 
+#include <net/sock_api_extra.h>
 #include <net/sch_generic.h>
 #include <net/rtnetlink_api.h>
 #include <net/route_api.h>
