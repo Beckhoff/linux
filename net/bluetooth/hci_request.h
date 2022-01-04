@@ -20,6 +20,7 @@
    SOFTWARE IS DISCLAIMED.
 */
 
+#include <linux/mutex_api.h>
 #include <asm/unaligned.h>
 
 #define hci_req_sync_lock(hdev)   mutex_lock(&hdev->req_lock)
