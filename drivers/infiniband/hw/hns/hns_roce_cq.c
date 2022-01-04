@@ -30,6 +30,7 @@
  * SOFTWARE.
  */
 
+#include <linux/mm_api.h>
 #include <linux/idr_api.h>
 #include <linux/hardirq.h>
 #include <linux/platform_device.h>

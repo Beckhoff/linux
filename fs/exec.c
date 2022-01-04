@@ -23,6 +23,7 @@
  * formats.
  */
 
+#include <linux/mm_api.h>
 #include <linux/mm_api_exe_file.h>
 #include <linux/gfp_api.h>
 #include <linux/fs_api_rw_access.h>

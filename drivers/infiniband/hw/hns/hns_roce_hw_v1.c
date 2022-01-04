@@ -30,6 +30,7 @@
  * SOFTWARE.
  */
 
+#include <linux/mm_api.h>
 #include <linux/jiffies.h>
 #include <linux/io.h>
 #include <linux/idr_api.h>
