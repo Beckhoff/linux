@@ -2,6 +2,7 @@
 /*
  * <linux/swait.h> (simple wait queues ) implementation:
  */
+#include <linux/spinlock_api.h>
 #include <linux/sched/signal.h>
 #include <linux/lockdep_api.h>
 

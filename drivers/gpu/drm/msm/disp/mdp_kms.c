@@ -5,6 +5,7 @@
  */
 
 
+#include <linux/spinlock_api.h>
 #include <linux/jiffies.h>
 
 #include "msm_drv.h"

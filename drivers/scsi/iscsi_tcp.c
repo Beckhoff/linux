@@ -17,6 +17,7 @@
  *	Zhenyu Wang
  */
 
+#include <linux/spinlock_api.h>
 #include <linux/scatterlist_api.h>
 #include <linux/atomic_api.h>
 #include <crypto/hash.h>

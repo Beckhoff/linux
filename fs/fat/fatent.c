@@ -3,6 +3,7 @@
  * Copyright (C) 2004, OGAWA Hirofumi
  */
 
+#include <linux/spinlock_api.h>
 #include <linux/mutex_api.h>
 #include <linux/fs_api.h>
 #include <linux/backing-dev-api.h>

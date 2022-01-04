@@ -2,6 +2,7 @@
 /*
  * The implementation of the wait_bit*() and related waiting APIs:
  */
+#include <linux/spinlock_api.h>
 #include <linux/sched/signal.h>
 #include <linux/jiffies.h>
 #include <linux/hashtable_api.h>

@@ -11,6 +11,7 @@
  * Matt Porter <mporter@kernel.crashing.org>
  */
 
+#include <linux/spinlock_api.h>
 #include <linux/printk.h>
 #include <linux/rio.h>
 #include <linux/rio_drv.h>

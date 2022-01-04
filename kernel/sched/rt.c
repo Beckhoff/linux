@@ -6,6 +6,7 @@
 #include "sched.h"
 #include "pelt.h"
 
+#include <linux/spinlock_api.h>
 #include <linux/slab.h>
 #include <linux/sched/task.h>
 #include <linux/sched/signal.h>

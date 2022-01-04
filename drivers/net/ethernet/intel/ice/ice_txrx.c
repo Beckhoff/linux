@@ -3,6 +3,7 @@
 
 /* The driver transmit and receive code */
 
+#include <linux/spinlock_api.h>
 #include <linux/skbuff_api_frag.h>
 #include <linux/sched.h>
 #include <linux/netdevice_api_prefetch.h>

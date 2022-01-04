@@ -4,6 +4,7 @@
  *
  */
 
+#include <linux/spinlock_api.h>
 #include <linux/netdevice_api.h>
 #include <linux/ioport.h>
 #include <linux/io.h>

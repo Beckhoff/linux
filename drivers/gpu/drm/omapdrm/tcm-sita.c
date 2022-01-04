@@ -16,6 +16,7 @@
  * WARRANTIES OF MERCHANTIBILITY AND FITNESS FOR A PARTICULAR PURPOSE.
  *
  */
+#include <linux/spinlock_api.h>
 #include <linux/init.h>
 #include <linux/module.h>
 #include <linux/errno.h>

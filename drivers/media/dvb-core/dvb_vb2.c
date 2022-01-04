@@ -11,6 +11,7 @@
  * the Free Software Foundation.
  */
 
+#include <linux/spinlock_api.h>
 #include <linux/mutex_api.h>
 #include <linux/fs.h>
 #include <linux/err.h>

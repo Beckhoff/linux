@@ -25,6 +25,7 @@
  * Daniel Vetter <daniel.vetter@ffwll.ch>
  */
 
+#include <linux/spinlock_api.h>
 #include <linux/slab.h>
 #include <linux/ktime_api.h>
 #include <linux/kref_api.h>

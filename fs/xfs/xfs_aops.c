@@ -4,6 +4,7 @@
  * Copyright (c) 2016-2018 Christoph Hellwig.
  * All Rights Reserved.
  */
+#include <linux/spinlock_api.h>
 #include <linux/sched/mm.h>
 #include <linux/pagemap.h>
 #include <linux/pagemap_api_readahead.h>

@@ -8,6 +8,7 @@
  * Funded by: Volkswagen Group Research
  */
 
+#include <linux/spinlock_api.h>
 #include <linux/netdevice_api.h>
 #include <linux/mutex_api.h>
 #include <linux/jiffies.h>

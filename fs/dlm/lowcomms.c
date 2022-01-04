@@ -42,6 +42,7 @@
  *
  */
 
+#include <linux/spinlock_api.h>
 #include <linux/rwsem_api.h>
 #include <linux/rculist.h>
 #include <linux/mutex_api.h>

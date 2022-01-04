@@ -7,6 +7,7 @@
  *  Copyright (C) 1991-2002  Linus Torvalds
  */
 #define CREATE_TRACE_POINTS
+#include <linux/spinlock_api.h>
 #include <linux/softirq.h>
 #include <linux/slab.h>
 #include <linux/sched/task.h>

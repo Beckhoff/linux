@@ -53,6 +53,7 @@
  *			 :  base.c too.
  */
 
+#include <linux/spinlock_api.h>
 #include <linux/sched/user.h>
 #include <linux/sched/signal.h>
 #include <linux/sched.h>

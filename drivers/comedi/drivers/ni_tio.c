@@ -30,6 +30,7 @@
  * TODO: Support use of both banks X and Y
  */
 
+#include <linux/spinlock_api.h>
 #include <linux/module.h>
 #include <linux/slab.h>
 
