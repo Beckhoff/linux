@@ -4,6 +4,7 @@
  *
  *  Copyright (c) 2015 The Linux Foundation. All rights reserved.
  */
+#include <linux/vmalloc.h>
 #include <linux/mm_api_kvmalloc.h>
 #include <linux/delay.h>
 #include <linux/module.h>

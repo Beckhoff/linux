@@ -3,6 +3,7 @@
 
 #define _IOCTL_LINUX_C_
 
+#include <linux/vmalloc.h>
 #include <linux/uaccess.h>
 #include <linux/spinlock_api.h>
 #include <linux/slab.h>

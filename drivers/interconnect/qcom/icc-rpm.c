@@ -3,6 +3,7 @@
  * Copyright (C) 2020 Linaro Ltd
  */
 
+#include <linux/vmalloc.h>
 #include <linux/minmax.h>
 #include <linux/ioport.h>
 #include <linux/device_api_lock.h>

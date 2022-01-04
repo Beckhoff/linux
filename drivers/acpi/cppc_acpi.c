@@ -33,6 +33,7 @@
 
 #define pr_fmt(fmt)	"ACPI CPPC: " fmt
 
+#include <linux/vmalloc.h>
 #include <linux/spinlock_api.h>
 #include <linux/slab.h>
 #include <linux/rwsem_api.h>

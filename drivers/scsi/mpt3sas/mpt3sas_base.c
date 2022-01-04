@@ -43,6 +43,7 @@
  * USA.
  */
 
+#include <linux/vmalloc.h>
 #include <linux/topology.h>
 #include <linux/spinlock_api.h>
 #include <linux/sched.h>
