@@ -7,6 +7,7 @@
  * Author: Ramakrishna Pallala <ramakrishna.pallala@intel.com>
  */
 
+#include <linux/notifier_api.h>
 #include <linux/device_api_lock.h>
 #include <linux/acpi.h>
 #include <linux/module.h>
