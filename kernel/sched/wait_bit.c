@@ -2,6 +2,7 @@
 /*
  * The implementation of the wait_bit*() and related waiting APIs:
  */
+#include <linux/hashtable_api.h>
 #include <linux/hash.h>
 
 #include "sched.h"
