@@ -7,6 +7,7 @@
  *	Lennert Buytenhek		<buytenh@gnu.org>
  */
 
+#include <linux/compat.h>
 #include <linux/capability.h>
 #include <linux/kernel.h>
 #include <linux/if_bridge.h>

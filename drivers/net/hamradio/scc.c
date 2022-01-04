@@ -148,6 +148,7 @@
 
 /* ----------------------------------------------------------------------- */
 
+#include <linux/compat.h>
 #include <linux/capability.h>
 #include <linux/module.h>
 #include <linux/errno.h>

@@ -14,6 +14,7 @@
  *
  */
 
+#include <linux/compat.h>
 #include <linux/atomic_api.h>
 #include <linux/workqueue.h>
 #include <net/xfrm.h>
