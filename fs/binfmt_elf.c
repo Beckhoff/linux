@@ -10,6 +10,7 @@
  * Copyright 1993, 1994: Eric Youngdale (ericy@cais.com).
  */
 
+#include <asm/elf_api.h>
 #include <linux/module.h>
 #include <linux/kernel.h>
 #include <linux/fs.h>
