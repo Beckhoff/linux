@@ -5,6 +5,7 @@
  *
  */
 
+#include <linux/rwsem_api.h>
 #include <linux/fs_api.h>
 #include <linux/blkdev.h>
 #include <linux/buffer_head.h>

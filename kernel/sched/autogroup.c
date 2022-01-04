@@ -2,6 +2,7 @@
 /*
  * Auto-group scheduling implementation:
  */
+#include <linux/rwsem_api.h>
 #include <linux/kref_api.h>
 #include <linux/jiffies.h>
 #include <linux/capability.h>

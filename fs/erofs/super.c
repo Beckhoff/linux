@@ -3,6 +3,7 @@
  * Copyright (C) 2017-2018 HUAWEI, Inc.
  *             https://www.huawei.com/
  */
+#include <linux/rwsem_api.h>
 #include <linux/pagemap.h>
 #include <linux/mm_api.h>
 #include <linux/idr_api.h>
