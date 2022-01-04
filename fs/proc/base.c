@@ -48,6 +48,7 @@
  *  Overall revision about smaps.
  */
 
+#include <linux/fs_api_dir_context.h>
 #include <linux/dcache.h>
 #include <asm/processor_api.h>
 #include <linux/sched/cond_resched.h>
