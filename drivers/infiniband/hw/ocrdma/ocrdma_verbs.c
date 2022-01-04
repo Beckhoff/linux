@@ -40,6 +40,7 @@
  * Costa Mesa, CA 92626
  */
 
+#include <linux/io_extra.h>
 #include <linux/hardirq.h>
 #include <linux/atomic_api.h>
 #include <linux/dma-mapping.h>

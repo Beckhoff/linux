@@ -12,6 +12,7 @@
  */
 
 
+#include <linux/io_extra.h>
 #include <asm/cacheflush.h>
 #include <linux/module.h>
 #include <linux/mm.h>
