@@ -6,6 +6,7 @@
  *
  * Copyright(C) 2007, Red Hat, Inc., Ingo Molnar
  */
+#include <linux/utsname.h>
 #include <linux/uaccess.h>
 #include <linux/timex.h>
 #include <linux/spinlock_api.h>
