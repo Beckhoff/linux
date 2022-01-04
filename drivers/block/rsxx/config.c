@@ -8,6 +8,7 @@
 * (C) Copyright 2013 IBM Corporation
 */
 
+#include <linux/string.h>
 #include <linux/device_api.h>
 #include <linux/types.h>
 #include <linux/crc32.h>

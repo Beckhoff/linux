@@ -5,6 +5,7 @@
  * Authors: Salvatore Benedetto <salvatore.benedetto@intel.com>
  */
 
+#include <linux/string.h>
 #include <linux/module.h>
 #include <crypto/internal/kpp.h>
 #include <crypto/kpp.h>

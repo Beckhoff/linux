@@ -7,6 +7,7 @@
  * Copyright (C) 2007 Oracle.  All rights reserved.
  */
 
+#include <linux/string.h>
 #include <linux/delay.h>
 #include <linux/kernel.h>
 #include <linux/crc32.h>
