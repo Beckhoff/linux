@@ -11,6 +11,7 @@
 #ifndef __UBIFS_H__
 #define __UBIFS_H__
 
+#include <linux/sched/cond_resched.h>
 #include <linux/mutex_api.h>
 #include <linux/hrtimer.h>
 #include <asm/div64.h>
