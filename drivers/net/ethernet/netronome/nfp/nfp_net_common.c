@@ -11,6 +11,7 @@
  *          Chris Telfer <chris.telfer@netronome.com>
  */
 
+#include <linux/mm_api_extra.h>
 #include <linux/jiffies.h>
 #include <linux/io.h>
 #include <linux/gfp_api.h>
