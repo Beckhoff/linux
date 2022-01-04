@@ -5,6 +5,7 @@
  *	Gareth Hughes <gareth@valinux.com>, May 2000
  */
 
+#include <linux/sched/signal.h>
 #include <linux/ptrace_api.h>
 #include <asm/ptrace.h>
 #include <asm/processor_api.h>

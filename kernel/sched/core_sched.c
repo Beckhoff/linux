@@ -1,5 +1,6 @@
 // SPDX-License-Identifier: GPL-2.0-only
 
+#include <linux/sched/signal.h>
 #include <linux/refcount_api.h>
 #include <linux/ptrace_api.h>
 #include <linux/prctl.h>

@@ -2,6 +2,7 @@
 /*
  * Simple CPU accounting cgroup controller
  */
+#include <linux/sched/signal.h>
 #include <linux/lockdep_api.h>
 #include <linux/interrupt.h>
 

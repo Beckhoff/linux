@@ -5,6 +5,7 @@
  * Author: Tom Tucker <tom@opengridcomputing.com>
  */
 
+#include <linux/sched/signal.h>
 #include <linux/rculist.h>
 #include <linux/mutex_api.h>
 #include <linux/mm_page_address.h>
