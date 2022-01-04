@@ -3,6 +3,7 @@
 #ifndef KVM_MMU_LOCK_H
 #define KVM_MMU_LOCK_H 1
 
+#include <linux/spinlock_api.h>
 #include <linux/types.h>
 
 /*
