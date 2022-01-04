@@ -3,6 +3,7 @@
  * Copyright (C) 2011 STRATO.  All rights reserved.
  */
 
+#include <linux/ioprio.h>
 #include <linux/iocontext.h>
 #include <linux/atomic_api.h>
 #include <linux/sched.h>
