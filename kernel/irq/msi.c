@@ -8,6 +8,7 @@
  * This file contains common code to support Message Signaled Interrupts for
  * PCI compatible and non PCI compatible devices.
  */
+#include <linux/sysfs.h>
 #include <linux/interrupt.h>
 #include <linux/capability.h>
 #include <linux/types.h>

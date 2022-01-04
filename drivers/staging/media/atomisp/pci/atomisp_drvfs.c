@@ -16,6 +16,7 @@
  *
  */
 
+#include <linux/sysfs.h>
 #include <linux/device.h>
 #include <linux/err.h>
 #include <linux/kernel.h>

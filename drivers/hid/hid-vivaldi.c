@@ -6,6 +6,7 @@
  * Author: Sean O'Brien <seobrien@chromium.org>
  */
 
+#include <linux/sysfs.h>
 #include <linux/slab.h>
 #include <linux/device_api_lock.h>
 #include <linux/hid.h>

@@ -7,6 +7,7 @@
  * Copyright (C) 2016 Christoph Hellwig.
  */
 
+#include <linux/sysfs.h>
 #include <linux/spinlock_api.h>
 #include <linux/device_api.h>
 #include <linux/capability.h>
