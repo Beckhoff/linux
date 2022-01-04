@@ -2,6 +2,7 @@
 /*
  * Copyright (C) 2020-2021 Intel Corporation
  */
+#include <linux/dma-mapping.h>
 #include <asm/unaligned.h>
 #include <net/tso.h>
 #include <linux/tcp.h>

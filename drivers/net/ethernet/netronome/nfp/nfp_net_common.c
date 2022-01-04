@@ -11,6 +11,7 @@
  *          Chris Telfer <chris.telfer@netronome.com>
  */
 
+#include <linux/dma-mapping.h>
 #include <linux/delay.h>
 #include <linux/cpumask_api.h>
 #include <asm/unaligned.h>

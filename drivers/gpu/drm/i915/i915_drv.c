@@ -27,6 +27,7 @@
  *
  */
 
+#include <linux/dma-mapping.h>
 #include <linux/dma-fence-api.h>
 #include <linux/atomic_api.h>
 #include <linux/acpi.h>

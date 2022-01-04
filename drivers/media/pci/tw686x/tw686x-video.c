@@ -7,6 +7,7 @@
  * and Measurements PIAP
  */
 
+#include <linux/dma-mapping.h>
 #include <linux/init.h>
 #include <linux/delay.h>
 #include <linux/list.h>

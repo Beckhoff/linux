@@ -6,6 +6,7 @@
  * Copyright 2018-2019 NXP
  */
 
+#include <linux/dma-mapping.h>
 #include <linux/device_api_lock.h>
 #include <linux/device.h>
 #include <linux/of_address.h>

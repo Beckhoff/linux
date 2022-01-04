@@ -6,6 +6,7 @@
  * Copyright (c) 2018 Bootlin
  */
 
+#include <linux/dma-mapping.h>
 #include <linux/delay.h>
 #include <linux/types.h>
 

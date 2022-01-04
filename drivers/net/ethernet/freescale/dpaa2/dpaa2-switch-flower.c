@@ -6,6 +6,8 @@
  *
  */
 
+#include <linux/dma-mapping.h>
+
 #include "dpaa2-switch.h"
 
 static int dpaa2_switch_flower_parse_key(struct flow_cls_offload *cls,

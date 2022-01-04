@@ -8,6 +8,7 @@
  * the Free Software Foundation.
  */
 
+#include <linux/dma-mapping.h>
 #include <linux/ethtool.h>
 #include <linux/module.h>
 #include <linux/pci.h>

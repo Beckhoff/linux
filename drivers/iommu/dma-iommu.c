@@ -8,6 +8,7 @@
  * Copyright (C) 2000-2004 Russell King
  */
 
+#include <linux/dma-mapping.h>
 #include <linux/acpi_iort.h>
 #include <linux/device.h>
 #include <linux/dma-map-ops.h>

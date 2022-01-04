@@ -33,6 +33,7 @@
  *
  */
 
+#include <linux/dma-mapping.h>
 #include <linux/atomic_api.h>
 
 #include "i915_drv.h"

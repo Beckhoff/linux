@@ -31,6 +31,7 @@
  * SOFTWARE.
  */
 
+#include <linux/dma-mapping.h>
 #include <linux/platform_device.h>
 #include "hns_roce_device.h"
 #include "hns_roce_hem.h"

@@ -4,6 +4,7 @@
  * Copyright (c) 2016 Cavium Inc.
  */
 
+#include <linux/dma-mapping.h>
 #include <linux/blkdev.h>
 #include <scsi/scsi_tcq.h>
 #include <linux/delay.h>

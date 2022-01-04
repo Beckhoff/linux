@@ -30,6 +30,7 @@
  * SOFTWARE.
  */
 
+#include <linux/dma-mapping.h>
 #include <linux/highmem.h>
 #include <linux/kernel.h>
 #include <linux/module.h>

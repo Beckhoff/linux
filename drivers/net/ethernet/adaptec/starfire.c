@@ -28,6 +28,7 @@
 
 #define DRV_NAME	"starfire"
 
+#include <linux/dma-mapping.h>
 #include <linux/device_api.h>
 #include <linux/interrupt.h>
 #include <linux/module.h>
