@@ -8,6 +8,7 @@
  * Heavily rewritten.
  */
 
+#include <linux/atomic_api.h>
 #include <net/sock.h>
 #include <linux/syscalls.h>
 #include <linux/export.h>

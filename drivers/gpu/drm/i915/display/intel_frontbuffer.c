@@ -55,6 +55,8 @@
  * cancelled as soon as busyness is detected.
  */
 
+#include <linux/atomic_api.h>
+
 #include "display/intel_dp.h"
 
 #include "i915_drv.h"

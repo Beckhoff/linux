@@ -15,6 +15,7 @@
 
 #define pr_fmt(fmt) "kcsan_test: " fmt
 
+#include <linux/atomic_api.h>
 #include <kunit/test.h>
 #include <linux/jiffies.h>
 #include <linux/kcsan-checks.h>

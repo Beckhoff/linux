@@ -6,6 +6,7 @@
  */
 
 #define FSCACHE_DEBUG_LEVEL PAGE
+#include <linux/atomic_api.h>
 #include <linux/module.h>
 #define FSCACHE_USE_NEW_IO_API
 #include <linux/fscache-cache.h>

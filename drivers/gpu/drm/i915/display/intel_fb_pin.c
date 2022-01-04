@@ -7,6 +7,8 @@
  * DOC: display pinning helpers
  */
 
+#include <linux/atomic_api.h>
+
 #include "intel_display_types.h"
 #include "intel_fb_pin.h"
 #include "intel_fb.h"

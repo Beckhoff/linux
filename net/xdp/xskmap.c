@@ -3,6 +3,7 @@
  * Copyright(c) 2018 Intel Corporation.
  */
 
+#include <linux/atomic_api.h>
 #include <linux/bpf.h>
 #include <linux/capability.h>
 #include <net/xdp_sock.h>

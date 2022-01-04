@@ -30,6 +30,7 @@
 
 #include "cgroup-internal.h"
 
+#include <linux/atomic_api.h>
 #include <linux/cred.h>
 #include <linux/errno.h>
 #include <linux/init_task.h>

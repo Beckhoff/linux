@@ -12,6 +12,7 @@
  *		Initial version
  */
 
+#include <linux/atomic_api.h>
 #include <linux/sched/cond_resched.h>
 #include <linux/kernel.h>
 #include <linux/export.h>

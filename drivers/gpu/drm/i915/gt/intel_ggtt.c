@@ -3,6 +3,7 @@
  * Copyright © 2020 Intel Corporation
  */
 
+#include <linux/atomic_api.h>
 #include <linux/stop_machine.h>
 
 #include <asm/set_memory.h>

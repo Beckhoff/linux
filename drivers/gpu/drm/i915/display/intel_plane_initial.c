@@ -3,6 +3,8 @@
  * Copyright © 2021 Intel Corporation
  */
 
+#include <linux/atomic_api.h>
+
 #include "intel_display_types.h"
 #include "intel_plane_initial.h"
 #include "intel_atomic_plane.h"

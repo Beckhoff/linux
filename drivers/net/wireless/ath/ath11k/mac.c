@@ -3,6 +3,7 @@
  * Copyright (c) 2018-2019 The Linux Foundation. All rights reserved.
  */
 
+#include <linux/atomic_api.h>
 #include <net/mac80211.h>
 #include <linux/etherdevice.h>
 #include "mac.h"

@@ -1,5 +1,6 @@
 /* License: GPL */
 
+#include <linux/atomic_api.h>
 #include <linux/mutex.h>
 #include <linux/socket.h>
 #include <linux/skbuff.h>
