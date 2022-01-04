@@ -7,6 +7,7 @@
  *  Copyright (C) 1991-2002  Linus Torvalds
  */
 #define CREATE_TRACE_POINTS
+#include <linux/rculist.h>
 #include <linux/prefetch.h>
 #include <linux/pgtable_api.h>
 #include <linux/perf_event.h>

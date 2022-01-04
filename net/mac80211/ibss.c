@@ -12,6 +12,7 @@
  * Copyright(c) 2018-2021 Intel Corporation
  */
 
+#include <linux/rculist.h>
 #include <linux/random.h>
 #include <linux/netdevice_api.h>
 #include <linux/mutex_api.h>

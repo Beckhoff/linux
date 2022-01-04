@@ -23,6 +23,7 @@
  * formats.
  */
 
+#include <linux/rculist.h>
 #include <linux/ptrace_api.h>
 #include <linux/perf_event_api.h>
 #include <linux/mutex_api.h>

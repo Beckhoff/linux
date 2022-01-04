@@ -34,6 +34,7 @@
 
 #include "common.h"
 
+#include <linux/rculist.h>
 #include <linux/pgtable_api.h>
 #include <linux/netdevice_api.h>
 #include <linux/mm_page_address.h>

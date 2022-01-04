@@ -5,6 +5,7 @@
  * Copyright (c) 2015 Jiri Pirko <jiri@resnulli.us>
  */
 
+#include <linux/rculist.h>
 #include <linux/netdevice_api.h>
 #include <linux/idr_api.h>
 #include <linux/kernel.h>
