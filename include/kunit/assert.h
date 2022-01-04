@@ -9,6 +9,7 @@
 #ifndef _KUNIT_ASSERT_H
 #define _KUNIT_ASSERT_H
 
+#include <linux/printk.h>
 #include <linux/err.h>
 #include <linux/kernel.h>
 

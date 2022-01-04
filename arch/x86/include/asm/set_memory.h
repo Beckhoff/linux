@@ -2,6 +2,7 @@
 #ifndef _ASM_X86_SET_MEMORY_H
 #define _ASM_X86_SET_MEMORY_H
 
+#include <linux/printk.h>
 #include <asm/pgtable_types.h>
 #include <asm/page.h>
 #include <asm-generic/set_memory.h>
