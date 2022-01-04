@@ -9,6 +9,7 @@
  * Based on rpmsg performance statistics driver by Michal Simek, which in turn
  * was based on TI & Google OMX rpmsg driver.
  */
+#include <linux/uio_api.h>
 #include <linux/spinlock_api.h>
 #include <linux/skbuff_api.h>
 #include <linux/skbuff_api_extra.h>
