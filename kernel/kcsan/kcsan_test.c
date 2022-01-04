@@ -15,6 +15,7 @@
 
 #define pr_fmt(fmt) "kcsan_test: " fmt
 
+#include <linux/seqlock_api.h>
 #include <linux/cpumask_api.h>
 #include <linux/atomic_api.h>
 #include <kunit/test.h>
