@@ -17,6 +17,7 @@
  *		Improved for non-engineering-sample Athlons
  *
  */
+#include <linux/preempt.h>
 #include <linux/hardirq.h>
 #include <linux/string.h>
 #include <linux/export.h>
