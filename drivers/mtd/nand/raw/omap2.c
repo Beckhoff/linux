@@ -5,6 +5,7 @@
  * Copyright © 2004 David Brownell
  */
 
+#include <linux/of_api.h>
 #include <linux/ioport.h>
 #include <linux/device_api_lock.h>
 #include <linux/sched/cond_resched.h>

@@ -4,6 +4,7 @@
 //
 //  Author: Claude <claude@insginal.co.kr>
 
+#include <linux/of_api.h>
 #include <linux/module.h>
 #include <linux/of_device.h>
 #include <linux/platform_device.h>

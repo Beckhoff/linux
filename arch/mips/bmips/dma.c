@@ -8,6 +8,7 @@
 
 #define pr_fmt(fmt)		"bmips-dma: " fmt
 
+#include <linux/of_api.h>
 #include <asm/cpu-type.h>
 #include <linux/device.h>
 #include <linux/dma-direction.h>

@@ -3,6 +3,7 @@
  * Copyright (c) 2017 Icenowy Zheng <icenowy@aosc.xyz>
  */
 
+#include <linux/of_api.h>
 #include <linux/clk-provider.h>
 #include <linux/of_address.h>
 #include <linux/platform_device.h>

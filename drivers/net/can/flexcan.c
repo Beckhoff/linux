@@ -9,6 +9,7 @@
 //
 // Based on code originally by Andrey Volkov <avolkov@varma-el.com>
 
+#include <linux/of_api.h>
 #include <linux/netdevice_api.h>
 #include <linux/io_extra.h>
 #include <dt-bindings/firmware/imx/rsrc.h>

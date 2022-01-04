@@ -10,6 +10,7 @@
  *  Rajan Vaja <rajanv@xilinx.com>
  */
 
+#include <linux/of_api.h>
 #include <linux/hashtable_api.h>
 #include <linux/arm-smccc.h>
 #include <linux/compiler.h>
