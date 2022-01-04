@@ -1,3 +1,6 @@
+
+#include <net/netlink_types.h>
+
 /* SPDX-License-Identifier: ISC */
 /*
  * Copyright (C) 2020 Felix Fietkau <nbd@nbd.name>
