@@ -49,6 +49,7 @@
  *  o buffer memory
  */
 
+#include <linux/sunrpc/debug.h>
 #include <linux/spinlock_api.h>
 #include <linux/llist_api.h>
 #include <linux/kref_api.h>
