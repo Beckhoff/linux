@@ -10,6 +10,7 @@
 #ifndef _COMEDIDEV_H
 #define _COMEDIDEV_H
 
+#include <asm/io.h>
 #include <linux/dma-mapping.h>
 #include <linux/mutex.h>
 #include <linux/spinlock_types.h>
