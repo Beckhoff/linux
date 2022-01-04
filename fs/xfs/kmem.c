@@ -4,6 +4,7 @@
  * All Rights Reserved.
  */
 #include "xfs.h"
+#include <linux/backing-dev-api.h>
 #include <linux/backing-dev.h>
 #include "xfs_message.h"
 #include "xfs_trace.h"
