@@ -7,6 +7,7 @@
  *  Copyright (C) 1991-2002  Linus Torvalds
  */
 #define CREATE_TRACE_POINTS
+#include <linux/hardirq.h>
 #include <linux/debug_locks.h>
 #include <linux/cpumask_api.h>
 #include <linux/capability.h>

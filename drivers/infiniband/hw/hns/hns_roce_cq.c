@@ -30,6 +30,7 @@
  * SOFTWARE.
  */
 
+#include <linux/hardirq.h>
 #include <linux/platform_device.h>
 #include <rdma/ib_umem.h>
 #include <rdma/uverbs_ioctl.h>
