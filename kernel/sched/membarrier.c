@@ -4,6 +4,7 @@
  *
  * membarrier system call
  */
+#include <linux/sched/mm.h>
 #include <linux/cpumask_api.h>
 
 #include "sched.h"
