@@ -7,6 +7,7 @@
  *
  */
 
+#include <linux/kref_api.h>
 #include <linux/ioprio.h>
 #include <linux/hardirq.h>
 #include <linux/dma-mapping.h>
