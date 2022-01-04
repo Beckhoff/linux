@@ -6,6 +6,7 @@
  *
  * Copyright(C) 2007, Red Hat, Inc., Ingo Molnar
  */
+#include <linux/timex.h>
 #include <linux/spinlock_api.h>
 #include <linux/sched/task.h>
 #include <linux/sched/signal.h>
