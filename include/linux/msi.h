@@ -2,6 +2,7 @@
 #ifndef LINUX_MSI_H
 #define LINUX_MSI_H
 
+#include <linux/err.h>
 #include <linux/bug.h>
 #include <linux/kobject.h>
 #include <linux/list.h>
