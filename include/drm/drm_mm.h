@@ -37,6 +37,7 @@
 /*
  * Generic range manager structs
  */
+#include <linux/limits.h>
 #include <linux/bitops.h>
 #include <linux/bug.h>
 #include <linux/rbtree.h>
