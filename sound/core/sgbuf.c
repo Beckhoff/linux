@@ -5,6 +5,7 @@
  *  Copyright (c) by Takashi Iwai <tiwai@suse.de>
  */
 
+#include <linux/pgtable_api.h>
 #include <linux/mm_api.h>
 #include <linux/slab.h>
 #include <linux/mm.h>
