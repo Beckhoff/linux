@@ -14,6 +14,7 @@
  *		Additions for address_space-based writeback
  */
 
+#include <linux/sched/task_flags.h>
 #include <linux/rwsem_api.h>
 #include <linux/rculist.h>
 #include <linux/mutex_api.h>

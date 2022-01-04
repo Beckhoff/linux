@@ -6,6 +6,7 @@
 
 #define INCLUDE_VERMAGIC
 
+#include <linux/sched/task_flags.h>
 #include <linux/rwsem_api.h>
 #include <linux/rbtree_latch.h>
 #include <linux/pgtable_api.h>

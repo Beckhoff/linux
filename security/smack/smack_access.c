@@ -6,6 +6,7 @@
  *      Casey Schaufler <casey@schaufler-ca.com>
  */
 
+#include <linux/sched/task_flags.h>
 #include <linux/rculist.h>
 #include <linux/mutex_api.h>
 #include <linux/capability.h>
