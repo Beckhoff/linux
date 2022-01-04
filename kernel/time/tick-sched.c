@@ -8,6 +8,7 @@
  *
  *  Started by: Thomas Gleixner and Ingo Molnar
  */
+#include <linux/softirq.h>
 #include <linux/seqlock_api.h>
 #include <linux/sched/per_task.h>
 #include <linux/sched.h>

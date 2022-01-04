@@ -20,6 +20,7 @@
  *  Adaptive scheduling granularity, math enhancements by Peter Zijlstra
  *  Copyright (C) 2007 Red Hat, Inc., Peter Zijlstra
  */
+#include <linux/softirq.h>
 #include <linux/slab.h>
 #include <linux/sched/task.h>
 #include <linux/refcount_api.h>
