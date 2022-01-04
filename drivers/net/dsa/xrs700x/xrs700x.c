@@ -4,6 +4,7 @@
  * George McCollister <george.mccollister@gmail.com>
  */
 
+#include <linux/bitmap.h>
 #include <net/dsa.h>
 #include <linux/if_bridge.h>
 #include <linux/of_device.h>

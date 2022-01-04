@@ -2,6 +2,8 @@
 /* Copyright(c) 2019-2020  Realtek Corporation
  */
 
+#include <linux/bitmap.h>
+
 #include "coex.h"
 #include "core.h"
 #include "efuse.h"
