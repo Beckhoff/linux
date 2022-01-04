@@ -3,6 +3,7 @@
  * Copyright (C) 2012 by Alan Stern
  */
 
+#include <linux/hrtimer_api.h>
 #include <linux/types.h>
 
 /* This file is part of ehci-hcd.c */
