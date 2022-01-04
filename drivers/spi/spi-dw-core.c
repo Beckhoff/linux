@@ -5,6 +5,7 @@
  * Copyright (c) 2009, Intel Corporation.
  */
 
+#include <linux/property.h>
 #include <linux/dma-mapping.h>
 #include <linux/interrupt.h>
 #include <linux/module.h>

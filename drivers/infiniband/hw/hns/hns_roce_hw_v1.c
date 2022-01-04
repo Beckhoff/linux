@@ -30,6 +30,7 @@
  * SOFTWARE.
  */
 
+#include <linux/property.h>
 #include <linux/of_api.h>
 #include <linux/mutex_api.h>
 #include <linux/mm_api.h>

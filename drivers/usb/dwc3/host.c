@@ -7,6 +7,7 @@
  * Authors: Felipe Balbi <balbi@ti.com>,
  */
 
+#include <linux/property.h>
 #include <linux/ioport.h>
 #include <linux/capability.h>
 #include <linux/acpi.h>
