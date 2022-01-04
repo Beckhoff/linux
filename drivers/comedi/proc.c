@@ -15,6 +15,7 @@
 
 #include "comedidev.h"
 #include "comedi_internal.h"
+#include <linux/init.h>
 #include <linux/proc_fs.h>
 #include <linux/seq_file.h>
 
