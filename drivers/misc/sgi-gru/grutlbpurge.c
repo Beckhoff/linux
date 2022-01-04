@@ -12,6 +12,7 @@
  *  Copyright (c) 2008 Silicon Graphics, Inc.  All Rights Reserved.
  */
 
+#include <linux/smp_api.h>
 #include <linux/sched.h>
 #include <linux/atomic_api.h>
 #include <linux/kernel.h>
