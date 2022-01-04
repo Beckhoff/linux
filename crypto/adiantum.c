@@ -30,6 +30,7 @@
  * functions could be added here.
  */
 
+#include <linux/scatterlist_api.h>
 #include <crypto/b128ops.h>
 #include <crypto/chacha.h>
 #include <crypto/internal/cipher.h>

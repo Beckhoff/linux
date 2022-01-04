@@ -30,6 +30,7 @@
  * SOFTWARE.
  *
  */
+#include <linux/scatterlist_api.h>
 #include <linux/refcount_api.h>
 #include <linux/kernel.h>
 #include <linux/in.h>

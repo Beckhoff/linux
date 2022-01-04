@@ -5,6 +5,7 @@
  *               Krzysztof Opasiak <k.opasiak@samsung.com>
  */
 
+#include <linux/scatterlist_api.h>
 #include <asm/byteorder.h>
 #include <linux/file.h>
 #include <linux/fs.h>
