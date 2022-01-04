@@ -15,6 +15,7 @@
  *                    Michael Trimarchi <michael@amarulasolutions.com>,
  *                    Fabio Checconi <fchecconi@gmail.com>
  */
+#include <linux/lockdep_api.h>
 #include <linux/ktime_api.h>
 #include <linux/hrtimer_api.h>
 #include <linux/cpumask_api.h>

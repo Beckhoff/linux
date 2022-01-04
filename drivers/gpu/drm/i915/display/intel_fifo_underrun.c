@@ -25,6 +25,8 @@
  *
  */
 
+#include <linux/lockdep_api.h>
+
 #include "i915_drv.h"
 #include "i915_trace.h"
 #include "intel_de.h"

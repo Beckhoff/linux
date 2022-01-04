@@ -2,6 +2,7 @@
 /*
  * Interrupt descriptor table related code
  */
+#include <linux/lockdep_api.h>
 #include <asm/x86_irq.h>
 #include <asm/processor_api.h>
 #include <linux/interrupt.h>

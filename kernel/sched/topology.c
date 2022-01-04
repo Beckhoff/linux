@@ -4,6 +4,7 @@
  */
 #include "sched.h"
 
+#include <linux/lockdep_api.h>
 #include <linux/jiffies.h>
 #include <linux/cpumask_api.h>
 #include <linux/capability.h>

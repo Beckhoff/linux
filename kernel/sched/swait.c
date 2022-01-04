@@ -2,6 +2,8 @@
 /*
  * <linux/swait.h> (simple wait queues ) implementation:
  */
+#include <linux/lockdep_api.h>
+
 #include "sched.h"
 
 void __init_swait_queue_head(struct swait_queue_head *q, const char *name,

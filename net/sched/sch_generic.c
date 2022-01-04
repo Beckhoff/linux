@@ -7,6 +7,7 @@
  *              - Ingress support
  */
 
+#include <linux/lockdep_api.h>
 #include <linux/jiffies.h>
 #include <linux/cpumask_api.h>
 #include <linux/atomic_api.h>

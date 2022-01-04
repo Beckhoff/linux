@@ -9,6 +9,7 @@
  * Copyright 2018-2021	Intel Corporation
  */
 
+#include <linux/lockdep_api.h>
 #include <linux/jiffies.h>
 #include <linux/export.h>
 #include <linux/bitfield.h>
