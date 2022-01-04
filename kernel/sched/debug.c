@@ -6,6 +6,8 @@
  *
  * Copyright(C) 2007, Red Hat, Inc., Ingo Molnar
  */
+#include <linux/cpumask_api.h>
+
 #include "sched.h"
 
 /*

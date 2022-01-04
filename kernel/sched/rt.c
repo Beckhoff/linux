@@ -6,6 +6,7 @@
 #include "sched.h"
 #include "pelt.h"
 
+#include <linux/cpumask_api.h>
 #include <linux/posix-timers.h>
 
 int sched_rr_timeslice = RR_TIMESLICE;

@@ -8,6 +8,7 @@
  */
 #include "sched.h"
 
+#include <linux/cpumask_api.h>
 #include <trace/events/power.h>
 
 /* Linker adds these: start and end of __cpuidle functions */

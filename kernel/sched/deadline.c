@@ -15,6 +15,8 @@
  *                    Michael Trimarchi <michael@amarulasolutions.com>,
  *                    Fabio Checconi <fchecconi@gmail.com>
  */
+#include <linux/cpumask_api.h>
+
 #include "sched.h"
 #include "pelt.h"
 

@@ -38,6 +38,7 @@
  *
  */
 
+#include <linux/cpumask_api.h>
 #include <linux/atomic_api.h>
 #include <linux/slab.h>
 #include "pm8001_sas.h"

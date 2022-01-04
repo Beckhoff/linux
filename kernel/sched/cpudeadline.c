@@ -6,6 +6,8 @@
  *
  *  Author: Juri Lelli <j.lelli@sssup.it>
  */
+#include <linux/cpumask_api.h>
+
 #include "sched.h"
 
 static inline int parent(int i)

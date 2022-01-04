@@ -10,6 +10,7 @@
 
 #include "sched.h"
 
+#include <linux/cpumask_api.h>
 #include <linux/sched/cpufreq.h>
 #include <trace/events/power.h>
 

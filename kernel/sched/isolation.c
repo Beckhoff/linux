@@ -7,6 +7,7 @@
  * Copyright (C) 2017-2018 SUSE, Frederic Weisbecker
  *
  */
+#include <linux/cpumask_api.h>
 #include <linux/sched/affinity.h>
 
 #include "sched.h"

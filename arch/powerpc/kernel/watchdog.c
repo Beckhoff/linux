@@ -9,6 +9,7 @@
 
 #define pr_fmt(fmt) "watchdog: " fmt
 
+#include <linux/cpumask_api.h>
 #include <linux/cpuhotplug.h>
 #include <linux/kernel.h>
 #include <linux/param.h>

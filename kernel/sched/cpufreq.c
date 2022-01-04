@@ -5,6 +5,7 @@
  * Copyright (C) 2016, Intel Corporation
  * Author: Rafael J. Wysocki <rafael.j.wysocki@intel.com>
  */
+#include <linux/cpumask_api.h>
 #include <linux/cpufreq.h>
 
 #include "sched.h"

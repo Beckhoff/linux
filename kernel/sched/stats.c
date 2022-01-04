@@ -2,6 +2,8 @@
 /*
  * /proc/schedstat implementation
  */
+#include <linux/cpumask_api.h>
+
 #include "sched.h"
 
 void __update_stats_wait_start(struct rq *rq, struct task_struct *p,

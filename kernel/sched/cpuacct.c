@@ -5,6 +5,7 @@
  * Based on the work by Paul Menage (menage@google.com) and Balbir Singh
  * (balbir@in.ibm.com).
  */
+#include <linux/cpumask_api.h>
 #include <asm/irq_regs.h>
 #include "sched.h"
 
