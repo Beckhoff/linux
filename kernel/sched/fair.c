@@ -20,6 +20,7 @@
  *  Adaptive scheduling granularity, math enhancements by Peter Zijlstra
  *  Copyright (C) 2007 Red Hat, Inc., Peter Zijlstra
  */
+#include <asm/switch_to.h>
 #include <linux/sched/cond_resched.h>
 
 #include "sched.h"
