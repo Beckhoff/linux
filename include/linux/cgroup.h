@@ -9,6 +9,7 @@
  *
  */
 
+#include <linux/sched/task_flags.h>
 #include <linux/sched.h>
 #include <linux/cpumask.h>
 #include <linux/nodemask.h>
