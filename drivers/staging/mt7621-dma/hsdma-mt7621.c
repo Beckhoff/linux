@@ -4,6 +4,7 @@
  *  MTK HSDMA support
  */
 
+#include <linux/interrupt.h>
 #include <linux/device_api_lock.h>
 #include <linux/dmaengine.h>
 #include <linux/dma-mapping.h>

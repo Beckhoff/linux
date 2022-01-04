@@ -2,6 +2,8 @@
 /*
  * Simple CPU accounting cgroup controller
  */
+#include <linux/interrupt.h>
+
 #include "sched.h"
 
 #ifdef CONFIG_VIRT_CPU_ACCOUNTING_GEN

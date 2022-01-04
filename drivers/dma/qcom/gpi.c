@@ -4,6 +4,7 @@
  * Copyright (c) 2020, Linaro Limited
  */
 
+#include <linux/interrupt.h>
 #include <linux/device_api_lock.h>
 #include <dt-bindings/dma/qcom-gpi.h>
 #include <linux/bitfield.h>
