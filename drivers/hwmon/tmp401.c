@@ -18,6 +18,7 @@
  * and thus has 16 bits registers for its value and limit instead of 8 bits.
  */
 
+#include <linux/device_api_lock.h>
 #include <linux/module.h>
 #include <linux/init.h>
 #include <linux/bitops.h>

@@ -3,6 +3,7 @@
  * Copyright (c) 2014, The Linux Foundation. All rights reserved.
  */
 
+#include <linux/device_api_lock.h>
 #include <linux/cpuhotplug.h>
 #include <asm/local_api.h>
 #include <linux/bitops.h>

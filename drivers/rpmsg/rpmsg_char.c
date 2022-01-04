@@ -9,6 +9,7 @@
  * Based on rpmsg performance statistics driver by Michal Simek, which in turn
  * was based on TI & Google OMX rpmsg driver.
  */
+#include <linux/device_api_lock.h>
 #include <linux/cdev.h>
 #include <linux/device.h>
 #include <linux/fs.h>

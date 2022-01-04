@@ -6,6 +6,7 @@
  *
  * Author: Stefan Agner <stefan@agner.ch>.
  */
+#include <linux/device_api_lock.h>
 #include <linux/bitops.h>
 #include <linux/clk.h>
 #include <linux/err.h>

@@ -2,6 +2,7 @@
 // Copyright (C) 2018 ROHM Semiconductors
 // gpio-bd70528.c ROHM BD70528MWV gpio driver
 
+#include <linux/device_api_lock.h>
 #include <linux/gpio/driver.h>
 #include <linux/mfd/rohm-bd70528.h>
 #include <linux/module.h>

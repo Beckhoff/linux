@@ -5,6 +5,7 @@
  * Copyright 2011 Marvell. <jyli@marvell.com>
 */
 
+#include <linux/device_api_lock.h>
 #include <linux/atomic_api.h>
 #include <linux/kernel.h>
 #include <linux/module.h>

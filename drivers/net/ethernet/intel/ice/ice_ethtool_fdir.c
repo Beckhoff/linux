@@ -3,6 +3,8 @@
 
 /* flow director ethtool support for ice */
 
+#include <linux/device_api_lock.h>
+
 #include "ice.h"
 #include "ice_lib.h"
 #include "ice_flow.h"

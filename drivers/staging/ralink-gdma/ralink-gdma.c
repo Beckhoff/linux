@@ -3,6 +3,7 @@
  *  GDMA4740 DMAC support
  */
 
+#include <linux/device_api_lock.h>
 #include <linux/atomic_api.h>
 #include <linux/dmaengine.h>
 #include <linux/dma-mapping.h>

@@ -7,6 +7,7 @@
  *  Author: Hans J. Koch <hjk@linutronix.de>
  */
 
+#include <linux/device_api_lock.h>
 #include <linux/errno.h>
 #include <linux/gpio/driver.h>
 #include <linux/init.h>
