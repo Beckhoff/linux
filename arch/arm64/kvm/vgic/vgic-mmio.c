@@ -3,6 +3,7 @@
  * VGIC MMIO handling functions
  */
 
+#include <linux/mutex_api.h>
 #include <linux/irqdesc.h>
 #include <linux/bitops.h>
 #include <linux/bsearch.h>

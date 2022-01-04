@@ -5,6 +5,7 @@
  * Written by David Howells (dhowells@redhat.com)
  */
 
+#include <linux/mutex_api.h>
 #include <linux/ktime_api.h>
 #include <linux/export.h>
 #include <linux/init.h>

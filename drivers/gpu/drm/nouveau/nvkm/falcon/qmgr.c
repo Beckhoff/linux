@@ -20,6 +20,8 @@
  * OTHER DEALINGS IN THE SOFTWARE.
  *
  */
+#include <linux/mutex_api.h>
+
 #include "qmgr.h"
 
 struct nvkm_falcon_qmgr_seq *

@@ -4,6 +4,7 @@
  *
  * Copyright 2018 Analog Devices Inc.
  */
+#include <linux/mutex_api.h>
 #include <linux/device_api_lock.h>
 #include <linux/bitfield.h>
 #include <linux/bitops.h>

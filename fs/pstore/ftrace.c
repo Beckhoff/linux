@@ -3,6 +3,7 @@
  * Copyright 2012  Google, Inc.
  */
 
+#include <linux/mutex_api.h>
 #include <linux/fs_api.h>
 #include <linux/kernel.h>
 #include <linux/compiler.h>

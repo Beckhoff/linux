@@ -11,6 +11,7 @@
  * the Free Software Foundation.
  */
 
+#include <linux/mutex_api.h>
 #include <linux/fs.h>
 #include <linux/err.h>
 #include <linux/kernel.h>

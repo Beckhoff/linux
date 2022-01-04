@@ -7,6 +7,7 @@
  *          Michael Thayer <michael.thayer@oracle.com,
  *          Hans de Goede <hdegoede@redhat.com>
  */
+#include <linux/mutex_api.h>
 #include <linux/console.h>
 #include <linux/module.h>
 #include <linux/pci.h>

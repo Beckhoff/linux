@@ -5,6 +5,7 @@
  * Copyright (C) 2007 David Brownell
  */
 
+#include <linux/mutex_api.h>
 #include <linux/device_api_lock.h>
 #include <linux/gpio/driver.h>
 #include <linux/i2c.h>

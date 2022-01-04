@@ -3,6 +3,7 @@
  * Copyright (C) 2018 Texas Instruments Incorporated - https://www.ti.com/
  */
 
+#include <linux/mutex_api.h>
 #include <linux/err.h>
 #include <linux/delay.h>
 #include <linux/device.h>

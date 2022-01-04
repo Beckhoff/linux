@@ -6,6 +6,7 @@
  *
  */
 
+#include <linux/mutex_api.h>
 #include <linux/mmap_lock.h>
 #include <linux/atomic_api.h>
 #include <linux/vmalloc.h>

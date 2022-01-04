@@ -8,6 +8,7 @@
  * Copyright (C) 2015 IBM Corporation
  */
 
+#include <linux/mutex_api.h>
 #include <linux/interrupt.h>
 #include <linux/pci.h>
 #include <linux/syscalls.h>

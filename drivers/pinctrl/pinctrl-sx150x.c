@@ -11,6 +11,7 @@
  * Author: Gregory Bean <gbean@codeaurora.org>
  */
 
+#include <linux/mutex_api.h>
 #include <linux/device_api_lock.h>
 #include <linux/regmap.h>
 #include <linux/i2c.h>

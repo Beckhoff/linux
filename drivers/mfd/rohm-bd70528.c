@@ -4,6 +4,7 @@
 //
 // ROHM BD70528 PMIC driver
 
+#include <linux/mutex_api.h>
 #include <linux/device_api_lock.h>
 #include <linux/i2c.h>
 #include <linux/interrupt.h>

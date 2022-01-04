@@ -10,6 +10,7 @@
  *                    Jonathan Woithe <jwoithe@just42.net>
  */
 
+#include <linux/mutex_api.h>
 #include <linux/init.h>
 #include <linux/delay.h>
 #include <linux/slab.h>

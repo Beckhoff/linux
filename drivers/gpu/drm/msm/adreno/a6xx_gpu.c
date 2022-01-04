@@ -8,6 +8,7 @@
 #include "a6xx_gpu.h"
 #include "a6xx_gmu.xml.h"
 
+#include <linux/mutex_api.h>
 #include <linux/bitfield.h>
 #include <linux/devfreq.h>
 #include <linux/nvmem-consumer.h>

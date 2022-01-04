@@ -7,6 +7,7 @@
  *  Copyright (C) 1991-2002  Linus Torvalds
  */
 #define CREATE_TRACE_POINTS
+#include <linux/mutex_api.h>
 #include <linux/mmzone.h>
 #include <linux/lockdep_api.h>
 #include <linux/llist_api.h>

@@ -8,6 +8,7 @@
 * (C) Copyright 2013 IBM Corporation
 */
 
+#include <linux/mutex_api.h>
 #include <linux/jiffies.h>
 #include <linux/io.h>
 #include <linux/dma-mapping.h>

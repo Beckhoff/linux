@@ -18,6 +18,7 @@
 
 #define pr_fmt(fmt) "dmxdev: " fmt
 
+#include <linux/mutex_api.h>
 #include <linux/ktime_api.h>
 #include <linux/jiffies.h>
 #include <linux/fs.h>

@@ -10,6 +10,7 @@
  * - ABC/target calibration
  */
 
+#include <linux/mutex_api.h>
 #include <linux/delay.h>
 #include <linux/bitops.h>
 #include <linux/i2c.h>

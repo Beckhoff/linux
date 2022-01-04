@@ -9,6 +9,7 @@
  *                        of people at Linux Expo.
  */
 
+#include <linux/mutex_api.h>
 #include <linux/mm_api.h>
 #include <linux/kobject_api.h>
 #include <linux/jiffies.h>

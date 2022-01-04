@@ -3,6 +3,7 @@
  * Copyright (C) 2011-2012 Avionic Design GmbH
  */
 
+#include <linux/mutex_api.h>
 #include <linux/device_api_lock.h>
 #include <linux/gpio/driver.h>
 #include <linux/i2c.h>

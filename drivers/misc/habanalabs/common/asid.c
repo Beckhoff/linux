@@ -7,6 +7,7 @@
 
 #include "habanalabs.h"
 
+#include <linux/mutex_api.h>
 #include <linux/slab.h>
 
 int hl_asid_init(struct hl_device *hdev)

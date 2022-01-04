@@ -3,6 +3,7 @@
 
 /* flow director ethtool support for ice */
 
+#include <linux/mutex_api.h>
 #include <linux/device_api_lock.h>
 
 #include "ice.h"

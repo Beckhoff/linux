@@ -6,6 +6,7 @@
  * Copyright 2007 Sony Corp.
  */
 
+#include <linux/mutex_api.h>
 #include <linux/bvec_api.h>
 #include <linux/ata.h>
 #include <linux/blk-mq.h>

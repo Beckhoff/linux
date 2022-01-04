@@ -6,6 +6,7 @@
  *      Casey Schaufler <casey@schaufler-ca.com>
  */
 
+#include <linux/mutex_api.h>
 #include <linux/capability.h>
 #include <linux/audit.h>
 #include <linux/types.h>

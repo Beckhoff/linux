@@ -23,6 +23,7 @@
  * THE SOFTWARE.
  */
 
+#include <linux/mutex_api.h>
 #include <linux/slab.h>
 #include <linux/mutex.h>
 #include <linux/kvm_host.h>

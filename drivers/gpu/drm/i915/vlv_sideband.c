@@ -3,6 +3,7 @@
  * Copyright © 2013-2021 Intel Corporation
  */
 
+#include <linux/mutex_api.h>
 #include <asm/iosf_mbi.h>
 
 #include "i915_drv.h"
