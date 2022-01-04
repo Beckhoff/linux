@@ -177,6 +177,7 @@
  * 3) Handle more ineligible cases.
  */
 
+#include <linux/dcache.h>
 #include <linux/atomic_api.h>
 #include <trace/events/ext4.h>
 static struct kmem_cache *ext4_fc_dentry_cachep;

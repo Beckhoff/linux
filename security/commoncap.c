@@ -2,6 +2,7 @@
 /* Common capabilities, needed by capability.o.
  */
 
+#include <linux/dcache.h>
 #include <linux/cred.h>
 #include <linux/capability.h>
 #include <linux/audit.h>

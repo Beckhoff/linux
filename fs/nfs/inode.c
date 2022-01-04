@@ -14,6 +14,7 @@
  *
  */
 
+#include <linux/dcache.h>
 #include <linux/crc32.h>
 #include <linux/atomic_api.h>
 #include <linux/module.h>
