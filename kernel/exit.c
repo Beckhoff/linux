@@ -5,6 +5,7 @@
  *  Copyright (C) 1991, 1992  Linus Torvalds
  */
 
+#include <linux/ptrace_api.h>
 #include <linux/perf_event_api.h>
 #include <linux/mmap_lock.h>
 #include <linux/mm_api.h>

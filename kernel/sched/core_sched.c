@@ -1,5 +1,6 @@
 // SPDX-License-Identifier: GPL-2.0-only
 
+#include <linux/ptrace_api.h>
 #include <linux/prctl.h>
 #include "sched.h"
 
