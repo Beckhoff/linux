@@ -22,6 +22,8 @@
  *
  */
 
+#include <linux/jiffies.h>
+
 #include "../i915_selftest.h"
 #include "i915_random.h"
 

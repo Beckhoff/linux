@@ -8,6 +8,7 @@
  */
 
 #define FSCACHE_DEBUG_LEVEL OPERATION
+#include <linux/jiffies.h>
 #include <linux/atomic_api.h>
 #include <linux/sched/cond_resched.h>
 #include <linux/module.h>

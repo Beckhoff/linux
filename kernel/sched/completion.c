@@ -11,6 +11,8 @@
  * typically be used for exclusion which gives rise to priority inversion.
  * Waiting for completion is a typically sync point, but not an exclusion point.
  */
+#include <linux/jiffies.h>
+
 #include "sched.h"
 
 /**

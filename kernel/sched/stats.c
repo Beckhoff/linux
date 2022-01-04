@@ -2,6 +2,7 @@
 /*
  * /proc/schedstat implementation
  */
+#include <linux/jiffies.h>
 #include <linux/cpumask_api.h>
 
 #include "sched.h"

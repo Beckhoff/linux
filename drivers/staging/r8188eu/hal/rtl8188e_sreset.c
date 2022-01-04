@@ -3,6 +3,7 @@
 
 #define _RTL8188E_SRESET_C_
 
+#include <linux/jiffies.h>
 #include <linux/fs_api.h>
 
 #include "../include/rtl8188e_sreset.h"

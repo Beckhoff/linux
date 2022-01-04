@@ -17,6 +17,7 @@
 
 #include "core.h"
 
+#include <linux/jiffies.h>
 #include <linux/fs_api.h>
 #include <linux/skbuff.h>
 #include <linux/fs.h>

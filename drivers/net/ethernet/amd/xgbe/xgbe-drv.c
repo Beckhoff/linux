@@ -114,6 +114,7 @@
  *     THE POSSIBILITY OF SUCH DAMAGE.
  */
 
+#include <linux/jiffies.h>
 #include <linux/ipv6.h>
 #include <linux/etherdevice_api.h>
 #include <linux/dma-mapping.h>

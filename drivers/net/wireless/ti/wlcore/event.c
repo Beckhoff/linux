@@ -7,6 +7,8 @@
  * Contact: Luciano Coelho <luciano.coelho@nokia.com>
  */
 
+#include <linux/jiffies.h>
+
 #include "wlcore.h"
 #include "debug.h"
 #include "io.h"

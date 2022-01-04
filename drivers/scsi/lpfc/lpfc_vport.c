@@ -21,6 +21,7 @@
  * included with this package.                                     *
  *******************************************************************/
 
+#include <linux/jiffies.h>
 #include <linux/blkdev.h>
 #include <linux/delay.h>
 #include <linux/dma-mapping.h>

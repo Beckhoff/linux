@@ -42,6 +42,7 @@
  * USA.
  */
 
+#include <linux/jiffies.h>
 #include <linux/ioprio.h>
 #include <linux/atomic_api.h>
 #include <linux/module.h>

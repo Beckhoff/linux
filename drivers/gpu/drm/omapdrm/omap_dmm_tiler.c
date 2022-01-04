@@ -15,6 +15,7 @@
  * GNU General Public License for more details.
  */
 
+#include <linux/jiffies.h>
 #include <linux/ioport.h>
 #include <linux/io.h>
 #include <linux/io_extra.h>

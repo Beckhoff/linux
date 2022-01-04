@@ -6,6 +6,7 @@
  * Author: Andi Kleen
  */
 
+#include <linux/jiffies.h>
 #include <linux/atomic_api.h>
 #include <linux/gfp.h>
 #include <linux/interrupt.h>

@@ -6,6 +6,7 @@
  *	Stephen Hemminger		<shemminger@osdl.org>
  */
 
+#include <linux/jiffies.h>
 #include <linux/etherdevice_api.h>
 #include <linux/sched/cond_resched.h>
 #include <linux/kernel.h>

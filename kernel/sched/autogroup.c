@@ -2,6 +2,7 @@
 /*
  * Auto-group scheduling implementation:
  */
+#include <linux/jiffies.h>
 #include <linux/capability.h>
 #include <linux/nospec.h>
 #include "sched.h"
