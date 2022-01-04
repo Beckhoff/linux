@@ -30,6 +30,7 @@
  * SOFTWARE.
  */
 
+#include <net/xdp_api.h>
 #include <linux/workqueue_api.h>
 #include <linux/topology.h>
 #include <linux/skbuff_api.h>
