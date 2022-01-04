@@ -2,6 +2,7 @@
 /*
  * Copyright (c) 2017-2019 Borislav Petkov, SUSE Labs.
  */
+#include <linux/fs_api.h>
 #include <linux/mm.h>
 #include <linux/gfp.h>
 #include <linux/ras.h>

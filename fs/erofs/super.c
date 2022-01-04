@@ -3,6 +3,7 @@
  * Copyright (C) 2017-2018 HUAWEI, Inc.
  *             https://www.huawei.com/
  */
+#include <linux/fs_api.h>
 #include <linux/dcache.h>
 #include <linux/sched/cond_resched.h>
 #include <linux/module.h>

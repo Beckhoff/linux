@@ -23,6 +23,7 @@
  *
  */
 
+#include <linux/fs_api.h>
 #include <linux/dma-fence-api.h>
 #include <linux/atomic_api.h>
 #include <linux/kthread.h>

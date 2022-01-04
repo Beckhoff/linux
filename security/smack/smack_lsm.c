@@ -15,6 +15,7 @@
  *  Copyright (C) 2011 Intel Corporation.
  */
 
+#include <linux/fs_api.h>
 #include <linux/capability.h>
 #include <linux/xattr.h>
 #include <linux/pagemap.h>

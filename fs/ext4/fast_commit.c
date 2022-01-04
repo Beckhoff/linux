@@ -177,6 +177,7 @@
  * 3) Handle more ineligible cases.
  */
 
+#include <linux/fs_api.h>
 #include <linux/dcache.h>
 #include <linux/atomic_api.h>
 #include <trace/events/ext4.h>

@@ -1,5 +1,7 @@
 // SPDX-License-Identifier: ISC
 
+#include <linux/fs_api.h>
+
 #include "mt7603.h"
 
 static int

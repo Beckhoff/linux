@@ -44,6 +44,7 @@
  * a struct file opened for write. Fixed. 2/6/2000, AV.
  */
 
+#include <linux/fs_api.h>
 #include <linux/atomic_api.h>
 #include <linux/mm.h>
 #include <linux/slab.h>

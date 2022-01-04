@@ -13,6 +13,7 @@
  *		use bio_add_page() to build bio's just the right size
  */
 
+#include <linux/fs_api.h>
 #include <linux/kernel.h>
 #include <linux/export.h>
 #include <linux/mm.h>

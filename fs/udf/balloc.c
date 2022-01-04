@@ -21,6 +21,7 @@
 
 #include "udfdecl.h"
 
+#include <linux/fs_api.h>
 #include <linux/bitops.h>
 
 #include "udf_i.h"

@@ -16,6 +16,7 @@
  * If given, the driver will reset the scanlog so the platform can free it.
  */
 
+#include <linux/fs_api.h>
 #include <linux/module.h>
 #include <linux/types.h>
 #include <linux/errno.h>

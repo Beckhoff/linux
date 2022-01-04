@@ -4,6 +4,7 @@
  * Copyright (c) 2016, Intel Corporation.
  */
 
+#include <linux/fs_api.h>
 #include <linux/kernel.h>
 #include <linux/processor.h>
 #include <asm/cpu_device_id.h>

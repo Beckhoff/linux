@@ -23,6 +23,7 @@
  *
  */
 
+#include <linux/fs_api.h>
 #include <linux/capability.h>
 #include <linux/uaccess.h>
 

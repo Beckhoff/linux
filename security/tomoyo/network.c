@@ -6,6 +6,7 @@
  */
 
 #include "common.h"
+#include <linux/fs_api.h>
 #include <linux/slab.h>
 
 /* Structure for holding inet domain socket's address. */

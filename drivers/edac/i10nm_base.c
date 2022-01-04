@@ -5,6 +5,7 @@
  *
  */
 
+#include <linux/fs_api.h>
 #include <linux/kernel.h>
 #include <linux/io.h>
 #include <asm/cpu_device_id.h>

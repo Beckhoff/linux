@@ -2,6 +2,8 @@
 /*
  * Copyright (C) 2016 Felix Fietkau <nbd@nbd.name>
  */
+#include <linux/fs_api.h>
+
 #include "mt76.h"
 
 static int
