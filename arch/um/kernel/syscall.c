@@ -3,6 +3,7 @@
  * Copyright (C) 2000 - 2007 Jeff Dike (jdike@{addtoit,linux.intel}.com)
  */
 
+#include <linux/syscalls_api.h>
 #include <linux/file.h>
 #include <linux/fs.h>
 #include <linux/mm.h>
