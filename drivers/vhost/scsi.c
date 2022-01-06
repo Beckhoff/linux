@@ -9,6 +9,7 @@
  *          Stefan Hajnoczi <stefanha@linux.vnet.ibm.com>
  ****************************************************************************/
 
+#include <linux/sched.h>
 #include <linux/uio_api.h>
 #include <linux/uaccess.h>
 #include <linux/scatterlist_api.h>

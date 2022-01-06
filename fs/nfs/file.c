@@ -17,6 +17,7 @@
  *  nfs regular file handling functions
  */
 
+#include <linux/sched.h>
 #include <linux/wait_bit.h>
 #include <linux/uio_api.h>
 #include <linux/spinlock_api.h>

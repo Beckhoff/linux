@@ -7,6 +7,7 @@
  * the Free Software Foundation.
  */
 
+#include <linux/sched.h>
 #include <linux/uaccess.h>
 #include <linux/slab.h>
 #include <linux/netdevice_api.h>

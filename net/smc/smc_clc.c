@@ -10,6 +10,7 @@
  *  Author(s):  Ursula Braun <ubraun@linux.vnet.ibm.com>
  */
 
+#include <linux/sched.h>
 #include <net/sock_api.h>
 #include <net/netlink_api.h>
 #include <net/ipv6_api.h>
