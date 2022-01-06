@@ -6,6 +6,7 @@
  *  Copyright 2008 Rusty Russell IBM Corporation
  */
 
+#include <linux/sched.h>
 #include <linux/workqueue_api.h>
 #include <linux/wait_api.h>
 #include <linux/vmstat.h>

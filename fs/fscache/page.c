@@ -6,6 +6,7 @@
  */
 
 #define FSCACHE_DEBUG_LEVEL PAGE
+#include <linux/sched.h>
 #include <linux/wait_bit.h>
 #include <linux/wait_api.h>
 #include <linux/spinlock_api.h>

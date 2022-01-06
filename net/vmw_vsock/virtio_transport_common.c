@@ -6,6 +6,7 @@
  * Author: Asias He <asias@redhat.com>
  *         Stefan Hajnoczi <stefanha@redhat.com>
  */
+#include <linux/sched.h>
 #include <net/sock_api.h>
 #include <linux/workqueue_api.h>
 #include <linux/wait_api.h>

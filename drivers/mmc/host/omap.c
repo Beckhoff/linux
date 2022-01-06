@@ -8,6 +8,7 @@
  *  Other hacks (DMA, SD, etc) by David Brownell
  */
 
+#include <linux/sched.h>
 #include <linux/workqueue_api.h>
 #include <linux/wait_api.h>
 #include <linux/tasklet_api.h>

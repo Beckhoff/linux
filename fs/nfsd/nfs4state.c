@@ -32,6 +32,7 @@
 *
 */
 
+#include <linux/sched.h>
 #include <net/net_namespace_api.h>
 #include <linux/workqueue_api.h>
 #include <linux/wait_api.h>

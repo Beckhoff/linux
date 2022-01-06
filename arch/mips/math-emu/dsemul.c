@@ -1,4 +1,5 @@
 // SPDX-License-Identifier: GPL-2.0
+#include <linux/sched.h>
 #include <uapi/asm/signal.h>
 #include <linux/wait_api.h>
 #include <linux/spinlock_api.h>

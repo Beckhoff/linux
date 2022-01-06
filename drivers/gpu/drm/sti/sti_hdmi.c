@@ -4,6 +4,7 @@
  * Author: Vincent Abriou <vincent.abriou@st.com> for STMicroelectronics.
  */
 
+#include <linux/sched.h>
 #include <linux/wait_api.h>
 #include <linux/slab.h>
 #include <linux/seq_file.h>

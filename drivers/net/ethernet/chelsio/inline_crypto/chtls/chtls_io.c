@@ -5,6 +5,7 @@
  * Written by: Atul Gupta (atul.gupta@chelsio.com)
  */
 
+#include <linux/sched.h>
 #include <net/sock_api.h>
 #include <linux/wait_api.h>
 #include <linux/slab.h>

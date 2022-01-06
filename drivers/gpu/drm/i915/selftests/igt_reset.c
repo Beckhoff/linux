@@ -4,6 +4,7 @@
  * Copyright © 2018 Intel Corporation
  */
 
+#include <linux/sched.h>
 #include <linux/wait_bit.h>
 #include <linux/wait_api.h>
 

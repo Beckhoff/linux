@@ -5,6 +5,7 @@
  *  Copyright (c) 2010-2015 Steven Toth <stoth@kernellabs.com>
  */
 
+#include <linux/sched.h>
 #include <linux/wait_api.h>
 #include <linux/uaccess.h>
 #include <linux/slab.h>

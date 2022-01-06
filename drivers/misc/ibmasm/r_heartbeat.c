@@ -7,6 +7,7 @@
  * Author: Max Asböck <amax@us.ibm.com>
  */
 
+#include <linux/sched.h>
 #include <linux/wait_api.h>
 #include <linux/sched/signal.h>
 #include "ibmasm.h"

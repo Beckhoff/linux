@@ -13,6 +13,7 @@
 
 #define pr_fmt(fmt) KBUILD_MODNAME ": " fmt
 
+#include <linux/sched.h>
 #include <linux/wait_api.h>
 #include <linux/uio_api.h>
 #include <linux/sysfs.h>

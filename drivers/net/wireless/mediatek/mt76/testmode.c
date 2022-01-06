@@ -1,5 +1,6 @@
 // SPDX-License-Identifier: ISC
 /* Copyright (C) 2020 Felix Fietkau <nbd@nbd.name> */
+#include <linux/sched.h>
 #include <net/netlink_api.h>
 #include <linux/wait_api.h>
 #include <linux/spinlock_api.h>

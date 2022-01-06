@@ -9,6 +9,7 @@
  * Author: Rémi Denis-Courmont
  */
 
+#include <linux/sched.h>
 #include <net/sock_api.h>
 #include <net/sock_api_extra.h>
 #include <linux/wait_api.h>

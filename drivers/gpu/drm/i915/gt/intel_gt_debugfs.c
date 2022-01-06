@@ -3,6 +3,7 @@
  * Copyright © 2019 Intel Corporation
  */
 
+#include <linux/sched.h>
 #include <linux/wait_api.h>
 #include <linux/fs_api.h>
 #include <linux/debugfs.h>
