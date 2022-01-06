@@ -3,6 +3,7 @@
 /* Authors: Bernard Metzler <bmt@zurich.ibm.com> */
 /* Copyright (c) 2008-2019, IBM Corporation */
 
+#include <linux/sched.h>
 #include <net/sock_api.h>
 #include <linux/wait_api.h>
 #include <linux/uaccess.h>
