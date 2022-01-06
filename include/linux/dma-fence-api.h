@@ -21,7 +21,7 @@
 #include <linux/list.h>
 #include <linux/bitops.h>
 #include <linux/kref.h>
-#include <linux/sched.h>
+#include <linux/sched/types.h>
 #include <linux/printk.h>
 #include <linux/rcupdate.h>
 #include <linux/ktime.h>
