@@ -1,6 +1,7 @@
 // SPDX-License-Identifier: GPL-2.0+
 // Copyright (c) 2016-2017 Hisilicon Limited.
 
+#include <linux/dim.h>
 #include <net/checksum.h>
 #include <net/sch_generic_api.h>
 #include <net/ipv6_api.h>

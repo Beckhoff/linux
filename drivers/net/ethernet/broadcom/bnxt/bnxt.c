@@ -8,6 +8,7 @@
  * the Free Software Foundation.
  */
 
+#include <linux/dim.h>
 #include <linux/sched.h>
 #include <net/xdp_api.h>
 #include <net/netlink_api.h>
