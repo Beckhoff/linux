@@ -10,6 +10,7 @@
  * (C) 2003 - 2010	Dominik Brodowski
  */
 
+#include <linux/string.h>
 #include <linux/sysfs.h>
 #include <linux/mutex_api.h>
 #include <linux/kref_api.h>
