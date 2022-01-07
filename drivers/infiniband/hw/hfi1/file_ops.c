@@ -4,6 +4,7 @@
  * Copyright(c) 2015-2020 Intel Corporation.
  */
 
+#include <linux/srcu.h>
 #include <linux/sched.h>
 #include <linux/wait_api.h>
 #include <linux/uio_api.h>

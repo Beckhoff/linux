@@ -34,6 +34,7 @@
  * SOFTWARE.
  */
 
+#include <linux/srcu.h>
 #include <linux/nsproxy.h>
 #include <uapi/linux/signal.h>
 #include <net/netlink_api.h>

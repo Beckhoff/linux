@@ -3,6 +3,7 @@
  * Copyright © 2008-2018 Intel Corporation
  */
 
+#include <linux/srcu.h>
 #include <linux/sched.h>
 #include <linux/workqueue_api.h>
 #include <linux/wait_bit.h>
