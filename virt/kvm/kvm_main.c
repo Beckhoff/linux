@@ -13,6 +13,7 @@
  *   Yaniv Kamay  <yaniv@qumranet.com>
  */
 
+#include <linux/mmu_notifier.h>
 #include <linux/topology.h>
 #include <linux/spinlock_api.h>
 #include <linux/sched/task.h>

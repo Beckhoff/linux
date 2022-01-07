@@ -34,6 +34,7 @@
  * SOFTWARE.
  */
 
+#include <linux/mmu_notifier.h>
 #include <linux/srcu.h>
 #include <linux/nsproxy.h>
 #include <uapi/linux/signal.h>

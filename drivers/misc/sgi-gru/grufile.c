@@ -11,6 +11,7 @@
  *  Copyright (c) 2008-2014 Silicon Graphics, Inc.  All Rights Reserved.
  */
 
+#include <linux/mmu_notifier.h>
 #include <linux/smp_api.h>
 #include <linux/sched.h>
 #include <linux/rwsem_api.h>

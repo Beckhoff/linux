@@ -43,6 +43,7 @@
  * address space.
  */
 
+#include <linux/mmu_notifier.h>
 #include <linux/slab.h>
 #include <linux/mutex_api.h>
 #include <linux/mmap_lock.h>

@@ -20,6 +20,7 @@
  * OTHER DEALINGS IN THE SOFTWARE.
  */
 
+#include <linux/mmu_notifier.h>
 #include <linux/srcu.h>
 #include <linux/workqueue_api.h>
 #include <linux/uaccess.h>

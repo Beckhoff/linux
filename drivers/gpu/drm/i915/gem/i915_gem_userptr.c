@@ -34,6 +34,7 @@
  *    Christian König <christian.koenig@amd.com>
  */
 
+#include <linux/mmu_notifier.h>
 #include <linux/spinlock_api.h>
 #include <linux/slab.h>
 #include <linux/scatterlist_api.h>
