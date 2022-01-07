@@ -30,6 +30,7 @@
  * SOFTWARE.
  *
  */
+#include <linux/nsproxy.h>
 #include <linux/sched.h>
 #include <net/sock_api.h>
 #include <net/route_api.h>
