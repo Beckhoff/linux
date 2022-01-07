@@ -49,6 +49,7 @@
  *  o buffer memory
  */
 
+#include <linux/module.h>
 #include <linux/sched.h>
 #include <linux/workqueue_api.h>
 #include <linux/wait_api.h>

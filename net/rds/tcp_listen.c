@@ -30,6 +30,7 @@
  * SOFTWARE.
  *
  */
+#include <linux/module.h>
 #include <net/sock_api.h>
 #include <net/ipv6_api.h>
 #include <linux/workqueue_api.h>
