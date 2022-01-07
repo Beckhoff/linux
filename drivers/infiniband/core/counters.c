@@ -2,6 +2,7 @@
 /*
  * Copyright (c) 2019 Mellanox Technologies. All rights reserved.
  */
+#include <linux/netlink.h>
 #include <linux/xarray_api.h>
 #include <linux/slab.h>
 #include <linux/sched.h>
