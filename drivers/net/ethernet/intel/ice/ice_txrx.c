@@ -3,6 +3,7 @@
 
 /* The driver transmit and receive code */
 
+#include <net/checksum.h>
 #include <net/xdp_api.h>
 #include <net/ipv6_api.h>
 #include <linux/spinlock_api.h>

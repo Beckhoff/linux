@@ -5,6 +5,7 @@
  * Copyright (c) 2007 Herbert Xu <herbert@gondor.apana.org.au>
  */
 
+#include <net/checksum.h>
 #include <net/sch_generic_api.h>
 #include <net/netlink_api.h>
 #include <linux/spinlock_api.h>

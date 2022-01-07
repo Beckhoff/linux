@@ -1,4 +1,5 @@
 // SPDX-License-Identifier: GPL-2.0-only
+#include <net/checksum.h>
 #include <net/route_api.h>
 #include <net/neighbour_api.h>
 #include <net/ip_extra.h>

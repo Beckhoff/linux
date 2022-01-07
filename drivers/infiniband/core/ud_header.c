@@ -31,6 +31,7 @@
  * SOFTWARE.
  */
 
+#include <net/checksum.h>
 #include <uapi/linux/in.h>
 #include <linux/errno.h>
 #include <linux/string.h>

@@ -30,6 +30,7 @@
  * SOFTWARE.
  */
 
+#include <net/checksum.h>
 #include <net/xdp_api.h>
 #include <linux/workqueue_api.h>
 #include <linux/topology.h>

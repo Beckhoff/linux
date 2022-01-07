@@ -6,6 +6,7 @@
 
 #define pr_fmt(fmt) "MPTCP: " fmt
 
+#include <net/checksum.h>
 #include <net/socket_alloc.h>
 #include <net/sock_batch.h>
 #include <net/sock_api.h>

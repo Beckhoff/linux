@@ -8,6 +8,7 @@
  *
  */
 
+#include <net/checksum.h>
 #include <net/inet_ecn.h>
 #include <net/dst_api.h>
 #include <linux/tasklet_api.h>

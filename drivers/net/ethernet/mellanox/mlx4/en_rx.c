@@ -31,6 +31,7 @@
  *
  */
 
+#include <net/checksum.h>
 #include <net/xdp_api.h>
 #include <linux/topology.h>
 #include <linux/skbuff_api_frag.h>
