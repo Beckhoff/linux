@@ -3,6 +3,7 @@
  * Copyright(c) 2015 - 2018 Intel Corporation.
  */
 
+#include <linux/stat.h>
 #include <linux/moduleparam.h>
 #include <linux/workqueue_api.h>
 #include <linux/wait_api.h>
