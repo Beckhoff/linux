@@ -9,6 +9,8 @@
 #include <linux/device.h>
 #include <linux/wait.h>
 
+#include <uapi/linux/uio.h>
+
 #include "common.h"
 #include "iowait.h"
 #include "user_exp_rcv.h"
