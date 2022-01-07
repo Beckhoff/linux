@@ -4,6 +4,7 @@
  *
  */
 
+#include <linux/string.h>
 #include <linux/wait_api.h>
 #include <linux/spinlock_api.h>
 #include <linux/sched.h>
