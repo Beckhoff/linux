@@ -10,6 +10,9 @@
 #include <uapi/linux/sched.h>
 
 #include <linux/sched/per_task.h>
+#include <linux/cache.h>
+#include <linux/bitops.h>
+#include <linux/linkage.h>
 
 #include <asm/current.h>
 
@@ -17,7 +20,6 @@
 #include <linux/rbtree.h>
 #include <linux/pid_types.h>
 #include <linux/seccomp_types.h>
-#include <linux/nodemask.h>
 #include <linux/latencytop.h>
 #include <linux/sched/prio.h>
 #include <linux/sched/types.h>
