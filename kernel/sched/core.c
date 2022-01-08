@@ -29,6 +29,8 @@
 #include "pelt.h"
 #include "smp.h"
 
+DEFINE_PER_TASK(unsigned int,				flags);
+
 DEFINE_PER_TASK(struct sched_dl_entity,			dl);
 
 DEFINE_PER_TASK(int,					on_rq);

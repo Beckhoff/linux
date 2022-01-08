@@ -946,6 +946,7 @@ void __init init_per_task_early(void)
 #ifdef CONFIG_KCSAN
 	per_task(&init_task, kcsan_ctx).scoped_addresses.next = LIST_POISON1;
 #endif
+	task_flags(&init_task) = PF_KTHREAD;
 }
 
 static void __init print_unknown_bootoptions(void)
