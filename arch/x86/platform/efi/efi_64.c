@@ -18,6 +18,7 @@
 
 #define pr_fmt(fmt) "efi: " fmt
 
+#include <linux/gfp_api.h>
 #include <asm/sections.h>
 #include <linux/kernel.h>
 #include <linux/init.h>

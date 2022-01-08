@@ -15,6 +15,7 @@
  * GNU General Public License for more details.
  */
 
+#include <linux/gfp_api.h>
 #include <linux/atomic_api.h>
 #include <linux/completion.h>
 #include <linux/delay.h>
