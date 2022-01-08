@@ -239,7 +239,7 @@ static unsigned long *alloc_thread_stack_node(struct task_struct *tsk, int node)
 		memset(s->addr, 0, THREAD_SIZE);
 
 		tsk->stack_vm_area = s;
-		tsk->stack = s->addr;
+		per_task(tsk, stack) = s->addr;
 		return s->addr;
 	}
 
@@ -261,7 +261,7 @@ static unsigned long *alloc_thread_stack_node(struct task_struct *tsk, int node)
 	 */
 	if (stack) {
 		tsk->stack_vm_area = find_vm_area(stack);
-		tsk->stack = stack;
+		per_task(tsk, stack) = stack;
 	}
 	return stack;
 #else
@@ -269,8 +269,8 @@ static unsigned long *alloc_thread_stack_node(struct task_struct *tsk, int node)
 					     THREAD_SIZE_ORDER);
 
 	if (likely(page)) {
-		tsk->stack = kasan_reset_tag(page_address(page));
-		return tsk->stack;
+		per_task(tsk, stack) = kasan_reset_tag(page_address(page));
+		return per_task(tsk, stack);
 	}
 	return NULL;
 #endif
@@ -295,12 +295,12 @@ static inline void free_thread_stack(struct task_struct *tsk)
 			return;
 		}
 
-		vfree_atomic(tsk->stack);
+		vfree_atomic(per_task(tsk, stack));
 		return;
 	}
 #endif
 
-	__free_pages(virt_to_page(tsk->stack), THREAD_SIZE_ORDER);
+	__free_pages(virt_to_page(per_task(tsk, stack)), THREAD_SIZE_ORDER);
 }
 # else
 static struct kmem_cache *thread_stack_cache;
@@ -311,13 +311,13 @@ static unsigned long *alloc_thread_stack_node(struct task_struct *tsk,
 	unsigned long *stack;
 	stack = kmem_cache_alloc_node(thread_stack_cache, THREADINFO_GFP, node);
 	stack = kasan_reset_tag(stack);
-	tsk->stack = stack;
+	per_task(tsk, stack) = stack;
 	return stack;
 }
 
 static void free_thread_stack(struct task_struct *tsk)
 {
-	kmem_cache_free(thread_stack_cache, tsk->stack);
+	kmem_cache_free(thread_stack_cache, per_task(tsk, stack));
 }
 
 void thread_stack_cache_init(void)
@@ -436,7 +436,7 @@ static void release_task_stack(struct task_struct *tsk)
 
 	account_kernel_stack(tsk, -1);
 	free_thread_stack(tsk);
-	tsk->stack = NULL;
+	per_task(tsk, stack) = NULL;
 #ifdef CONFIG_VMAP_STACK
 	tsk->stack_vm_area = NULL;
 #endif
@@ -920,7 +920,7 @@ static struct task_struct *dup_task_struct(struct task_struct *orig, int node)
 	 * sure they're properly initialized before using any stack-related
 	 * functions again.
 	 */
-	tsk->stack = stack;
+	per_task(tsk, stack) = stack;
 #ifdef CONFIG_VMAP_STACK
 	tsk->stack_vm_area = stack_vm_area;
 #endif
