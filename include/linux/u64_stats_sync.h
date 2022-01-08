@@ -5,3 +5,7 @@
 #include <linux/u64_stats_sync_types.h>
 
 #endif
+
+#ifndef CONFIG_FAST_HEADERS
+# include <linux/u64_stats_sync_api.h>
+#endif
