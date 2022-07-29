@@ -1,0 +1,14 @@
+build:
+  image: ${REGISTRY_HOST}/beckhoff/bdpg:v1.0.15
+  stage: build
+  timeout: 30m
+  before_script:
+    - apt update && apt install bc bison cpio flex kmod libelf-dev libssl-dev
+  script:
+    - make -j$(nproc) bindeb-pkg
+    - mv ../*.deb ./
+  artifacts:
+    expire_in: 1 week
+    when: always
+    paths:
+      - ./*.deb
