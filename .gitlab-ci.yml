@@ -1,5 +1,6 @@
+image: ${REGISTRY_HOST}/beckhoff/bdpg:v1.0.15
+
 build:
-  image: ${REGISTRY_HOST}/beckhoff/bdpg:v1.0.15
   stage: build
   timeout: 30m
   before_script:
@@ -14,3 +15,12 @@ build:
     when: always
     paths:
       - ./*.deb
+
+publish:
+  stage: .post
+  needs: [
+    "build",
+  ]
+  script:
+    - bdpg push --distros="bullseye" ./linux-image-*.deb
+  when: manual
