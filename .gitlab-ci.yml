@@ -6,6 +6,8 @@ build:
     - apt update && apt install bc bison cpio flex kmod libelf-dev libssl-dev
   script:
     - make -j$(nproc) bindeb-pkg
+    # The debug kernel weights more than 750MB, until we really need it we stop archiving it
+    - rm -f ../linux-image-*-dbg*.deb
     - mv ../*.deb ./
   artifacts:
     expire_in: 1 week
