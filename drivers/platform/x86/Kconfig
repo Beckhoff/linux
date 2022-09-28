@@ -321,6 +321,23 @@ config ASUS_TF103C_DOCK
 	  If you have an Asus TF103C tablet say Y or M here, for a generic x86
 	  distro config say M here.
 
+config BECKHOFF_BAPI
+	bool "Beckhoff BIOS API Driver"
+	help
+	  The “BIOS-API” is a piece of software which is part of the BIOS in
+	  Beckhoff industrial motherboards. It offers a one-stop solution for
+	  communicating with several components on the board, such as
+	  temperature and voltage sensors, the S-USV microcontroller, the
+	  PWRCTRL microcontroller, the Watchdog and other components (if
+	  installed). It also offers access to a small memory area in the
+	  EEPROM reserved for user data. The API is integrated into the BIOS.
+	  The OS which is running on the board needs to have a special device
+	  driver installed to access the API functions. Through this driver
+	  the user software can take advantage of the API functionality.
+
+	  If you have a Beckhoff industrial PC and want to use the BBAPI say
+	  Y here.
+
 config MERAKI_MX100
 	tristate "Cisco Meraki MX100 Platform Driver"
 	depends on GPIOLIB
