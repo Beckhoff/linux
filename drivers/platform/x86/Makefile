@@ -42,6 +42,9 @@ obj-$(CONFIG_EEEPC_WMI)		+= eeepc-wmi.o
 # Ayaneo
 obj-$(CONFIG_AYANEO_EC)		+= ayaneo-ec.o
 
+# Beckhoff
+obj-$(CONFIG_BECKHOFF_BAPI)	+= bbapi.o
+
 # Cisco/Meraki
 obj-$(CONFIG_MERAKI_MX100)	+= meraki-mx100.o
 
