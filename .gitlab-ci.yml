@@ -1,0 +1,28 @@
+image: ${REGISTRY_HOST}/beckhoff/bdpg:v1.0.17
+
+build:
+  stage: build
+  timeout: 30m
+  before_script:
+    - apt update && apt install bc bison cpio flex kmod libelf-dev libssl-dev
+  script:
+    - make -j$(nproc) bindeb-pkg
+    # The debug kernel weights more than 750MB, until we really need it we stop archiving it
+    - rm -f ../linux-image-*-dbg*.deb
+    - bdpg push-pipelines ../*.deb
+    # GitLab cannot pickup artifacts from outside of CI_PROJECT_DIR
+    - mv ../*.deb ./
+  artifacts:
+    expire_in: 1 week
+    when: always
+    paths:
+      - ./*.deb
+
+publish:
+  stage: .post
+  needs: [
+    "build",
+  ]
+  script:
+    - bdpg push --distros="bullseye" ./linux-image-*.deb
+  when: manual
