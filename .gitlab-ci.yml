@@ -1,0 +1,50 @@
+image: ${REGISTRY_HOST}/beckhoff/bdpg:v1.0.18
+
+variables:
+  GIT_DEPTH: 10
+
+build:
+  stage: build
+  timeout: 30m
+  parallel:
+    matrix:
+      - BHF_CI_ARCH:
+        - amd64
+        - arm64
+  tags:
+    - "docker_${BHF_CI_ARCH}"
+  before_script:
+    - apt update && apt install bc bison cpio flex kmod libelf-dev libssl-dev zstd
+  script:
+    - cp config-${BHF_CI_ARCH} .config
+    - export KDEB_PKGVERSION=${CI_PIPELINE_ID}
+    - make -j$(nproc) bindeb-pkg
+    # The debug kernel weights more than 750MB, until we really need it we stop archiving it
+    - rm -f ../linux-image-*-dbg*.deb
+    - bdpg push-pipelines ../*.deb
+    # GitLab cannot pickup artifacts from outside of CI_PROJECT_DIR
+    - mv ../*.deb ./
+  artifacts:
+    expire_in: 1 week
+    when: always
+    paths:
+      - ./*.deb
+
+test:
+  stage: test
+  trigger:
+    project: beckhoff/test-tcos
+    strategy: depend
+    forward:
+      pipeline_variables: true
+  variables:
+    BHF_CI_PIPELINE_REPOS: 'linux/${CI_PIPELINE_ID}'
+
+publish:
+  stage: .post
+  needs: [
+    "build",
+  ]
+  script:
+    - bdpg push --distros="bullseye bookworm" ./linux-image-*.deb
+  when: manual
