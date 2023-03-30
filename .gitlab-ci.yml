@@ -1,0 +1,61 @@
+image: ${REGISTRY_HOST}/beckhoff/bdpg:v1.0.32
+
+variables:
+  GIT_DEPTH: 10
+
+workflow:
+  rules:
+    - if: $CI_COMMIT_TAG
+    - if: $CI_COMMIT_BRANCH
+
+build:
+  stage: build
+  timeout: 30m
+  parallel:
+    matrix:
+      - BHF_CI_ARCH:
+          - amd64
+          - arm64
+  tags:
+    - docker-v2
+    - ${BHF_CI_ARCH}
+  before_script:
+    - apt update && apt install bc bison cpio flex kmod libdw-dev libelf-dev libssl-dev pahole zstd
+    # It seems sometimes there are old build files on the runner
+    - rm -f ../linux-*.deb
+  script:
+    - cp config-${BHF_CI_ARCH} .config
+    - export KDEB_PKGVERSION=${CI_PIPELINE_ID}
+    - export DEBFULLNAME="Beckhoff Automation GmbH & Co. KG"
+    - export DEBEMAIL="info@beckhoff.com"
+    - make -j$(nproc) bindeb-pkg
+    # GitLab cannot pickup artifacts from outside of CI_PROJECT_DIR
+    - mv ../linux-*.deb ./
+    - ./build-meta-package.sh linux-*.deb
+    - bdpg push-pipelines linux-*.deb
+  artifacts:
+    expire_in: 1 week
+    when: always
+    paths:
+      - ./*.deb
+
+test:
+  stage: test
+  trigger:
+    project: beckhoff/test-tcos
+    strategy: depend
+    forward:
+      pipeline_variables: true
+  variables:
+    BHF_CI_PIPELINE_REPOS: "linux/${CI_PIPELINE_ID}"
+  rules:
+    - if: $BHF_CI_SKIP_TEST == "y"
+      when: never
+    - when: on_success
+
+publish:
+  stage: .post
+  needs: ["build"]
+  script:
+    - bdpg push --skip-changelog-check ./linux-headers-*.deb ./linux-image-*.deb
+  when: manual
