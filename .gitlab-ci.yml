@@ -30,6 +30,16 @@ build:
     paths:
       - ./*.deb
 
+test:
+  stage: test
+  trigger:
+    project: beckhoff/test-tcos
+    strategy: depend
+    forward:
+      pipeline_variables: true
+  variables:
+    BHF_CI_PIPELINE_REPOS: 'linux/${CI_PIPELINE_ID}'
+
 publish:
   stage: .post
   needs: [
