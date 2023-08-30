@@ -170,6 +170,8 @@ do
 	case ${package} in
 	*-dbg)
 		install_linux_image_dbg "${package}";;
+	linux-headers-bhf|linux-image-bhf)
+		mkdir -p debian/${package};;
 	linux-image-*|user-mode-linux-*)
 		install_linux_image "${package}";;
 	linux-libc-dev)
