@@ -109,6 +109,12 @@ scm_version()
 		try_tag "${version_tag}"
 	fi
 
+	# If CI_PIPELINE_ID is set, we're in CI and don't want to append any
+	# additional version information.
+	if ! test -z ${CI_PIPELINE_ID+x}; then
+		return
+	fi
+
 	# If we are at the tagged commit, we ignore it because the
 	# version is well-defined. If none of the attempted tags exist
 	# or were usable, $count is still empty.
