@@ -223,6 +223,12 @@ Architecture: $debarch
 Description: Linux kernel, version $version
  This package contains the Linux kernel, modules and corresponding other
  files, version: $version.
+
+Package: $packagename-bhf
+Architecture: $debarch
+Depends: $packagename-$version
+Description: Meta package for linux kernel
+ This package is a meta package pointing to the latest linux kernel.
 EOF
 
 if [ "${SRCARCH}" != um ]; then
@@ -247,6 +253,12 @@ Description: Linux kernel headers for $version on $debarch
  This package provides kernel header files for $version on $debarch
  .
  This is useful for people who need to build external modules
+
+Package: linux-headers-bhf
+Architecture: $debarch
+Depends: linux-headers-$version
+Description: Meta package for linux kernel headers
+ This package is a meta package pointing to the latest linux kernel headers.
 EOF
 fi
 fi
@@ -260,6 +272,13 @@ Architecture: $debarch
 Description: Linux kernel debugging symbols for $version
  This package will come in handy if you need to debug the kernel. It provides
  all the necessary debug symbols for the kernel and its modules.
+
+Package: linux-image-bhf-dbg
+Section: debug
+Architecture: $debarch
+Depends: linux-image-$version-dbg
+Description: Meta package for linux kernel debugging symbols
+ This package is a meta package pointing to the latest linux kernel debugging symbols.
 EOF
 fi
 
