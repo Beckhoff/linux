@@ -69,6 +69,12 @@ scm_version()
 		tag=v$(echo "${KERNELVERSION}" | sed -E 's/^([0-9]+\.[0-9]+)\.0(.*)$/\1\2/')
 	fi
 
+	# If CI_PIPELINE_ID is set, we're in CI and don't want to append any
+	# additional version information.
+	if ! test -z ${CI_PIPELINE_ID+x}; then
+		return
+	fi
+
 	# If we are at the tagged commit, we ignore it because the version is
 	# well-defined.
 	if [ -z "$(git describe --exact-match --match=$tag 2>/dev/null)" ]; then
