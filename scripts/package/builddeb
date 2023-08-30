@@ -193,6 +193,8 @@ do
 		# This must be done after linux-image, that is, we expect the
 		# debug package appears after linux-image in debian/control.
 		install_linux_image_dbg debian/linux-image-dbg debian/linux-image;;
+	linux-headers-bhf|linux-image-bhf)
+		mkdir -p debian/${package};;
 	linux-image-*|user-mode-linux-*)
 		install_linux_image debian/linux-image ${package};;
 	linux-libc-dev)
@@ -207,6 +209,8 @@ do
 	case ${package} in
 	*-dbg)
 		create_package ${package} debian/linux-image-dbg;;
+	linux-headers-bhf|linux-image-bhf)
+		create_package ${package} debian/${package};;
 	linux-image-*|user-mode-linux-*)
 		create_package ${package} debian/linux-image;;
 	linux-libc-dev)
