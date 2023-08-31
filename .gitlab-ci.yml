@@ -1,11 +1,19 @@
-image: ${REGISTRY_HOST}/beckhoff/bdpg:v1.0.17
+image: ${REGISTRY_HOST}/beckhoff/bdpg:v1.0.18
 
 build:
+  parallel:
+    matrix:
+      - BHF_CI_ARCH:
+        - amd64
+        - arm64
   stage: build
   timeout: 30m
+  tags:
+    - "docker_${BHF_CI_ARCH}"
   before_script:
     - apt update && apt install bc bison cpio flex kmod libelf-dev libssl-dev
   script:
+    - cp config-${BHF_CI_ARCH} .config
     - export KDEB_PKGVERSION=${CI_PIPELINE_ID}
     - make -j$(nproc) bindeb-pkg
     # The debug kernel weights more than 750MB, until we really need it we stop archiving it
