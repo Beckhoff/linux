@@ -1,5 +1,8 @@
 image: ${REGISTRY_HOST}/beckhoff/bdpg:v1.0.18
 
+variables:
+  GIT_DEPTH: 10
+
 build:
   parallel:
     matrix:
