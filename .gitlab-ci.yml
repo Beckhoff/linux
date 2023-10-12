@@ -14,7 +14,7 @@ build:
   tags:
     - "docker_${BHF_CI_ARCH}"
   before_script:
-    - apt update && apt install bc bison cpio flex kmod libelf-dev libssl-dev
+    - apt update && apt install bc bison cpio flex kmod libelf-dev libssl-dev zstd
   script:
     - cp config-${BHF_CI_ARCH} .config
     - export KDEB_PKGVERSION=${CI_PIPELINE_ID}
