@@ -12,6 +12,7 @@
 #include <linux/types.h>
 #include <linux/delay.h>
 #include <linux/dmi.h>
+#include <linux/efi.h>
 #include <linux/fs.h>
 #include <linux/io.h>
 #include <linux/kdev_t.h>
@@ -21,6 +22,8 @@
 #include <linux/version.h>
 #include <linux/vmalloc.h>
 #include <generated/utsrelease.h>
+
+#include <asm/efi.h>
 
 #include "bbapi.h"
 
@@ -103,9 +106,12 @@ static unsigned int bbapi_call(void __kernel *const in,
 			       const struct bbapi_struct *const cmd,
 			       unsigned int *bytes_written)
 {
-	return entry(cmd->nIndexGroup, cmd->nIndexOffset, in,
+	const u64 ibt = ibt_save(efi_disable_ibt_for_runtime);
+	const unsigned int ret = entry(cmd->nIndexGroup, cmd->nIndexOffset, in,
 		     cmd->nInBufferSize, out, cmd->nOutBufferSize,
 		     bytes_written);
+	ibt_restore(ibt);
+	return ret;
 }
 
 static unsigned int bbapi_call_retry(void __kernel *const in,
