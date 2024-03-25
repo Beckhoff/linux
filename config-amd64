@@ -1837,7 +1837,7 @@ CONFIG_HOTPLUG_PCI_SHPC=y
 #
 # PCI controller drivers
 #
-# CONFIG_VMD is not set
+CONFIG_VMD=y
 
 #
 # Cadence-based PCIe controllers
