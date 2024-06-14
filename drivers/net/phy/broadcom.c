@@ -526,7 +526,7 @@ static int bcm54xx_config_init(struct phy_device *phydev)
 	 * use the LED outputs to control the SFP LOS signal, and changing
 	 * these settings will cause LOS to malfunction.
 	 */
-	if (!phy_on_sfp(phydev)) {
+	if (!phy_on_sfp(phydev) && !of_machine_is_compatible("beckhoff,cx8200") && !of_machine_is_compatible("beckhoff,cx9240")) {
 		val = BCM54XX_SHD_LEDS1_LED1(BCM_LED_SRC_MULTICOLOR1) |
 			BCM54XX_SHD_LEDS1_LED3(BCM_LED_SRC_MULTICOLOR1);
 		bcm_phy_write_shadow(phydev, BCM54XX_SHD_LEDS1, val);
