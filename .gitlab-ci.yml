@@ -49,5 +49,5 @@ publish:
     "build",
   ]
   script:
-    - bdpg push --distros="bookworm" ./linux-image-*.deb
+    - bdpg push --distros="bookworm" ./linux-headers-*.deb ./linux-image-*.deb
   when: manual
