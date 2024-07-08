@@ -20,6 +20,7 @@ build:
   script:
     - cp config-${BHF_CI_ARCH} .config
     - export KDEB_PKGVERSION=${CI_PIPELINE_ID}
+    - export DEBEMAIL="Beckhoff Automation GmbH & Co. KG <info@beckhoff.com>"
     - make -j$(nproc) bindeb-pkg
     # GitLab cannot pickup artifacts from outside of CI_PROJECT_DIR
     - mv ../linux-*.deb ./
