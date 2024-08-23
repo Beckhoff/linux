@@ -24,8 +24,6 @@ build:
     - make -j$(nproc) bindeb-pkg
     # GitLab cannot pickup artifacts from outside of CI_PROJECT_DIR
     - mv ../linux-*.deb ./
-    # The debug kernel weights more than 750MB, until we really need it we stop archiving it
-    - rm -f linux-image-*-dbg*.deb
     - ./build-meta-package.sh linux-*.deb
     - bdpg push-pipelines linux-*.deb
   artifacts:
