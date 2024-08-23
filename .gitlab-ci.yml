@@ -1,4 +1,4 @@
-image: ${REGISTRY_HOST}/beckhoff/bdpg:v1.0.18
+image: ${REGISTRY_HOST}/beckhoff/bdpg:v1.0.29
 
 variables:
   GIT_DEPTH: 10
@@ -50,5 +50,5 @@ publish:
     "build",
   ]
   script:
-    - bdpg push --distros="bookworm" ./linux-headers-*.deb ./linux-image-*.deb
+    - bdpg push ./linux-headers-*.deb ./linux-image-*.deb
   when: manual
