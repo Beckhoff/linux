@@ -1,4 +1,4 @@
-image: ${REGISTRY_HOST}/beckhoff/bdpg:v1.0.29
+image: ${REGISTRY_HOST}/beckhoff/bdpg:v1.0.30
 
 variables:
   GIT_DEPTH: 10
@@ -48,5 +48,5 @@ publish:
     "build",
   ]
   script:
-    - bdpg push ./linux-headers-*.deb ./linux-image-*.deb
+    - bdpg push --skip-changelog-check ./linux-headers-*.deb ./linux-image-*.deb
   when: manual
