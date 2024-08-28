@@ -17,6 +17,7 @@
 #include <drm/drm_fourcc.h>
 #include <drm/drm_modes.h>
 #include <drm/drm_of.h>
+#include <drm/drm_probe_helper.h>
 
 #include <linux/clk.h>
 #include <linux/delay.h>
@@ -1650,6 +1651,9 @@ static void zynqmp_dp_hpd_work_func(struct work_struct *work)
 {
 	struct zynqmp_dp *dp = container_of(work, struct zynqmp_dp, hpd_work);
 	enum drm_connector_status status;
+
+	if (dp->bridge.dev)
+		drm_helper_hpd_irq_event(dp->bridge.dev);
 
 	status = zynqmp_dp_bridge_detect(&dp->bridge);
 	drm_bridge_hpd_notify(&dp->bridge, status);
