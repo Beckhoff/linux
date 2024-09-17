@@ -2045,7 +2045,7 @@ CONFIG_MTD=y
 # Partition parsers
 #
 # CONFIG_MTD_CMDLINE_PARTS is not set
-CONFIG_MTD_OF_PARTS=m
+CONFIG_MTD_OF_PARTS=y
 # CONFIG_MTD_AFS_PARTS is not set
 # CONFIG_MTD_REDBOOT_PARTS is not set
 # end of Partition parsers
