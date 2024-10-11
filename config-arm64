@@ -2775,8 +2775,22 @@ CONFIG_MDIO_DEVRES=y
 # CONFIG_PCS_XPCS is not set
 # end of PCS device drivers
 
-# CONFIG_PPP is not set
+CONFIG_PPP=m
+# CONFIG_PPP_BSDCOMP is not set
+# CONFIG_PPP_DEFLATE is not set
+CONFIG_PPP_FILTER=y
+# CONFIG_PPP_MPPE is not set
+CONFIG_PPP_MULTILINK=y
+CONFIG_PPPOE=m
+# CONFIG_PPPOE_HASH_BITS_1 is not set
+# CONFIG_PPPOE_HASH_BITS_2 is not set
+CONFIG_PPPOE_HASH_BITS_4=y
+# CONFIG_PPPOE_HASH_BITS_8 is not set
+CONFIG_PPPOE_HASH_BITS=4
+# CONFIG_PPP_ASYNC is not set
+# CONFIG_PPP_SYNC_TTY is not set
 # CONFIG_SLIP is not set
+CONFIG_SLHC=m
 
 #
 # Host-side USB support is needed for USB Network Adapter support
