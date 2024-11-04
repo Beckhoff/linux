@@ -40,6 +40,7 @@
 #include <net/netdev_queues.h>
 #include <net/xdp_sock_drv.h>
 #include <net/xfrm.h>
+#include <linux/dmi.h>
 
 #include "ixgbe.h"
 #include "ixgbe_common.h"
@@ -179,6 +180,19 @@ DEFINE_STATIC_KEY_FALSE(ixgbe_xdp_locking_key);
 EXPORT_SYMBOL(ixgbe_xdp_locking_key);
 
 static struct workqueue_struct *ixgbe_wq;
+
+static int broken_sdp_interrupt = 0; 
+
+static const struct dmi_system_id ixgbe_beckhoff_automation_boards[] = {
+	{
+		.ident = "Beckhoff Automation CX20x2",
+		.matches = {
+			DMI_MATCH(DMI_BOARD_VENDOR, "Beckhoff Automation GmbH & Co. KG"),
+			DMI_MATCH(DMI_BOARD_NAME, "CX20x2"),
+		},
+	},
+	{}
+};
 
 static bool ixgbe_check_cfg_remove(struct ixgbe_hw *hw, struct pci_dev *pdev);
 static void ixgbe_watchdog_link_is_down(struct ixgbe_adapter *);
@@ -3103,6 +3117,11 @@ static void ixgbe_check_sfp_event(struct ixgbe_adapter *adapter, u32 eicr)
 {
 	struct ixgbe_hw *hw = &adapter->hw;
 	u32 eicr_mask = IXGBE_EICR_GPI_SDP2(hw);
+
+	if(broken_sdp_interrupt){
+		e_info(probe, "ignoring reset interrupt\n");
+		return;
+	}
 
 	if (!ixgbe_is_sfp(hw))
 		return;
@@ -12358,6 +12377,13 @@ static int __init ixgbe_init_module(void)
 	int ret;
 	pr_info("%s\n", ixgbe_driver_string);
 	pr_info("%s\n", ixgbe_copyright);
+
+	/* Work around for the networkcard CX2213 form the CX20X2 */
+	broken_sdp_interrupt = 0;
+	if (dmi_check_system(ixgbe_beckhoff_automation_boards))	{
+		pr_info("Cx20x2 present, ignoring the Mod_ABS interrupt signal from the SFP+ module by the ixgbe network driver\n");
+		broken_sdp_interrupt = 1;
+	}
 
 	ixgbe_wq = create_singlethread_workqueue(ixgbe_driver_name);
 	if (!ixgbe_wq) {
