@@ -168,6 +168,11 @@ module_param(allow_unsupported_sfp, bool, 0444);
 MODULE_PARM_DESC(allow_unsupported_sfp,
 		 "Allow unsupported and untested SFP+ modules on 82599-based adapters");
 
+static bool disable_broken_sdp_interrupt;
+module_param(disable_broken_sdp_interrupt, bool, 0644);
+MODULE_PARM_DESC(disable_broken_sdp_interrupt,
+		 "Enabled/ Disbaled ignored broken ssdp interrupts");
+
 #define DEFAULT_MSG_ENABLE (NETIF_MSG_DRV|NETIF_MSG_PROBE|NETIF_MSG_LINK)
 static int debug = -1;
 module_param(debug, int, 0);
@@ -3119,7 +3124,7 @@ static void ixgbe_check_sfp_event(struct ixgbe_adapter *adapter, u32 eicr)
 	struct ixgbe_hw *hw = &adapter->hw;
 	u32 eicr_mask = IXGBE_EICR_GPI_SDP2(hw);
 
-	if(broken_sdp_interrupt){
+	if(broken_sdp_interrupt && disable_broken_sdp_interrupt == false){
 		e_info(probe, "ignoring reset interrupt\n");
 		return;
 	}
@@ -12391,7 +12396,7 @@ static int __init ixgbe_init_module(void)
 
 	/* Work around for the networkcard CX2213 form the CX20X2 */
 	broken_sdp_interrupt = 0;
-	if (dmi_check_system(ixgbe_beckhoff_automation_boards))	{
+	if (dmi_check_system(ixgbe_beckhoff_automation_boards) && disable_broken_sdp_interrupt == false)	{
 		pr_info("Cx20x2 present, ignoring the Mod_ABS interrupt signal from the SFP+ module by the ixgbe network driver\n");
 		broken_sdp_interrupt = 1;
 	}
