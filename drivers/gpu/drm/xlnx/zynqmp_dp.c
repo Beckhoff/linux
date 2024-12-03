@@ -242,7 +242,7 @@ MODULE_PARM_DESC(power_on_delay_ms, "DP power on delay in msec (default: 4)");
 #define DP_REDUCED_BIT_RATE				162000
 #define DP_HIGH_BIT_RATE				270000
 #define DP_HIGH_BIT_RATE2				540000
-#define DP_MAX_TRAINING_TRIES				5
+#define DP_MAX_TRAINING_TRIES				50
 #define DP_V1_2						0x12
 
 /**
