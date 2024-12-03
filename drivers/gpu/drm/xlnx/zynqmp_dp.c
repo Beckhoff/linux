@@ -986,26 +986,28 @@ static int zynqmp_dp_train(struct zynqmp_dp *dp)
 static void zynqmp_dp_train_loop(struct zynqmp_dp *dp)
 {
 	struct zynqmp_dp_mode *mode = &dp->mode;
-	u8 bw = mode->bw_code;
+	u8 bw;
 	int ret;
 
-	do {
-		if (dp->status == connector_status_disconnected ||
-		    !dp->enabled)
-			return;
+	for (int i=0; i<10; i++) {
+		bw = mode->bw_code;
+		do {
+			if (dp->status == connector_status_disconnected ||
+				!dp->enabled)
+				return;
 
-		ret = zynqmp_dp_train(dp);
-		if (!ret)
-			return;
+			ret = zynqmp_dp_train(dp);
+			if (!ret)
+				return;
 
-		ret = zynqmp_dp_mode_configure(dp, mode->pclock, bw);
-		if (ret < 0)
-			goto err_out;
+			ret = zynqmp_dp_mode_configure(dp, mode->pclock, bw);
+			if (ret < 0)
+				break;
 
-		bw = ret;
-	} while (bw >= DP_LINK_BW_1_62);
+			bw = ret;
+		} while (bw >= DP_LINK_BW_1_62);
+	}
 
-err_out:
 	dev_err(dp->dev, "failed to train the DP link\n");
 }
 
