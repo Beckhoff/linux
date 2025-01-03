@@ -768,6 +768,18 @@ static void set_device_specific_options(struct btrfs_fs_info *fs_info)
 	    !fs_info->fs_devices->rotating)
 		btrfs_set_opt(fs_info->mount_opt, SSD);
 
+
+	/*
+	 * TODO: BECKHOFF DOWNSTREAM ONLY
+	 * We're having some issues with treelog getting corrupted on our zynqmp
+	 * based devices and are still investigating. Since a corrupt treelog makes
+	 * the system unbootable this is undesirable. We can't reproduce it on
+	 * other devices yet, but are also not sure it works correctly there. We're
+	 * still working on reproducing this without btrfs and figuring out the
+	 * cause.
+	 */
+	btrfs_set_opt(fs_info->mount_opt, NOTREELOG);
+
 	/*
 	 * For devices supporting discard turn on discard=async automatically,
 	 * unless it's already set or disabled. This could be turned off by
