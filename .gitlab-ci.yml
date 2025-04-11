@@ -8,14 +8,9 @@ workflow:
     - if: $CI_COMMIT_TAG
     - if: $CI_COMMIT_BRANCH
 
-build:
+.build:
   stage: build
   timeout: 30m
-  parallel:
-    matrix:
-      - BHF_CI_ARCH:
-          - amd64
-          - arm64
   tags:
     - docker-v2
     - ${BHF_CI_ARCH}
@@ -23,20 +18,43 @@ build:
     - apt update && apt install bc bison cpio flex kmod libdw-dev libelf-dev libssl-dev pahole zstd
     # It seems sometimes there are old build files on the runner
     - rm -f ../linux-*.deb
-  script:
-    - cp config-${BHF_CI_ARCH} .config
     - export DEBFULLNAME="Beckhoff Automation GmbH & Co. KG"
     - export DEBEMAIL="info@beckhoff.com"
-    - make -j$(nproc) bindeb-pkg
-    # GitLab cannot pickup artifacts from outside of CI_PROJECT_DIR
-    - mv ../linux-*.deb ./
-    - ./build-meta-package.sh linux-*.deb
-    - bdpg push-pipelines linux-*.deb
+    - cp config-${BHF_CI_ARCH} .config
   artifacts:
     expire_in: 1 week
     when: always
     paths:
       - ./*.deb
+      - ./*.debian.tar.xz
+      - ./*.dsc
+      - ./*.orig.tar.gz
+
+build:
+  extends: .build
+  parallel:
+    matrix:
+      - BHF_CI_ARCH:
+          - amd64
+          - arm64
+  script:
+    - make -j$(nproc) bindeb-pkg
+    # GitLab cannot pickup artifacts from outside of CI_PROJECT_DIR
+    - mv ../linux-*${CI_PIPELINE_ID}*.deb ./
+    - ./build-meta-package.sh linux-*.deb
+    - bdpg push-pipelines linux-*.deb
+
+build-src:
+  extends: .build
+  variables:
+    BHF_CI_ARCH: "arm64"
+  tags:
+    - docker-v2
+    - multiarch
+  script:
+    - make -j$(nproc) srcdeb-pkg
+    - mv ../linux-upstream_*${CI_PIPELINE_ID}* .
+    - bdpg push-pipelines linux-*.dsc
 
 test:
   stage: test
@@ -55,7 +73,7 @@ test:
 
 publish:
   stage: .post
-  needs: ["build"]
+  needs: ["build", "build-src"]
   script:
-    - bdpg push --skip-changelog-check ./linux-headers-*.deb ./linux-image-*.deb
+    - bdpg push --skip-changelog-check ./linux-headers-*.deb ./linux-image-*.deb ./linux-*.dsc
   when: manual
