@@ -109,9 +109,12 @@ scm_version()
 		try_tag "${version_tag}"
 	fi
 
-	# If CI_PIPELINE_ID is set, we're in CI and don't want to append any
-	# additional version information.
+	# If CI_PIPELINE_ID is set, we're in CI and want to append our own version
+	# information.
 	if ! test -z ${CI_PIPELINE_ID+x}; then
+		printf '%s%s' "-" "${CI_PIPELINE_ID}"
+		printf '%s%.12s' "-" "$head"
+
 		return
 	fi
 
