@@ -1,4 +1,4 @@
-image: ${REGISTRY_HOST}/beckhoff/bdpg:v1.0.32
+image: ${REGISTRY_HOST}/beckhoff/linux:bhf-toolchain-bookworm
 
 variables:
   GIT_DEPTH: 10
@@ -19,7 +19,6 @@ build:
   tags:
     - "docker_${BHF_CI_ARCH}"
   before_script:
-    - apt update && apt install bc bison cpio flex kmod libelf-dev libssl-dev pahole zstd
     # It seems sometimes there are old build files on the runner
     - rm -f ../linux-*.deb
   script:
@@ -27,6 +26,8 @@ build:
     - export KDEB_PKGVERSION=${CI_PIPELINE_ID}
     - export DEBFULLNAME="Beckhoff Automation GmbH & Co. KG"
     - export DEBEMAIL="info@beckhoff.com"
+    - export PATH=/usr/lib/llvm-bhf/bin:$PATH
+    - export LLVM=1
     - make -j$(nproc) bindeb-pkg
     # GitLab cannot pickup artifacts from outside of CI_PROJECT_DIR
     - mv ../linux-*.deb ./
