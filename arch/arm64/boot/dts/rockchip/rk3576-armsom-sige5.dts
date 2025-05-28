@@ -182,8 +182,7 @@
 		     &eth0m0_tx_bus2
 		     &eth0m0_rx_bus2
 		     &eth0m0_rgmii_clk
-		     &eth0m0_rgmii_bus
-		     &ethm0_clk0_25m_out>;
+		     &eth0m0_rgmii_bus>;
 
 	phy-handle = <&rgmii_phy0>;
 	status = "okay";
@@ -579,7 +578,7 @@
 		reg = <0x51>;
 		clock-output-names = "hym8563";
 		interrupt-parent = <&gpio0>;
-		interrupts = <RK_PB0 IRQ_TYPE_LEVEL_LOW>;
+		interrupts = <RK_PA0 IRQ_TYPE_LEVEL_LOW>;
 		pinctrl-names = "default";
 		pinctrl-0 = <&hym8563_int>;
 		wakeup-source;

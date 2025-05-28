@@ -1,12 +1,13 @@
 // SPDX-License-Identifier: GPL-2.0-only
 /*
- * Copyright (C) 2020-2024 Intel Corporation
+ * Copyright (C) 2020-2025 Intel Corporation
  */
 
 #include <linux/firmware.h>
 #include <linux/module.h>
 #include <linux/pci.h>
 #include <linux/pm_runtime.h>
+#include <linux/workqueue.h>
 #include <generated/utsrelease.h>
 
 #include <drm/drm_accel.h>
@@ -35,8 +36,6 @@
 #ifndef DRIVER_VERSION_STR
 #define DRIVER_VERSION_STR "1.0.0 " UTS_RELEASE
 #endif
-
-static struct lock_class_key submitted_jobs_xa_lock_class_key;
 
 int ivpu_dbg_mask;
 module_param_named(dbg_mask, ivpu_dbg_mask, int, 0644);
@@ -167,7 +166,7 @@ static int ivpu_get_param_ioctl(struct drm_device *dev, void *data, struct drm_f
 		args->value = vdev->platform;
 		break;
 	case DRM_IVPU_PARAM_CORE_CLOCK_RATE:
-		args->value = ivpu_hw_ratio_to_freq(vdev, vdev->hw->pll.max_ratio);
+		args->value = ivpu_hw_dpu_max_freq_get(vdev);
 		break;
 	case DRM_IVPU_PARAM_NUM_CONTEXTS:
 		args->value = ivpu_get_context_count(vdev);
@@ -421,6 +420,9 @@ void ivpu_prepare_for_reset(struct ivpu_device *vdev)
 {
 	ivpu_hw_irq_disable(vdev);
 	disable_irq(vdev->irq);
+	flush_work(&vdev->irq_ipc_work);
+	flush_work(&vdev->irq_dct_work);
+	flush_work(&vdev->context_abort_work);
 	ivpu_ipc_disable(vdev);
 	ivpu_mmu_disable(vdev);
 }
@@ -465,54 +467,6 @@ static const struct drm_driver driver = {
 	.major = 1,
 };
 
-static void ivpu_context_abort_invalid(struct ivpu_device *vdev)
-{
-	struct ivpu_file_priv *file_priv;
-	unsigned long ctx_id;
-
-	mutex_lock(&vdev->context_list_lock);
-
-	xa_for_each(&vdev->context_xa, ctx_id, file_priv) {
-		if (!file_priv->has_mmu_faults || file_priv->aborted)
-			continue;
-
-		mutex_lock(&file_priv->lock);
-		ivpu_context_abort_locked(file_priv);
-		file_priv->aborted = true;
-		mutex_unlock(&file_priv->lock);
-	}
-
-	mutex_unlock(&vdev->context_list_lock);
-}
-
-static irqreturn_t ivpu_irq_thread_handler(int irq, void *arg)
-{
-	struct ivpu_device *vdev = arg;
-	u8 irq_src;
-
-	if (kfifo_is_empty(&vdev->hw->irq.fifo))
-		return IRQ_NONE;
-
-	while (kfifo_get(&vdev->hw->irq.fifo, &irq_src)) {
-		switch (irq_src) {
-		case IVPU_HW_IRQ_SRC_IPC:
-			ivpu_ipc_irq_thread_handler(vdev);
-			break;
-		case IVPU_HW_IRQ_SRC_MMU_EVTQ:
-			ivpu_context_abort_invalid(vdev);
-			break;
-		case IVPU_HW_IRQ_SRC_DCT:
-			ivpu_pm_dct_irq_thread_handler(vdev);
-			break;
-		default:
-			ivpu_err_ratelimited(vdev, "Unknown IRQ source: %u\n", irq_src);
-			break;
-		}
-	}
-
-	return IRQ_HANDLED;
-}
-
 static int ivpu_irq_init(struct ivpu_device *vdev)
 {
 	struct pci_dev *pdev = to_pci_dev(vdev->drm.dev);
@@ -524,12 +478,16 @@ static int ivpu_irq_init(struct ivpu_device *vdev)
 		return ret;
 	}
 
+	INIT_WORK(&vdev->irq_ipc_work, ivpu_ipc_irq_work_fn);
+	INIT_WORK(&vdev->irq_dct_work, ivpu_pm_irq_dct_work_fn);
+	INIT_WORK(&vdev->context_abort_work, ivpu_context_abort_work_fn);
+
 	ivpu_irq_handlers_init(vdev);
 
 	vdev->irq = pci_irq_vector(pdev, 0);
 
-	ret = devm_request_threaded_irq(vdev->drm.dev, vdev->irq, ivpu_hw_irq_handler,
-					ivpu_irq_thread_handler, IRQF_NO_AUTOEN, DRIVER_NAME, vdev);
+	ret = devm_request_irq(vdev->drm.dev, vdev->irq, ivpu_hw_irq_handler,
+			       IRQF_NO_AUTOEN, DRIVER_NAME, vdev);
 	if (ret)
 		ivpu_err(vdev, "Failed to request an IRQ %d\n", ret);
 
@@ -617,13 +575,16 @@ static int ivpu_dev_init(struct ivpu_device *vdev)
 	xa_init_flags(&vdev->context_xa, XA_FLAGS_ALLOC | XA_FLAGS_LOCK_IRQ);
 	xa_init_flags(&vdev->submitted_jobs_xa, XA_FLAGS_ALLOC1);
 	xa_init_flags(&vdev->db_xa, XA_FLAGS_ALLOC1);
-	lockdep_set_class(&vdev->submitted_jobs_xa.xa_lock, &submitted_jobs_xa_lock_class_key);
 	INIT_LIST_HEAD(&vdev->bo_list);
 
 	vdev->db_limit.min = IVPU_MIN_DB;
 	vdev->db_limit.max = IVPU_MAX_DB;
 
 	ret = drmm_mutex_init(&vdev->drm, &vdev->context_list_lock);
+	if (ret)
+		goto err_xa_destroy;
+
+	ret = drmm_mutex_init(&vdev->drm, &vdev->submitted_jobs_lock);
 	if (ret)
 		goto err_xa_destroy;
 

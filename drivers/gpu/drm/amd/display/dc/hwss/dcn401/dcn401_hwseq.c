@@ -936,8 +936,11 @@ void dcn401_enable_stream(struct pipe_ctx *pipe_ctx)
 	if (dc_is_dp_signal(pipe_ctx->stream->signal) || dc_is_virtual_signal(pipe_ctx->stream->signal)) {
 		if (dc->link_srv->dp_is_128b_132b_signal(pipe_ctx)) {
 			dccg->funcs->set_dpstreamclk(dccg, DPREFCLK, tg->inst, dp_hpo_inst);
-
-			dccg->funcs->enable_symclk32_se(dccg, dp_hpo_inst, phyd32clk);
+			if (link->cur_link_settings.link_rate == LINK_RATE_UNKNOWN) {
+				dccg->funcs->disable_symclk32_se(dccg, dp_hpo_inst);
+			} else {
+				dccg->funcs->enable_symclk32_se(dccg, dp_hpo_inst, phyd32clk);
+			}
 		} else {
 			dccg->funcs->enable_symclk_se(dccg, stream_enc->stream_enc_inst,
 					link_enc->transmitter - TRANSMITTER_UNIPHY_A);
@@ -2024,9 +2027,9 @@ static void dcn401_program_pipe(
 				dc->res_pool->hubbub, pipe_ctx->plane_res.hubp->inst, pipe_ctx->hubp_regs.det_size);
 	}
 
-	if (pipe_ctx->update_flags.raw ||
-		(pipe_ctx->plane_state && pipe_ctx->plane_state->update_flags.raw) ||
-		pipe_ctx->stream->update_flags.raw)
+	if (pipe_ctx->plane_state && (pipe_ctx->update_flags.raw ||
+	    pipe_ctx->plane_state->update_flags.raw ||
+	    pipe_ctx->stream->update_flags.raw))
 		dc->hwss.update_dchubp_dpp(dc, pipe_ctx, context);
 
 	if (pipe_ctx->plane_state && (pipe_ctx->update_flags.bits.enable ||
