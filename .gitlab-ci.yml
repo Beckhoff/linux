@@ -1,4 +1,4 @@
-image: ${REGISTRY_HOST}/beckhoff/bdpg:v1.0.32
+image: ${REGISTRY_HOST}/beckhoff/bdpg:v13.3.0
 
 variables:
   GIT_DEPTH: 10
@@ -43,6 +43,7 @@ test:
   stage: test
   trigger:
     project: beckhoff/test-tcos
+    branch: bhf/13/trixie
     strategy: depend
     forward:
       pipeline_variables: true
