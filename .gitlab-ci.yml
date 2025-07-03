@@ -73,7 +73,7 @@ test:
 
 publish:
   stage: .post
-  needs: ["build"]
+  needs: ["build", "build-src"]
   script:
     - bdpg push --skip-changelog-check ./linux-headers-*.deb ./linux-image-*.deb ./linux-*.dsc
   when: manual
