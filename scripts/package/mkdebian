@@ -218,7 +218,7 @@ Homepage: https://www.kernel.org/
 Package: $packagename-${KERNELRELEASE}
 Architecture: $debarch
 Depends:
- initramfs-tools,
+ initramfs-tools | dracut,
 Description: Linux kernel, version ${KERNELRELEASE}
  This package contains the Linux kernel, modules and corresponding other
  files, version: ${KERNELRELEASE}.
