@@ -208,11 +208,11 @@ Priority: optional
 Maintainer: $maintainer
 Rules-Requires-Root: no
 Build-Depends: debhelper-compat (= 12)
-Build-Depends-Arch: bc, bison, flex,
+Build-Depends-Arch: bc, binutils, bison, dracut, dracut-network, flex,
  gcc-${host_gnu} <!pkg.${sourcename}.nokernelheaders>,
  kmod, libdw-dev:native, libelf-dev:native,
  libssl-dev:native, libssl-dev <!pkg.${sourcename}.nokernelheaders>,
- python3:native, rsync
+ python3:native, rsync, systemd-cryptsetup, systemd-ukify, tpm2-tools
 Homepage: https://www.kernel.org/
 
 Package: $packagename-${KERNELRELEASE}
@@ -222,6 +222,12 @@ Depends:
 Description: Linux kernel, version ${KERNELRELEASE}
  This package contains the Linux kernel, modules and corresponding other
  files, version: ${KERNELRELEASE}.
+
+Package: linux-uki-${KERNELRELEASE}-unsigned
+Architecture: $debarch
+Description: Linux Unified Kernel Image, version ${KERNELRELEASE}
+ This package contains the Linux kernel packaged as a Unified Kernel Image (UKI), 
+ version: ${KERNELRELEASE}.
 EOF
 
 if [ "${SRCARCH}" != um ]; then
