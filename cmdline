@@ -1,0 +1,1 @@
+root=gpt-auto ro quiet splash rootwait intel_iommu=on iommu=pt efi=runtime rd.luks=0
