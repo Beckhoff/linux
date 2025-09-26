@@ -62,6 +62,11 @@ build_uki_addons() {
 			--cmdline="irqaffinity=${_irqaffinity} isolcpus=${_shared_cores}-N rcu_nocbs=${_shared_cores}-N" \
 			--output="${uki_addons_path}/tccoreconf-shared-${_shared_cores}.addon.efi"
 	done
+
+	# Overlay rootfs used for the USB installer or any sort of Unified Write Filter.
+	ukify build \
+		--cmdline="bhf.volatile=1" \
+		--output="${uki_addons_path}/systemd-volatile.addon.efi"
 }
 
 install_maintainer_scripts() {
