@@ -167,4 +167,6 @@ linux-libc-dev)
 	install_libc_headers "${package}";;
 linux-headers-*)
 	install_kernel_headers "${package}";;
+linux-uki-*)
+	./"${srctree}"/build-unsigned-uki.sh "${package}" ;;
 esac

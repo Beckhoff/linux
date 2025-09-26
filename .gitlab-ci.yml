@@ -15,7 +15,7 @@ workflow:
     - docker-v2
     - ${BHF_CI_ARCH}
   before_script:
-    - apt update && apt install bc bison cpio flex kmod libdw-dev libelf-dev libssl-dev pahole zstd
+    - apt update && apt install bc bison cpio dracut dracut-network flex kmod libdw-dev libelf-dev libssl-dev pahole shlib systemd-cryptsetup systemd-ukify tpm2-tools zstd
     # It seems sometimes there are old build files on the runner
     - rm -f ../linux-*.deb
     - export DEBFULLNAME="Beckhoff Automation GmbH & Co. KG"
