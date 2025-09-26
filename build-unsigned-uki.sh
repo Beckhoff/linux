@@ -13,6 +13,10 @@ install_kernel_modules() {
 }
 
 build_initramfs() {
+	cp --recursive \
+		"${srctree}/dracut/modules.d/"* \
+		"/usr/lib/dracut/modules.d"
+
 	dracut \
 		--kernel-image="${kernel_image}" \
 		--kver="${KERNELRELEASE}" \
