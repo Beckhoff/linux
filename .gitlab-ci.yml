@@ -1,4 +1,4 @@
-image: ${REGISTRY_HOST}/beckhoff/bdpg:v13.3.0
+image: ${REGISTRY_HOST}/beckhoff/bdpg:v13.3.1
 
 variables:
   GIT_DEPTH: 10
