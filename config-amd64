@@ -3036,7 +3036,7 @@ CONFIG_WAN=y
 # CONFIG_WWAN is not set
 # end of Wireless WAN
 
-# CONFIG_VMXNET3 is not set
+CONFIG_VMXNET3=m
 # CONFIG_FUJITSU_ES is not set
 # CONFIG_NETDEVSIM is not set
 CONFIG_NET_FAILOVER=y
