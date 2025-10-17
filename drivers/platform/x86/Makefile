@@ -44,6 +44,7 @@ obj-$(CONFIG_AYANEO_EC)		+= ayaneo-ec.o
 
 # Beckhoff
 obj-$(CONFIG_BECKHOFF_BAPI)	+= bbapi.o
+obj-$(CONFIG_BECKHOFF_BAPI)	+= bbapi-sups.o
 
 # Cisco/Meraki
 obj-$(CONFIG_MERAKI_MX100)	+= meraki-mx100.o
