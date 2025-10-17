@@ -26,6 +26,7 @@ struct simple_cdev {
 	dev_t dev; // First device number
 	struct cdev cdev; // Character device structure
 	struct class *class; // Device class
+	struct device *device; // Device
 };
 
 /**
@@ -35,6 +36,7 @@ struct simple_cdev {
  * @in: buffer to exchange data between user space and BIOS
  * @out: buffer to exchange data between BIOS and user space
  * @dev: meta data for the character device interface
+ * @mutex: mutex for preparing and accessing BBAPI interface
  *
  * The size of the output buffer should be large enough to satisfy the
  * largest BIOS command. Right now this is: BIOSIOFFS_UEEPROM_READ.

@@ -430,13 +430,21 @@ static inline bool bbapi_supports(uint32_t group, uint32_t offset)
 static __attribute__((ms_abi)) void __iomem *ExtOsMapPhysAddr(int64_t physAddr,
 							      uint32_t memSize)
 {
-	return ioremap((unsigned long)physAddr, memSize);
+/**
+ * Exclusive reservation of the I/O memory (e.g., with devm_request_mem_region) isn't
+ * possible here because it blocks CCAT access from the TwinCAT side. This happens
+ * when TwinCAT doesn't use the BBAPI interface for CCAT access, for example,
+ * when TwinCAT accesses CCAT directly over the PCI interface.
+ */
+
+	return devm_ioremap(g_bbapi.dev.device,
+				      (unsigned long)physAddr, memSize);
 }
 
 static __attribute__((ms_abi)) void ExtOsUnMapPhysAddr(void *pLinMem,
 						       uint32_t memSize)
 {
-	iounmap((void __iomem *)pLinMem);
+	devm_iounmap(g_bbapi.dev.device, (void __iomem *)pLinMem);
 }
 
 struct EXTOS_FUNCTION_ENTRY {
@@ -514,8 +522,10 @@ static int __init simple_cdev_init(struct simple_cdev *dev,
 		goto rollback_cdev;
 	}
 
-	if (device_create(dev->class, NULL, dev->dev, NULL, "%s", devicename) ==
-	    NULL) {
+	g_bbapi.dev.device = device_create(dev->class, NULL, dev->dev, NULL,
+					   "%s", devicename);
+
+	if (g_bbapi.dev.device == NULL) {
 		pr_warn("device_create() failed!\n");
 		goto rollback_class;
 	}
