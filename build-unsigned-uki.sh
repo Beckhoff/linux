@@ -39,6 +39,10 @@ build_unified_kernel_image() {
 		--uname="${KERNELRELEASE}"
 
 	rm --force "${initrd_stage_file}"
+
+	mkdir --parents "${package_dir}/boot"
+	cp System.map "${package_dir}/boot/System.map-${KERNELRELEASE}"
+	cp "${KCONFIG_CONFIG}" "${package_dir}/boot/config-${KERNELRELEASE}"
 }
 
 build_uki_addons() {
