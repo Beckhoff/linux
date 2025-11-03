@@ -58,6 +58,15 @@ build-src:
 
 test:
   stage: test
+  parallel:
+    matrix:
+      - LINUX_CI_RUN_MANUALLY: "n"
+      - LINUX_CI_RUN_MANUALLY: "y"
+        BHF_CI_DO_INSTALL: "y"
+      - LINUX_CI_RUN_MANUALLY: "y"
+        BHF_CI_DO_INSTALL: "y"
+        BHF_CI_TEST_LIST: "cyclictest"
+        ADDITIONAL_RUNNER_TAGS: "Schedule"
   trigger:
     project: beckhoff/test-tcos
     branch: bhf/13/trixie
@@ -69,6 +78,8 @@ test:
   rules:
     - if: $BHF_CI_SKIP_TEST == "y"
       when: never
+    - if: $LINUX_CI_RUN_MANUALLY == "y"
+      when: manual
     - when: on_success
 
 publish:
