@@ -27,12 +27,8 @@ build_meta_package() {
 		linux-image-*-dbg*.deb)
 			local _meta_package='linux-image-bhf-dbg'
 			local _suffix=' debugging symbols';;
-		linux-image-*.deb)
-			local _meta_package='linux-image-bhf'
-			local _provides="linux-image-${_debarch}"
-			local _suffix='';;
 		linux-uki-*-unsigned*.deb)
-			local _meta_package='linux-uki-bhf-unsigned'
+			local _meta_package='linux-image-bhf'
 			local _provides="linux-image-${_debarch}"
 			local _suffix=' unsigned unified kernel image';;
 		linux-libc-dev*.deb)
