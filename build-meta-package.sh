@@ -16,6 +16,10 @@ get_package_arch() {
 
 build_meta_package() {
 	local _package="${1}"
+
+	local _debarch
+	_debarch="$(get_package_arch "${_package}")"
+
 	case "${_package}" in
 		linux-headers-*.deb)
 			local _meta_package='linux-headers-bhf'
@@ -25,9 +29,11 @@ build_meta_package() {
 			local _suffix=' debugging symbols';;
 		linux-image-*.deb)
 			local _meta_package='linux-image-bhf'
+			local _provides="linux-image-${_debarch}"
 			local _suffix='';;
 		linux-uki-*-unsigned*.deb)
 			local _meta_package='linux-uki-bhf-unsigned'
+			local _provides="linux-image-${_debarch}"
 			local _suffix=' unsigned unified kernel image';;
 		linux-libc-dev*.deb)
 			printf 'WARNING: linux-libc-dev not supported, ignoring "%s".\n' "${_package}" >&2
@@ -36,9 +42,6 @@ build_meta_package() {
 			printf 'ERROR: Unknown package type "%s".\n' "${_package}" >&2
 			exit 1
 	esac
-
-	local _debarch
-	_debarch="$(get_package_arch "${_package}")"
 
 	equivs-build - <<- EOF
 		Section: kernel
@@ -50,6 +53,7 @@ build_meta_package() {
 		Package: ${_meta_package}
 		Architecture: ${_debarch}
 		Depends: ${_package%%_*}
+		${_provides:+Provides: ${_provides}}
 		Description: Meta package for linux kernel${_suffix}
 		 This package is a meta package pointing to the latest linux kernel${_suffix}.
 EOF
