@@ -1,15 +1,89 @@
 #!/bin/sh
 set -e
+set -u
+
+get_conf_shared_cores() {
+	# Some systems with regular kernels might not have /etc/kernel/cmdline,
+	# which means they couldn't use TcCoreConf.
+	if ! test -f /etc/kernel/cmdline; then
+		printf '/etc/kernel/cmdline not found; skipping TcCoreConf migration.\n' >&2
+		return
+	fi
+
+	local _cores
+	_cores="$(sed --quiet 's/.*isolcpus=\([0-9]*\)-.*/\1/p' /etc/kernel/cmdline)"
+
+	# TcCoreConf can only configure contiguous cores by setting isolcpus=N-M, so that's all we need to parse.
+	# In case we could not parse anything, but isolcpus= is present (e.g. via isolcpus=1,3,5), we print a warning.
+	if grep --quiet 'isolcpus=' /etc/kernel/cmdline; then
+		if printf '%s' "${_cores}" | grep --quiet --invert-match '^[0-9]\+$'; then
+			printf 'isolcpus= found in /etc/kernel/cmdline, but could not parse shared cores.\n' >&2
+			return
+		fi
+
+		if test "${_cores}" -gt "${MAX_SHARED_CORES}"; then
+			printf 'isolcpus= found, but shared cores (%s) must not be greater than %s.\n' "${_cores}" "${MAX_SHARED_CORES}" >&2
+			return
+		fi
+	fi
+
+	printf '%s' "${_cores}"
+}
+
+copy_uki_addon() {
+	local _shared_cores="${1}"
+
+	# In case the user has already configured shared cores for their UKI,
+	# we do not want to overwrite their configuration.
+	if test -f "${efi_addon_dir}"/tccoreconf-shared-*.addon.efi; then
+		return
+	fi
+
+	local _addon_path="/usr/lib/modules/${KERNELRELEASE}/addons/tccoreconf-shared-${_shared_cores}.addon.efi"
+
+	if ! test -f "${_addon_path}"; then
+		printf 'Missing source UKI addon %s\n' "${_addon_path}" >&2
+		exit 1
+	fi
+
+	mkdir \
+		--parents \
+		--verbose \
+		"${efi_addon_dir}"
+
+	cp \
+		--verbose \
+		"${_addon_path}" \
+		"${efi_addon_dir}"
+}
+
+run_tccoreconf_migration() {
+	local _shared_cores
+	_shared_cores="$(get_conf_shared_cores)"
+
+	# If there are no isolated cores to begin with, there is nothing for us to do.
+	if test -z ${_shared_cores:+x}; then
+		exit 0
+	fi
+
+	copy_uki_addon "${_shared_cores}"
+}
 
 ### vars replaced by templating:
 readonly KERNELRELEASE="@KERNELRELEASE@"
 readonly HOST_UKI_PATH="@HOST_UKI_PATH@"
 readonly PACKAGE="@PACKAGE@"
+readonly MAX_SHARED_CORES="@MAX_SHARED_CORES@"
+
+# normal vars:
+readonly uki_dir='/boot/efi/EFI/Linux'
+readonly efi_addon_dir='/boot/efi/loader/addons'
 
 case "${1}" in
 	configure)
 		if bootctl --print-esp-path 2>/dev/null; then
 			kernel-install add "${KERNELRELEASE}" "${HOST_UKI_PATH}"
+			run_tccoreconf_migration
 		else
 			printf 'Could not find the ESP; skipping kernel-install for %s.\n' "${PACKAGE}" >&2
 			printf 'After mounting your ESP (e.g. at /boot/efi), run:\n' >&2
