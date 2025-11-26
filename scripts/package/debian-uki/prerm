@@ -5,6 +5,7 @@ set -e
 readonly KERNELRELEASE="@KERNELRELEASE@"
 readonly HOST_UKI_PATH="@HOST_UKI_PATH@"
 readonly PACKAGE="@PACKAGE@"
+readonly MAX_SHARED_CORES="@MAX_SHARED_CORES@"
 
 case "${1}" in
 	remove|deconfigure)
