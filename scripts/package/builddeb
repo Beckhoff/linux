@@ -161,12 +161,12 @@ package=$1
 case "${package}" in
 *-dbg)
 	install_linux_image_dbg "${package}";;
-linux-image-*|user-mode-linux-*)
+user-mode-linux-*)
 	install_linux_image "${package}";;
 linux-libc-dev)
 	install_libc_headers "${package}";;
 linux-headers-*)
 	install_kernel_headers "${package}";;
-linux-uki-*)
+linux-image-*)
 	./"${srctree}"/build-unsigned-uki.sh "${package}" ;;
 esac
