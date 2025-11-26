@@ -52,7 +52,7 @@ build_uki_addons() {
 	# we can just loop from 1 to 63 and generate the addons. All that's left for
 	# TcCoreConf to do, is to copy the correct addon to the ESP.
 	local _shared_cores
-	for _shared_cores in $(seq 1 63); do
+	for _shared_cores in $(seq 1 ${max_shared_cores}); do
 		local _irqmax=$((_shared_cores - 1))
 
 		local _irqaffinity
@@ -83,6 +83,7 @@ install_maintainer_scripts() {
 			-e "s|@KERNELRELEASE@|${KERNELRELEASE}|g" \
 			-e "s|@HOST_UKI_PATH@|${_host_uki_path}|g" \
 			-e "s|@PACKAGE@|${package}|g" \
+			-e "s|@MAX_SHARED_CORES@|${max_shared_cores}|g" \
 			"${1}" > "${2}"
 		chmod 755 "${2}"
 	}
@@ -103,6 +104,7 @@ readonly initrd_stage_file="${package_dir}/initrd.img"
 readonly uki_install_path="${package_dir}/usr/lib/modules/${KERNELRELEASE}"
 readonly uki_addons_path="${uki_install_path}/addons"
 readonly uki_file_name="vmlinuz.unsigned.efi"
+readonly max_shared_cores=64
 
 if ! kernel_image="$(${MAKE} --silent --file="${srctree}/Makefile" image_name)"; then
 	logerr 'Failed to determine kernel image name.\n'
