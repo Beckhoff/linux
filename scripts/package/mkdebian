@@ -217,17 +217,9 @@ Homepage: https://www.kernel.org/
 
 Package: $packagename-${KERNELRELEASE}
 Architecture: $debarch
-Depends:
- initramfs-tools | dracut,
 Description: Linux kernel, version ${KERNELRELEASE}
- This package contains the Linux kernel, modules and corresponding other
+ This package contains the Linux kernel packaged as a UKI, modules and corresponding other
  files, version: ${KERNELRELEASE}.
-
-Package: linux-uki-${KERNELRELEASE}-unsigned
-Architecture: $debarch
-Description: Linux Unified Kernel Image, version ${KERNELRELEASE}
- This package contains the Linux kernel packaged as a Unified Kernel Image (UKI), 
- version: ${KERNELRELEASE}.
 EOF
 
 if [ "${SRCARCH}" != um ]; then
