@@ -78,37 +78,17 @@ install_maintainer_scripts() {
 
 	mkdir --parents "${package_dir}/DEBIAN"
 
-	tee "${package_dir}/DEBIAN/postinst" <<- EOF
-		#!/bin/sh
-		set -e
+	process_template() {
+		sed \
+			-e "s|@KERNELRELEASE@|${KERNELRELEASE}|g" \
+			-e "s|@HOST_UKI_PATH@|${_host_uki_path}|g" \
+			-e "s|@PACKAGE@|${package}|g" \
+			"${1}" > "${2}"
+		chmod 755 "${2}"
+	}
 
-		case "\${1}" in
-			configure)
-				if bootctl --print-esp-path 2>/dev/null; then
-					kernel-install add "${KERNELRELEASE}" "${_host_uki_path}"
-				else
-					printf 'Could not find the ESP; skipping kernel-install for ${package}.\n' >&2
-					printf 'After mounting your ESP (e.g. at /boot/efi), run:\n' >&2
-					printf ' sudo dpkg-reconfigure ${package}\n' >&2
-				fi
-				;;
-		esac
-	EOF
-
-	chmod 755 "${package_dir}/DEBIAN/postinst"
-
-	tee "${package_dir}/DEBIAN/prerm" <<- EOF
-		#!/bin/sh
-		set -e
-
-		case "\${1}" in
-			remove|deconfigure)
-				kernel-install remove "${KERNELRELEASE}"
-				;;
-		esac
-	EOF
-
-	chmod 755 "${package_dir}/DEBIAN/prerm"
+	process_template "${srctree}/scripts/package/debian-uki/postinst" "${package_dir}/DEBIAN/postinst"
+	process_template "${srctree}/scripts/package/debian-uki/prerm" "${package_dir}/DEBIAN/prerm"
 }
 
 set -e
