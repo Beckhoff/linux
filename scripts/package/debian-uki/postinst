@@ -1,0 +1,19 @@
+#!/bin/sh
+set -e
+
+### vars replaced by templating:
+readonly KERNELRELEASE="@KERNELRELEASE@"
+readonly HOST_UKI_PATH="@HOST_UKI_PATH@"
+readonly PACKAGE="@PACKAGE@"
+
+case "${1}" in
+	configure)
+		if bootctl --print-esp-path 2>/dev/null; then
+			kernel-install add "${KERNELRELEASE}" "${HOST_UKI_PATH}"
+		else
+			printf 'Could not find the ESP; skipping kernel-install for %s.\n' "${PACKAGE}" >&2
+			printf 'After mounting your ESP (e.g. at /boot/efi), run:\n' >&2
+			printf ' sudo dpkg-reconfigure %s\n' "${PACKAGE}" >&2
+		fi
+		;;
+esac
