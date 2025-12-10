@@ -92,6 +92,10 @@ install_maintainer_scripts() {
 	process_template "${srctree}/scripts/package/debian-uki/prerm" "${package_dir}/DEBIAN/prerm"
 }
 
+packaging_vmlinuz() {
+	cp "${kernel_image}" "${package_dir}/lib/modules/${KERNELRELEASE}/vmlinuz"
+}
+
 set -e
 set -u
 
@@ -127,3 +131,6 @@ build_uki_addons
 
 # 5.) Install the maintainer scripts that (re)move the UKI to/from the ESP.
 install_maintainer_scripts
+
+# 6.) Required for supermin (guestfish) because it does not support UKIs yet
+packaging_vmlinuz
