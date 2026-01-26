@@ -30,8 +30,22 @@ build_initramfs() {
 build_unified_kernel_image() {
 	mkdir --parents "${uki_install_path}"
 
+	local _dtb_args=""
+	local _dtb_path="${srctree}/arch/arm64/boot/dts/mediatek"
+
+	case "$(uname -m)" in
+    	aarch64|arm64)
+		_dtb_args="
+			--devicetree-auto=${_dtb_path}/mt8370-beckhoff-sm0101.dtb
+			--devicetree-auto=${_dtb_path}/mt8370-beckhoff-sm0101-ehm686.dtb
+			--devicetree-auto=${_dtb_path}/mt8390-beckhoff-sm0101-ehm686.dtb
+		"
+		;;
+	esac
+
 	ukify build \
 		--cmdline="@${srctree}/cmdline" \
+		${_dtb_args} \
 		--initrd="${initrd_stage_file}" \
 		--linux="${kernel_image}" \
 		--measure \
