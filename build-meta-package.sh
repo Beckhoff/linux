@@ -30,7 +30,7 @@ build_meta_package() {
 		linux-image-*.deb)
 			local _meta_package='linux-image-bhf'
 			local _provides="linux-image-${_debarch}"
-			local _suffix=' unsigned unified kernel image';;
+			local _suffix=' unified kernel image';;
 		linux-libc-dev*.deb)
 			printf 'WARNING: linux-libc-dev not supported, ignoring "%s".\n' "${_package}" >&2
 			return;;
