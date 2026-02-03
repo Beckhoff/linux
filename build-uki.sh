@@ -36,6 +36,9 @@ build_unified_kernel_image() {
 		--linux="${kernel_image}" \
 		--measure \
 		--output="${uki_install_path}/${uki_file_name}" \
+		--secureboot-certificate="${PRODUCTION_SECURE_BOOT_SIGN_PUBLIC_KEY}" \
+		--secureboot-private-key="${PRODUCTION_SECURE_BOOT_SIGN_PRIVATE_KEY}" \
+		--signtool=sbsign \
 		--uname="${KERNELRELEASE}"
 
 	rm --force "${initrd_stage_file}"
@@ -64,13 +67,19 @@ build_uki_addons() {
 
 		ukify build \
 			--cmdline="irqaffinity=${_irqaffinity} isolcpus=${_shared_cores}-N rcu_nocbs=${_shared_cores}-N" \
-			--output="${uki_addons_path}/tccoreconf-shared-${_shared_cores}.addon.efi"
+			--output="${uki_addons_path}/tccoreconf-shared-${_shared_cores}.addon.efi" \
+			--secureboot-certificate="${PRODUCTION_SECURE_BOOT_SIGN_PUBLIC_KEY}" \
+			--secureboot-private-key="${PRODUCTION_SECURE_BOOT_SIGN_PRIVATE_KEY}" \
+			--signtool=sbsign
 	done
 
 	# Overlay rootfs used for the USB installer or any sort of Unified Write Filter.
 	ukify build \
 		--cmdline="bhf.volatile=1" \
-		--output="${uki_addons_path}/systemd-volatile.addon.efi"
+		--output="${uki_addons_path}/systemd-volatile.addon.efi" \
+		--secureboot-certificate="${PRODUCTION_SECURE_BOOT_SIGN_PUBLIC_KEY}" \
+		--secureboot-private-key="${PRODUCTION_SECURE_BOOT_SIGN_PRIVATE_KEY}" \
+		--signtool=sbsign
 }
 
 install_maintainer_scripts() {
@@ -107,7 +116,7 @@ readonly package_dir="debian/${package}"
 readonly initrd_stage_file="${package_dir}/initrd.img"
 readonly uki_install_path="${package_dir}/usr/lib/modules/${KERNELRELEASE}"
 readonly uki_addons_path="${uki_install_path}/addons"
-readonly uki_file_name="vmlinuz.unsigned.efi"
+readonly uki_file_name="vmlinuz.signed.efi"
 readonly max_shared_cores=64
 
 if ! kernel_image="$(${MAKE} --silent --file="${srctree}/Makefile" image_name)"; then
