@@ -39,6 +39,8 @@ build_unified_kernel_image() {
 			--devicetree-auto=${_dtb_path}/mt8370-beckhoff-sm0101.dtb
 			--devicetree-auto=${_dtb_path}/mt8370-beckhoff-sm0101-ehm686.dtb
 			--devicetree-auto=${_dtb_path}/mt8390-beckhoff-sm0101-ehm686.dtb
+			--devicetree-auto=${_dtb_path}/mt8370-beckhoff-sm0101-cb3014.dtb
+			--devicetree-auto=${_dtb_path}/mt8390-beckhoff-sm0101-cb3014.dtb
 		"
 		;;
 	esac
