@@ -1,0 +1,804 @@
+// SPDX-License-Identifier: GPL-2.0 OR MIT
+/*
+ * Copyright (C) 2025 Beckhoff Automation GmbH & Co. KG
+ */
+
+#include "mt8188-beckhoff-sm0101.dtsi"
+
+/*
+ * SOM Interfaces used:
+ *
+ *		- UART 0 -> Debug
+ *		- SPI1 -> SN74AVC4T774 (LED gpio)
+ *		- GPIO_TPM -> TPM
+ *		- SPI2 -> TPM (SLB9672)
+ *		- DP0 -> Display out
+ *		- EDP -> EDP Port out DISP_EN(GPIO 121)/HPD(GPIO 17 Aux func 4)/PWM(DISP_PWM0 AA9)
+ *		- EMMC -> EMMC (MSDC 0)
+ *		- SDIO 1 -> SD Card 1 (MSDC 1) / CD# (GPIO 024)
+ *		- SDIO 2 -> SD Card 2 (MSDC 2) / CD# (GPIO 124)
+ *		- GPIO 0 -> PC status (GPIO 00)
+ *		- GPIO_1 -> PC on (GPIO 01)
+ *		- GPIO_EXTPWR -> 3V3 enable	(GPIO 09)
+ *		- GPIO_PWRLED -> PWR LED (R/G/B) / GPIO(012/013/014)
+ *		- USBP0 -> USB 3 Port
+ *		- USBP1 -> USB 2 Port
+ *		- PCIE0 -> Realtek Phy
+ *		- GBE0 -> B50212E
+ *
+ */
+
+/ {
+	memory@40000000 {
+		device_type = "memory";
+		reg = <0 0x40000000 0x2 0x00000000>;
+	};
+
+	usb3_con: usb3-con {
+		compatible = "usb-a-connector";
+		label = "USB-A";
+		ports {
+			#address-cells = <1>;
+			#size-cells = <0>;
+			port@0 {
+				reg = <0>;
+				hs_ep: endpoint {
+					remote-endpoint = <&usb3_hs_ep>;
+				};
+			};
+			port@1 {
+				reg = <1>;
+				ss_ep: endpoint {
+					remote-endpoint = <&usb3_ss_ep>;
+				};
+			};
+		};
+	};
+
+	vdd_3p3v: vdd-3p3v {
+		compatible = "regulator-fixed";
+		regulator-name = "vdd-3.3V";
+		regulator-min-microvolt = <3300000>;
+		regulator-max-microvolt = <3300000>;
+		regulator-boot-on;
+		regulator-always-on;
+		gpio = <&pio 9 GPIO_ACTIVE_HIGH>;
+		enable-active-high;
+	};
+
+	edp_pwr: edp-pwr {
+		compatible = "regulator-fixed";
+		regulator-name = "edp-pwr";
+		regulator-min-microvolt = <5000000>;
+		regulator-max-microvolt = <5000000>;
+		gpio = <&pio 121 GPIO_ACTIVE_HIGH>;
+		enable-active-high;
+	};
+
+	backlight_edp: backlight-edp {
+		compatible = "pwm-backlight";
+		brightness-levels = <0 1023>;
+		default-brightness-level = <576>;
+		num-interpolated-steps = <1023>;
+		//power-supply = <&reg_vsys>;
+		pwms = <&disp_pwm0 0 500000>;
+	};
+
+
+	leds {
+		compatible = "gpio-leds";
+		status = "okay";
+		tc-state-blue {
+			function = LED_FUNCTION_HEARTBEAT;
+			color = <LED_COLOR_ID_BLUE>;
+			gpios = <&gpio_sr 2 GPIO_ACTIVE_LOW>;
+			linux,default-trigger = "none";
+			default-state = "off";
+			label = "blue:tc-state";
+		};
+
+		tc-state-red {
+			function = LED_FUNCTION_PANIC;
+			color = <LED_COLOR_ID_RED>;
+			gpios = <&gpio_sr 0 GPIO_ACTIVE_LOW>;
+			linux,default-trigger = "none";
+			default-state = "off";
+			label = "red:tc-state";
+		};
+
+		tc-state-green {
+			function = LED_FUNCTION_POWER;
+			color = <LED_COLOR_ID_GREEN>;
+			gpios = <&gpio_sr 1 GPIO_ACTIVE_LOW>;
+			linux,default-trigger = "none";
+			default-state = "off";
+			label = "green:tc-state";
+		};
+
+		hdd-red {
+			function = LED_FUNCTION_POWER;
+			color = <LED_COLOR_ID_RED>;
+			gpios = <&gpio_sr 3 GPIO_ACTIVE_LOW>;
+			linux,default-trigger = "mmc1";
+			default-state = "off";
+			label = "red:hdd";
+		};
+	};
+
+};
+
+
+&pio {
+	status = "okay";
+
+	/* USBP1_EN */
+	enable-hog {
+		gpio-hog;
+		gpios = <87 GPIO_ACTIVE_HIGH>;
+		output-high;
+	};
+	/* USBP0_EN */
+	enable-hog2 {
+		gpio-hog;
+		gpios = <84 GPIO_ACTIVE_HIGH>;
+		output-high;
+	};
+};
+
+
+
+&eth {
+	phy-mode ="rgmii-id";
+	nvmem-cells = <&eth0_addr>;
+	nvmem-cell-names = "mac-address";
+	phy-handle = <&ethphy0>;
+	pinctrl-names = "default", "sleep";
+	pinctrl-0 = <&ethdefault>;
+	pinctrl-1 = <&ethsleep>;
+	mediatek,mac-wol;
+	status = "okay";
+
+	snps,reset-gpio = <&pio 147 GPIO_ACTIVE_LOW>;
+	snps,reset-delays-us = <0 10000 10000>;
+
+	mdio {
+		compatible = "snps,dwmac-mdio";
+		#address-cells = <1>;
+		#size-cells = <0>;
+		ethphy0: ethphy0@0 {
+			reg = <0x0>;
+		};
+	};
+};
+
+&disp_pwm0 {
+	pinctrl-names = "default";
+	pinctrl-0 = <&disp_pwm0_pins>;
+	status = "okay";
+};
+
+&spi1 {
+	pinctrl-names = "default";
+	pinctrl-0 = <&spi1_pins_default>;
+	num-cs = <1>;
+	status = "okay";
+	cs-gpios = <&pio 75 GPIO_ACTIVE_LOW>;
+	gpio_sr: gpio_sr@0 {
+			compatible = "fairchild,74hc595";
+			reg = <0>;
+			gpio-controller;
+			#gpio-cells = <2>;
+			registers-number = <1>;
+			spi-max-frequency = <100000>;
+			enable-gpios = <&pio 78 GPIO_ACTIVE_LOW>;
+		};
+};
+
+
+&spi2 {
+	pinctrl-names = "default";
+	pinctrl-0 = <&spi2_pins_default>;
+	status = "okay";
+	num-cs = <1>;
+	cs-gpios = <&pio 79 GPIO_ACTIVE_LOW>;
+	tpm@0 {
+		compatible = "infineon,slb9670", "tcg,tpm_tis-spi";
+		reg = <0>;
+		spi-max-frequency = <18500000>;
+		interrupt-parent = <&pio>;
+		interrupts = <8 IRQ_TYPE_LEVEL_HIGH>;
+		reset-gpio = <&pio 10 GPIO_ACTIVE_LOW>;
+	};
+};
+
+&u3phy0 {
+	status = "okay";
+};
+
+&u3phy1 {
+	status = "okay";
+};
+
+&u3phy2 {
+	status = "okay";
+};
+
+// USB Port 0 -> USB 2
+&ssusb0 {
+	dr_mode = "otg";
+	maximum-speed = "high-speed";
+	usb-role-switch;
+	wakeup-source;
+	vusb33-supply = <&mt6359_vusb_ldo_reg>;
+	status = "okay";
+
+	connector {
+		compatible = "usb-a-connector";
+	};
+};
+
+&xhci0 {
+	status = "okay";
+};
+
+// USB Port 1 -> USB 3
+&ssusb1 {
+	dr_mode = "otg";
+	usb-role-switch;
+	wakeup-source;
+	vusb33-supply = <&mt6359_vusb_ldo_reg>;
+	status = "okay";
+
+	port {
+		usb3_hs_ep: endpoint {
+			remote-endpoint = <&hs_ep>;
+		};
+	};
+};
+
+&xhci1 {
+	status = "okay";
+	vusb33-supply = <&mt6359_vusb_ldo_reg>;
+
+	port {
+		usb3_ss_ep: endpoint {
+			remote-endpoint = <&ss_ep>;
+		};
+	};
+};
+
+&pio {
+
+	pins_spi_gpio {
+		pinmux = <PINMUX_GPIO92__FUNC_B_GPIO92>,
+				<PINMUX_GPIO94__FUNC_B_GPIO94>,
+				<PINMUX_GPIO95__FUNC_B_GPIO95>,
+				<PINMUX_GPIO93__FUNC_B_GPIO93>;
+	};
+
+	dp_tx_hpd: dp-tx-hpd-pins {
+		pins-dp-tx-hpd {
+			pinmux = <PINMUX_GPIO46__FUNC_I0_DP_TX_HPD>;
+		};
+	};
+
+	disp_pwm0_pins: disp-pwm0-pins {
+		pins-pwm {
+			pinmux = <PINMUX_GPIO29__FUNC_O_DISP_PWM0>;
+		};
+	};
+
+	spi1_pins_default: spi1-default-pins {
+		pins-bus {
+			pinmux = <PINMUX_GPIO75__FUNC_B_GPIO75>,
+				 <PINMUX_GPIO76__FUNC_O_SPIM1_CLK>,
+				 <PINMUX_GPIO77__FUNC_B0_SPIM1_MOSI>,
+				 <PINMUX_GPIO78__FUNC_B_GPIO78>;
+			bias-disable;
+		};
+	};
+
+	spi1_pins_sleep: spi1-sleep-pins {
+		pins-bus {
+			pinmux = <PINMUX_GPIO75__FUNC_B_GPIO75>,
+				 <PINMUX_GPIO76__FUNC_B_GPIO76>,
+				 <PINMUX_GPIO77__FUNC_B_GPIO77>,
+				 <PINMUX_GPIO78__FUNC_B_GPIO78>;
+			bias-pull-down;
+			input-enable;
+		};
+	};
+
+	spi2_pins_default: spi2-default-pins {
+		pins-bus {
+			pinmux = <PINMUX_GPIO79__FUNC_B_GPIO79>,
+				 <PINMUX_GPIO80__FUNC_O_SPIM2_CLK>,
+				 <PINMUX_GPIO81__FUNC_B0_SPIM2_MOSI>,
+				 <PINMUX_GPIO82__FUNC_B0_SPIM2_MISO>;
+			bias-disable;
+		};
+	};
+
+	spi2_pins_sleep: spi2-sleep-pins {
+		pins-bus {
+			pinmux =  <PINMUX_GPIO79__FUNC_B_GPIO79>,
+				 <PINMUX_GPIO80__FUNC_B_GPIO80>,
+				 <PINMUX_GPIO81__FUNC_B_GPIO81>;
+			bias-pull-down;
+			input-enable;
+		};
+		pins-bus2 {
+			pinmux =  <PINMUX_GPIO82__FUNC_B_GPIO82>;
+			bias-pull-up;
+			input-enable;
+		};
+	};
+
+	uart0_pins: uart0-pins {
+		pins {
+			pinmux = <PINMUX_GPIO31__FUNC_O_UTXD0>,
+				 <PINMUX_GPIO32__FUNC_I1_URXD0>;
+			bias-pull-up;
+		};
+	};
+	ethdefault: ethdefault {
+		pins-cc {
+			pinmux = <PINMUX_GPIO139__FUNC_B0_GBE_TXC>,
+				 <PINMUX_GPIO140__FUNC_I0_GBE_RXC>,
+				 <PINMUX_GPIO141__FUNC_I0_GBE_RXDV>,
+				 <PINMUX_GPIO142__FUNC_O_GBE_TXEN>;
+			drive-strength = <MTK_DRIVE_8mA>;
+		};
+
+		pins-mdio {
+			pinmux = <PINMUX_GPIO143__FUNC_O_GBE_MDC>,
+				 <PINMUX_GPIO144__FUNC_B1_GBE_MDIO>;
+			drive-strength = <MTK_DRIVE_8mA>;
+			input-enable;
+		};
+
+		pins-rxd {
+			pinmux = <PINMUX_GPIO135__FUNC_I0_GBE_RXD3>,
+				 <PINMUX_GPIO136__FUNC_I0_GBE_RXD2>,
+				 <PINMUX_GPIO137__FUNC_I0_GBE_RXD1>,
+				 <PINMUX_GPIO138__FUNC_I0_GBE_RXD0>;
+			drive-strength = <MTK_DRIVE_8mA>;
+		};
+
+		pins-txd {
+			pinmux = <PINMUX_GPIO131__FUNC_O_GBE_TXD3>,
+				 <PINMUX_GPIO132__FUNC_O_GBE_TXD2>,
+				 <PINMUX_GPIO133__FUNC_O_GBE_TXD1>,
+				 <PINMUX_GPIO134__FUNC_O_GBE_TXD0>,
+				 <PINMUX_GPIO147__FUNC_B_GPIO147>;
+			drive-strength = <MTK_DRIVE_8mA>;
+		};
+	};
+
+	ethsleep: ethsleep {
+		pins-cc {
+			pinmux = <PINMUX_GPIO139__FUNC_B_GPIO139>,
+				 <PINMUX_GPIO140__FUNC_B_GPIO140>,
+				 <PINMUX_GPIO141__FUNC_B_GPIO141>,
+				 <PINMUX_GPIO142__FUNC_B_GPIO142>;
+		};
+
+		pins-mdio {
+			pinmux = <PINMUX_GPIO143__FUNC_B_GPIO143>,
+				 <PINMUX_GPIO144__FUNC_B_GPIO144>;
+			input-disable;
+			bias-disable;
+		};
+
+		pins-rxd {
+			pinmux = <PINMUX_GPIO135__FUNC_B_GPIO135>,
+				 <PINMUX_GPIO136__FUNC_B_GPIO136>,
+				 <PINMUX_GPIO137__FUNC_B_GPIO137>,
+				 <PINMUX_GPIO138__FUNC_B_GPIO138>;
+		};
+
+		pins-txd {
+			pinmux = <PINMUX_GPIO131__FUNC_B_GPIO131>,
+				 <PINMUX_GPIO132__FUNC_B_GPIO132>,
+				 <PINMUX_GPIO133__FUNC_B_GPIO133>,
+				 <PINMUX_GPIO134__FUNC_B_GPIO134>;
+		};
+	};
+
+	edp_pin_default: edp-pin-default {
+		edp-panel-hpd {
+			pinmux = <PINMUX_GPIO17__FUNC_I0_EDP_TX_HPD>;
+			bias-pull-up;
+		};
+
+		edp-panel-bl-en {
+			pinmux = <PINMUX_GPIO121__FUNC_B_GPIO121>;
+			output-low;
+		};
+
+		edp-panel-pwm {
+			pinmux = <PINMUX_GPIO29__FUNC_O_DISP_PWM0>;
+			output-low;
+		};
+	};
+
+	mmc1_pins_default: mmc1default {
+		pins-cmd-dat {
+			pinmux = <PINMUX_GPIO163__FUNC_B1_MSDC1_CMD>,
+				 <PINMUX_GPIO165__FUNC_B1_MSDC1_DAT0>,
+				 <PINMUX_GPIO166__FUNC_B1_MSDC1_DAT1>,
+				 <PINMUX_GPIO167__FUNC_B1_MSDC1_DAT2>,
+				 <PINMUX_GPIO168__FUNC_B1_MSDC1_DAT3>;
+			input-enable;
+			drive-strength = <MTK_DRIVE_6mA>;
+			bias-pull-up = <MTK_PUPD_SET_R1R0_01>;
+		};
+
+		pins-clk {
+			pinmux = <PINMUX_GPIO164__FUNC_B1_MSDC1_CLK>;
+			drive-strength = <MTK_DRIVE_6mA>;
+			bias-pull-down = <MTK_PUPD_SET_R1R0_10>;
+		};
+
+		pins-insert {
+			pinmux = <PINMUX_GPIO24__FUNC_B_GPIO24>;
+			bias-pull-up;
+		};
+	};
+
+	mmc1_pins_uhs: mmc1uhs {
+		pins-cmd-dat {
+			pinmux = <PINMUX_GPIO163__FUNC_B1_MSDC1_CMD>,
+				 <PINMUX_GPIO165__FUNC_B1_MSDC1_DAT0>,
+				 <PINMUX_GPIO166__FUNC_B1_MSDC1_DAT1>,
+				 <PINMUX_GPIO167__FUNC_B1_MSDC1_DAT2>,
+				 <PINMUX_GPIO168__FUNC_B1_MSDC1_DAT3>;
+			input-enable;
+			drive-strength = <MTK_DRIVE_8mA>;
+			bias-pull-up = <MTK_PUPD_SET_R1R0_01>;
+		};
+
+		pins-clk {
+			pinmux = <PINMUX_GPIO164__FUNC_B1_MSDC1_CLK>;
+			drive-strength = <MTK_DRIVE_8mA>;
+			bias-pull-down = <MTK_PUPD_SET_R1R0_10>;
+		};
+
+		pins-insert {
+			pinmux = <PINMUX_GPIO24__FUNC_B_GPIO24>;
+			bias-pull-up;
+		};
+	};
+
+	mmc2_pins_default: mmc2default {
+		pins-cmd-dat {
+			pinmux = <PINMUX_GPIO169__FUNC_B1_MSDC2_CMD>,
+				 <PINMUX_GPIO171__FUNC_B1_MSDC2_DAT0>,
+				 <PINMUX_GPIO172__FUNC_B1_MSDC2_DAT1>,
+				 <PINMUX_GPIO173__FUNC_B1_MSDC2_DAT2>,
+				 <PINMUX_GPIO174__FUNC_B1_MSDC2_DAT3>;
+			input-enable;
+			drive-strength = <MTK_DRIVE_6mA>;
+			bias-pull-up = <MTK_PUPD_SET_R1R0_01>;
+		};
+
+		pins-clk {
+			pinmux = <PINMUX_GPIO170__FUNC_B1_MSDC2_CLK>;
+			drive-strength = <MTK_DRIVE_6mA>;
+			bias-pull-down = <MTK_PUPD_SET_R1R0_10>;
+		};
+
+		pins-insert {
+			pinmux = <PINMUX_GPIO124__FUNC_B_GPIO124>;
+			bias-pull-up;
+		};
+	};
+
+	mmc2_pins_uhs: mmc2uhs {
+		pins-cmd-dat {
+			pinmux = <PINMUX_GPIO169__FUNC_B1_MSDC2_CMD>,
+				 <PINMUX_GPIO171__FUNC_B1_MSDC2_DAT0>,
+				 <PINMUX_GPIO172__FUNC_B1_MSDC2_DAT1>,
+				 <PINMUX_GPIO173__FUNC_B1_MSDC2_DAT2>,
+				 <PINMUX_GPIO174__FUNC_B1_MSDC2_DAT3>;
+			input-enable;
+			drive-strength = <MTK_DRIVE_8mA>;
+			bias-pull-up = <MTK_PUPD_SET_R1R0_01>;
+		};
+
+		pins-clk {
+			pinmux = <PINMUX_GPIO170__FUNC_B1_MSDC2_CLK>;
+			drive-strength = <MTK_DRIVE_8mA>;
+			bias-pull-down = <MTK_PUPD_SET_R1R0_10>;
+		};
+
+		pins-insert {
+			pinmux = <PINMUX_GPIO124__FUNC_B_GPIO124>;
+			bias-pull-up;
+		};
+	};
+
+	edptx_pins_default: edptx-default-pins {
+		pins-cmd-dat {
+			pinmux = <PINMUX_GPIO17__FUNC_I0_EDP_TX_HPD>;
+			bias-pull-up;
+		};
+	};
+};
+
+&mmc1 {
+	status = "okay";
+	pinctrl-names = "default", "state_uhs";
+	pinctrl-0 = <&mmc1_pins_default>;
+	pinctrl-1 = <&mmc1_pins_uhs>;
+	bus-width = <4>;
+	max-frequency = <200000000>;
+	cap-sd-highspeed;
+	no-mmc;
+	no-sdio;
+	cd-gpios = <&pio 24 GPIO_ACTIVE_LOW>;
+	vmmc-supply = <&reg_3p3v>;
+	vqmmc-supply = <&reg_3p3v>;
+};
+
+&mmc2 {
+	status = "okay";
+	pinctrl-names = "default", "state_uhs";
+	pinctrl-0 = <&mmc2_pins_default>;
+	pinctrl-1 = <&mmc2_pins_uhs>;
+	bus-width = <4>;
+	max-frequency = <200000000>;
+	cap-sd-highspeed;
+	sd-uhs-sdr50;
+	sd-uhs-sdr104;
+	no-mmc;
+	no-sdio;
+	cd-gpios = <&pio 124 GPIO_ACTIVE_LOW>;
+	vmmc-supply = <&mt6359_vpa_buck_reg>;
+	vqmmc-supply = <&mt6359_vsim2_ldo_reg>;
+};
+
+
+// GFX
+
+&dp_intf1 {
+	status = "okay";
+
+	ports {
+		#address-cells = <1>;
+		#size-cells = <0>;
+
+		port@0 {
+			#address-cells = <1>;
+			#size-cells = <0>;
+			reg = <0>;
+
+			dp_intf1_in: endpoint@1 {
+				reg = <1>;
+				remote-endpoint = <&merge5_out>;
+			};
+		};
+
+		port@1 {
+			#address-cells = <1>;
+			#size-cells = <0>;
+			reg = <1>;
+
+			dp_intf1_out: endpoint@1 {
+				reg = <1>;
+				//disabled eDP, by default it is not connected
+				//remote-endpoint = <&edp_in>;
+				remote-endpoint = <&dptx_in>;
+			};
+		};
+	};
+};
+
+
+&dp_intf0 {
+	//status = "okay";
+
+	ports {
+		#address-cells = <1>;
+		#size-cells = <0>;
+
+		port@0 {
+			reg = <0>;
+			dp_intf0_in: endpoint {
+				remote-endpoint = <&merge0_out>;
+			};
+		};
+
+		port@1 {
+			reg = <1>;
+			dp_intf0_out: endpoint {
+				//remote-endpoint = <&dptx_in>;
+				//remote-endpoint = <&edp_in>;
+			};
+		};
+	};
+};
+
+&dp_tx {
+	pinctrl-names = "default";
+	pinctrl-0 = <&dp_tx_hpd>;
+	#sound-dai-cells = <0>;
+	status = "okay";
+
+	ports {
+		#address-cells = <1>;
+		#size-cells = <0>;
+
+		port@0 {
+			reg = <0>;
+			dptx_in: endpoint {
+				remote-endpoint = <&dp_intf1_out>;
+			};
+		};
+
+		port@1 {
+			reg = <1>;
+			dptx_out: endpoint {
+				data-lanes = <0 1 2 3>;
+			};
+		};
+	};
+};
+
+&merge5 {
+	ports {
+		#address-cells = <1>;
+		#size-cells = <0>;
+
+		port@0 {
+			#address-cells = <1>;
+			#size-cells = <0>;
+			reg = <0>;
+
+			merge5_in: endpoint@1 {
+				reg = <1>;
+				remote-endpoint = <&ethdr0_out>;
+			};
+		};
+
+		port@1 {
+			#address-cells = <1>;
+			#size-cells = <0>;
+			reg = <1>;
+
+			merge5_out: endpoint@1 {
+				reg = <1>;
+				remote-endpoint = <&dp_intf1_in>;
+			};
+		};
+	};
+};
+
+&vdosys1 {
+	port {
+		#address-cells = <1>;
+		#size-cells = <0>;
+
+		vdosys1_ep_ext: endpoint@1 {
+			reg = <1>;
+			remote-endpoint = <&ethdr0_in>;
+		};
+	};
+};
+
+&ethdr0 {
+	ports {
+		#address-cells = <1>;
+		#size-cells = <0>;
+
+		port@0 {
+			#address-cells = <1>;
+			#size-cells = <0>;
+			reg = <0>;
+
+			ethdr0_in: endpoint@1 {
+				reg = <1>;
+				remote-endpoint = <&vdosys1_ep_ext>;
+			};
+		};
+
+		port@1 {
+			#address-cells = <1>;
+			#size-cells = <0>;
+			reg = <1>;
+
+			ethdr0_out: endpoint@1 {
+				reg = <1>;
+				remote-endpoint = <&merge5_in>;
+			};
+		};
+	};
+};
+
+
+&edp_tx {
+	//status = "okay";
+
+	pinctrl-names = "default";
+	pinctrl-0 = <&edptx_pins_default>;
+
+	ports {
+		#address-cells = <1>;
+		#size-cells = <0>;
+
+		port@0 {
+			reg = <0>;
+			edp_in: endpoint {
+				remote-endpoint = <&dp_intf1_out>;
+			};
+		};
+
+		port@1 {
+			reg = <1>;
+			edp_out: endpoint {
+				data-lanes = <0 1 2 3>;
+				remote-endpoint = <&panel_in>;
+			};
+		};
+	};
+
+	aux-bus {
+		panel {
+			compatible = "edp-panel";
+			power-supply = <&edp_pwr>;
+			backlight = <&disp_pwm0>;
+			port {
+				panel_in: endpoint {
+					remote-endpoint = <&edp_out>;
+				};
+			};
+		};
+	};
+};
+
+&merge0 {
+	ports {
+		#address-cells = <1>;
+		#size-cells = <0>;
+
+		port@0 {
+			reg = <0>;
+			merge0_in: endpoint {
+				remote-endpoint = <&dsc0_out>;
+			};
+		};
+
+		port@1 {
+			reg = <1>;
+			merge0_out: endpoint {
+				remote-endpoint = <&dp_intf0_in>;
+			};
+		};
+	};
+};
+
+&dsc0 {
+	ports {
+		#address-cells = <1>;
+		#size-cells = <0>;
+
+		port@0 {
+			reg = <0>;
+			dsc0_in: endpoint {
+				remote-endpoint = <&dither0_out>;
+			};
+		};
+
+		port@1 {
+			reg = <1>;
+			dsc0_out: endpoint {
+				remote-endpoint = <&merge0_in>;
+			};
+		};
+	};
+};
+
+&dither0_out {
+	remote-endpoint = <&dsc0_in>;
+};
+
