@@ -551,3 +551,7 @@
 	mediatek,mic-type-0 = <1>; /* ACC */
 	mediatek,mic-type-1 = <3>; /* DCC */
 };
+
+&mt6359rtc {
+	status = "disabled";
+};
