@@ -29,12 +29,6 @@ docker-image-build:
   tags:
     - docker-v2
     - ${BHF_CI_ARCH}
-  before_script:
-    # It seems sometimes there are old build files on the runner
-    - rm -f ../linux-*.deb
-    - export DEBFULLNAME="Beckhoff Automation GmbH & Co. KG"
-    - export DEBEMAIL="info@beckhoff.com"
-    - cp config-${BHF_CI_ARCH} .config
   artifacts:
     expire_in: 1 week
     when: always
@@ -52,11 +46,7 @@ build:
           - amd64
           - arm64
   script:
-    - make -j$(nproc) bindeb-pkg
-    # GitLab cannot pickup artifacts from outside of CI_PROJECT_DIR
-    - mv ../linux-*${CI_PIPELINE_ID}*.deb ./
-    - ./build-meta-package.sh linux-*.deb
-    - bdpg push-pipelines linux-*.deb
+    - ./build-packages.sh binary
 
 build-src:
   extends: .build
@@ -66,9 +56,7 @@ build-src:
     - docker-v2
     - multiarch
   script:
-    - make -j$(nproc) srcdeb-pkg
-    - mv ../linux-upstream_*${CI_PIPELINE_ID}* .
-    - bdpg push-pipelines linux-*.dsc
+    - ./build-packages.sh source
 
 test:
   stage: test
