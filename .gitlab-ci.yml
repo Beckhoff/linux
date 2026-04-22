@@ -25,7 +25,7 @@ docker-image-build:
 .build:
   stage: build
   image: ${CI_REGISTRY_IMAGE}/build:${CI_COMMIT_REF_SLUG}-${BHF_CI_ARCH}
-  timeout: 30m
+  timeout: 60m
   tags:
     - docker-v2
     - ${BHF_CI_ARCH}
@@ -45,6 +45,9 @@ build:
       - BHF_CI_ARCH:
           - amd64
           - arm64
+        BHF_CI_LINUX_VARIANT:
+          - bhf
+          - bhf-desktop
   script:
     - ./build-packages.sh binary
 
@@ -52,6 +55,7 @@ build-src:
   extends: .build
   variables:
     BHF_CI_ARCH: "arm64"
+    BHF_CI_LINUX_VARIANT: "bhf"
   tags:
     - docker-v2
     - multiarch

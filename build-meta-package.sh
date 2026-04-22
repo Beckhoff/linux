@@ -22,13 +22,13 @@ build_meta_package() {
 
 	case "${_package}" in
 		linux-headers-*.deb)
-			local _meta_package='linux-headers-bhf'
+			local _meta_package="linux-headers-${BHF_CI_LINUX_VARIANT}"
 			local _suffix=' headers';;
 		linux-image-*-dbg*.deb)
-			local _meta_package='linux-image-bhf-dbg'
+			local _meta_package="linux-image-${BHF_CI_LINUX_VARIANT}-dbg"
 			local _suffix=' debugging symbols';;
 		linux-image-*.deb)
-			local _meta_package='linux-image-bhf'
+			local _meta_package="linux-image-${BHF_CI_LINUX_VARIANT}"
 			local _provides="linux-image-${_debarch}"
 			local _suffix=' unified kernel image';;
 		linux-libc-dev*.deb)
