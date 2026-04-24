@@ -8,14 +8,28 @@ workflow:
     - if: $CI_COMMIT_TAG
     - if: $CI_COMMIT_BRANCH
 
+docker-image-build:
+  image: ${REGISTRY_HOST}/beckhoff/okinak:master
+  stage: .pre
+  parallel:
+    matrix:
+      - TARGET_ARCH:
+        - amd64
+        - arm64
+  tags:
+    - ${TARGET_ARCH}
+    - docker-v2-privileged
+  script:
+    - okinak build-native --file=Dockerfile
+
 .build:
   stage: build
+  image: ${CI_REGISTRY_IMAGE}/build:${CI_COMMIT_REF_SLUG}-${BHF_CI_ARCH}
   timeout: 30m
   tags:
     - docker-v2
     - ${BHF_CI_ARCH}
   before_script:
-    - apt update && apt install bc bison cpio dracut dracut-network flex kmod libdw-dev libelf-dev libssl-dev pahole sbsigntool shlib systemd-cryptsetup systemd-ukify tpm2-tools zstd
     # It seems sometimes there are old build files on the runner
     - rm -f ../linux-*.deb
     - export DEBFULLNAME="Beckhoff Automation GmbH & Co. KG"
