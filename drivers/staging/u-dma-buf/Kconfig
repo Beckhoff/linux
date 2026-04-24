@@ -1,0 +1,78 @@
+#
+# u-dma-buf
+#
+
+menuconfig U_DMA_BUF
+	tristate "u-dma-buf(User space mappable DMA Buffer)"
+	depends on OF
+	help
+	  Enable this to allow the u-dma-buf to be built.
+	  u-dma-buf is a linux device driver that allocates contiguous
+	  memory blocks in the kernel space as DMA buffers and
+	  makes them available from the user space.
+
+	  If you don't know what to do here, say N.
+
+config U_DMA_BUF_CONFIG
+	bool "Configure u-dma-buf by Kconfig"
+	depends on U_DMA_BUF
+	default n
+	help
+	  If y, allows u-dma-buf configuration by Kconfig.
+	  If n, build with
+	    U_DMA_BUF_DEBUG=y
+	    U_DMA_BUF_QUIRK_MMAP=y
+	    U_DMA_BUF_IN_KERNEL_FUNCTIONS=y
+	    U_DMA_BUF_IOCTL=y
+	    U_DMA_BUF_EXPORT=y
+	  
+config U_DMA_BUF_DEBUG
+	bool "u-dma-buf enable debug report"
+	depends on U_DMA_BUF_CONFIG
+	default y
+	help
+	  Enable debug report.
+
+config U_DMA_BUF_QUIRK_MMAP
+	bool "u-dma-buf enable quirk mmap"
+	depends on U_DMA_BUF_CONFIG
+	default y
+	help
+	  Enable quirk mmap.
+	  The Linux Kernel mainline turns off caching when doing mmap() for architectures
+	  such as ARM and ARM64 where cache aliasing problems can occur.
+	  However, u-dma-buf provides quirk-mmap to enable caching in cases where the above
+	  architecture does not cause cache alias problems.
+	  The quirk-mmap is u-dma-buf's own mmap mechanism and does not utilize the 
+	  dma_mmap_coherent() provided by the dma-mapping API in the linux kernel.
+	  This may cause problems in some cases, so please be careful when using it.
+
+config U_DMA_BUF_IN_KERNEL_FUNCTIONS
+	bool "u-dma-buf enable in-kernel functions"
+	depends on U_DMA_BUF_CONFIG
+	default y
+	help
+	  Enable u-dma-buf in-kernel functions.
+	  Setting this to y will EXPORT_SYMBOL the function to
+	  manage u-dma-buf from inside the kernel.
+
+config U_DMA_BUF_IOCTL
+	bool "u-dma-buf enable ioctl"
+	depends on U_DMA_BUF_CONFIG
+	default y if U_DMA_BUF_EXPORT
+	help
+	  Enable ioctl.
+
+config U_DMA_BUF_EXPORT
+	bool "u-dma-buf enable prime dma-buf export"
+	depends on U_DMA_BUF_CONFIG
+	select CONFIG_DMA_SHARED_BUFFER
+	default y
+	help
+	  Enable exporting u-dma-buf as PRIME DMA-BUFs.
+	  PRIME DMA-BUFs is an abbreviation for the Linux kernel's internal
+	  DMA buffer sharing API.
+	  It provides a general mechanism for sharing DMA buffers among multiple
+	  devices managed by different types of device drivers.
+	  To use this option, ioctl must be enabled.
+
