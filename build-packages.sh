@@ -31,7 +31,7 @@ make_binary() {
 	mv ../linux-*"${CI_PIPELINE_ID}"*.deb ./
 
 	./build-meta-package.sh linux-*.deb
-	bdpg push-pipelines linux-*.deb
+	bdpg push-pipelines ./linux-headers-*.deb ./linux-image-*.deb
 }
 
 make_source() {
