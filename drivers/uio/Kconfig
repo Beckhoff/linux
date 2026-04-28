@@ -176,4 +176,17 @@ config UIO_PCI_GENERIC_SVA
 	  This driver binds to PCI devices and exposes them to userspace
 	  via the UIO framework.
 
+config UIO_MACB
+	tristate "MACB UIO module for DPDK"
+	help
+	  This is a Userspace I/O (UIO) driver that enables mapping of the
+	  hardware registers of the MACB (Media Access Controller – B)
+	  network device into userspace.
+	  It facilitates direct access to the MACB device registers from
+	  userspace applications, enabling efficient packet processing and
+	  integration with the Data Plane Development Kit (DPDK).
+	  The driver is intended to provide low-latency, high-throughput
+	  network operations by bypassing traditional kernel networking
+	  stacks.
+
 endif
