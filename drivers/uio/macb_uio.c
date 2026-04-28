@@ -167,12 +167,79 @@ static ssize_t speed_info_show(struct device *dev, struct device_attribute *attr
 
 static DEVICE_ATTR_RO(speed_info);
 
+static ssize_t tx_clk_hz_show(struct device *dev, struct device_attribute *attr,
+			       char *buf)
+{
+	struct clk *pclk;
+	unsigned long tx_clk_hz;
+
+	pclk = devm_clk_get(dev, "tx_clk");
+	if (IS_ERR(pclk)) {
+		dev_info(dev, "can't get tx_clk value.\n");
+		pclk = NULL;
+	}
+
+	tx_clk_hz = clk_get_rate(pclk);
+
+	return snprintf(buf, 12, "%lu", tx_clk_hz);
+}
+
+static ssize_t tx_clk_hz_store(struct device *dev, struct device_attribute *attr,
+				const char *buf, size_t count)
+{
+	struct clk *pclk;
+	unsigned long tx_clk_hz;
+	unsigned long rate_rounded;
+	int rc;
+	long ferr;
+
+	pclk = devm_clk_get(dev, "tx_clk");
+	if (IS_ERR(pclk)) {
+		count = -ENODEV;
+		goto out;
+	}
+
+	rc = kstrtoul(buf, 0, &tx_clk_hz);
+	if (rc) {
+		count = -EINVAL;
+		goto out;
+	}
+
+	rate_rounded = clk_round_rate(pclk, tx_clk_hz);
+	if (rate_rounded < 0) {
+		count = -ENODEV;
+		goto out;
+	}
+
+	/*
+	 * RGMII allows 50 ppm frequency error. Test and warn if
+	 * this limit is not satisfied.
+	 */
+	ferr = abs(rate_rounded - tx_clk_hz);
+	ferr = DIV_ROUND_UP(ferr, tx_clk_hz / 100000);
+	if (ferr > 5)
+		dev_warn(dev,
+			 "unable to generate target frequency: %ld Hz\n",
+			 tx_clk_hz);
+
+	if (clk_set_rate(pclk, rate_rounded)) {
+		count = -ENODEV;
+		goto out;
+	}
+
+out:
+	return count;
+}
+
+static DEVICE_ATTR_RW(tx_clk_hz);
+
 static struct attribute *dev_attrs[] = {
 	&dev_attr_pclk_hz.attr,
 	&dev_attr_phy_mode.attr,
 	&dev_attr_physical_addr.attr,
 	&dev_attr_dev_type.attr,
 	&dev_attr_speed_info.attr,
+	&dev_attr_tx_clk_hz.attr,
 	NULL,
 };
 
