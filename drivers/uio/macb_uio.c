@@ -329,12 +329,12 @@ fail_release_iomem:
 	return err;
 }
 
-static int macb_uio_remove(struct platform_device *dev)
+static void macb_uio_remove(struct platform_device *dev)
 {
 	struct rte_uio_platform_dev *udev = platform_get_drvdata(dev);
 
 	if (!udev)
-		return -EINVAL;
+		return;
 
 	macb_uio_release(&udev->info, NULL);
 
@@ -343,8 +343,6 @@ static int macb_uio_remove(struct platform_device *dev)
 	macb_uio_release_iomem(&udev->info);
 	platform_set_drvdata(dev, NULL);
 	kfree(udev);
-
-	return 0;
 }
 
 static struct platform_driver macb_uio_driver = {
