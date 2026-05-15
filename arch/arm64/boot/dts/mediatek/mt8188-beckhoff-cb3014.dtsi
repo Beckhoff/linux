@@ -855,6 +855,8 @@
 	aux-bus {
 		panel {
 			compatible = "edp-panel";
+			backlight-aux-set-override;
+			backlight-brightness-byte-count-override;
 //			power-supply = <&edp_pwr>;
 //			backlight = <&disp_pwm0>;
 			port {
