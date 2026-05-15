@@ -4647,6 +4647,19 @@ int drm_panel_dp_aux_backlight(struct drm_panel *panel, struct drm_dp_aux *aux)
 	if (ret < 0)
 		return ret;
 
+	/* Quirk: Override edp_dpcd[2] caps from device tree for panels
+	 * (e.g. behind PTN3460) that support AUX backlight but don't
+	 * report it correctly in DPCD.
+	 */
+	if (of_property_read_bool(panel->dev->of_node,
+		"backlight-aux-set-override"))
+		edp_dpcd[2] |= DP_EDP_BACKLIGHT_BRIGHTNESS_AUX_SET_CAP;
+
+	if (of_property_read_bool(panel->dev->of_node,
+		"backlight-brightness-byte-count-override"))
+		edp_dpcd[2] |= DP_EDP_BACKLIGHT_BRIGHTNESS_BYTE_COUNT;
+
+
 	if (!drm_edp_backlight_supported(edp_dpcd)) {
 		DRM_DEV_INFO(panel->dev, "DP AUX backlight is not supported\n");
 		return 0;
