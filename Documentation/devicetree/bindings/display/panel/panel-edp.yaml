@@ -108,6 +108,22 @@ properties:
       needed if HPD hooked up, either through a GPIO in the panel node or
       hooked up directly to the eDP controller.
 
+  backlight-aux-set-override:
+    type: boolean
+    description:
+      Force the DP_EDP_BACKLIGHT_BRIGHTNESS_AUX_SET_CAP capability bit
+      for panels (e.g. behind a PTN3460 bridge) that support AUX-based
+      backlight brightness control but do not correctly report it in
+      the eDP DPCD register.
+
+  backlight-brightness-byte-count-override:
+    type: boolean
+    description:
+      Force the DP_EDP_BACKLIGHT_BRIGHTNESS_BYTE_COUNT capability bit
+      for panels (e.g. behind a PTN3460 bridge) that use a 2-byte
+      brightness level register but do not correctly report it in
+      the eDP DPCD register.
+
   backlight: true
   enable-gpios: true
   port: true
