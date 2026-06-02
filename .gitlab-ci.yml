@@ -75,7 +75,7 @@ test:
         BHF_CI_TEST_LIST: "cyclictest"
   trigger:
     project: beckhoff/test-tcos
-    branch: bhf/13/trixie
+    branch: trigger/bhf/13/trixie
     strategy: depend
     forward:
       pipeline_variables: true
