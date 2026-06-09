@@ -5842,7 +5842,7 @@ CONFIG_HID_GENERIC=m
 # Special HID drivers
 #
 # CONFIG_HID_A4TECH is not set
-# CONFIG_HID_ACCUTOUCH is not set
+CONFIG_HID_ACCUTOUCH=m
 # CONFIG_HID_ACRUX is not set
 # CONFIG_HID_APPLE is not set
 # CONFIG_HID_APPLEIR is not set
