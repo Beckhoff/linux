@@ -115,24 +115,6 @@
 		};
 	};
 
-	reg_1p8v: regulator-1p8v {
-		compatible = "regulator-fixed";
-		regulator-name = "fixed-1.8V";
-		regulator-min-microvolt = <1800000>;
-		regulator-max-microvolt = <1800000>;
-		regulator-boot-on;
-		regulator-always-on;
-	};
-
-	reg_3p3v: regulator-3p3v {
-		compatible = "regulator-fixed";
-		regulator-name = "fixed-3.3V";
-		regulator-min-microvolt = <3300000>;
-		regulator-max-microvolt = <3300000>;
-		regulator-boot-on;
-		regulator-always-on;
-	};
-
 	leds {
 		compatible = "gpio-leds";
 		status = "okay";
@@ -230,6 +212,8 @@
 		compatible = "jedec,spi-nor";
 		reg = <0>;
 		spi-max-frequency = <52000000>;
+		spi-rx-bus-width = <4>;
+		spi-tx-bus-width = <4>;
 	};
 };
 
@@ -335,22 +319,8 @@
 };
 
 &pio {
+
 	nor_pins: nor-default-pins {
-		pins-clk {
-			pinmux = <PINMUX_GPIO92__FUNC_B_GPIO92>,
-				 <PINMUX_GPIO94__FUNC_B_GPIO94>,
-				 <PINMUX_GPIO95__FUNC_B_GPIO95>;
-			bias-pull-down;
-		};
-
-		pins-cs {
-			pinmux = <PINMUX_GPIO93__FUNC_B_GPIO93>;
-			bias-pull-up;
-		};
-
-	};
-
-	pmic_pins: pmic-default-pins {
 		pins-clk {
 			pinmux = <PINMUX_GPIO127__FUNC_B0_SPINOR_IO0>,
 				 <PINMUX_GPIO125__FUNC_O_SPINOR_CK>,

@@ -534,11 +534,13 @@
 	bus-width = <4>;
 	max-frequency = <200000000>;
 	cap-sd-highspeed;
+	sd-uhs-sdr50;
+	sd-uhs-sdr104;
 	no-mmc;
 	no-sdio;
 	cd-gpios = <&pio 24 GPIO_ACTIVE_LOW>;
-	vmmc-supply = <&reg_3p3v>;
-	vqmmc-supply = <&reg_3p3v>;
+	vmmc-supply = <&mt6359_vpa_buck_reg>;
+	vqmmc-supply = <&mt6359_vsim1_ldo_reg>;
 };
 
 &mmc2 {
