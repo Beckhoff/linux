@@ -73,6 +73,7 @@ test:
         BHF_CI_CYCLICTEST_DURATION: "180m"
         BHF_CI_DO_INSTALL: "y"
         BHF_CI_TEST_LIST: "cyclictest"
+        ADDITIONAL_RUNNER_TAGS: "Schedule"
   trigger:
     project: beckhoff/test-tcos
     branch: trigger/bhf/13/trixie
