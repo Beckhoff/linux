@@ -122,8 +122,7 @@
 			function = LED_FUNCTION_HEARTBEAT;
 			color = <LED_COLOR_ID_BLUE>;
 			gpios = <&pio 14 GPIO_ACTIVE_HIGH>;
-			linux,default-trigger = "heartbeat";
-			default-state = "on";
+			default-state = "off";
 		};
 
 		pwr-red {
