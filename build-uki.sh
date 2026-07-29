@@ -17,6 +17,10 @@ build_initramfs() {
 		"${srctree}/dracut/modules.d/"* \
 		"/usr/lib/dracut/modules.d"
 
+	cp --recursive \
+        "${srctree}/dracut/dracut.conf.d/"* \
+        "/etc/dracut.conf.d"
+
 	dracut \
 		--kernel-image="${kernel_image}" \
 		--kver="${KERNELRELEASE}" \
