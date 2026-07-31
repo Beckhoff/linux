@@ -206,7 +206,7 @@
 		reg = <0>;
 		spi-max-frequency = <18500000>;
 		interrupt-parent = <&pio>;
-		interrupts = <8 IRQ_TYPE_LEVEL_HIGH>;
+		interrupts = <8 IRQ_TYPE_LEVEL_LOW>;
 		reset-gpio = <&pio 10 GPIO_ACTIVE_LOW>;
 	};
 };
