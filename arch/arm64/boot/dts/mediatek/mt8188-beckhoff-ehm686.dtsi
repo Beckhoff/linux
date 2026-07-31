@@ -205,8 +205,8 @@
 		compatible = "infineon,slb9670", "tcg,tpm_tis-spi";
 		reg = <0>;
 		spi-max-frequency = <18500000>;
-		interrupt-parent = <&pio>;
-		interrupts = <8 IRQ_TYPE_LEVEL_HIGH>;
+		//interrupt-parent = <&pio>;   --> ToDo: Interrupt error by pull-up resistor
+		//interrupts = <8 IRQ_TYPE_LEVEL_HIGH>;
 		reset-gpio = <&pio 10 GPIO_ACTIVE_LOW>;
 	};
 };
