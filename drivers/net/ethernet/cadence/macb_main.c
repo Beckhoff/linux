@@ -1265,8 +1265,6 @@ static void macb_tx_error_task(struct work_struct *work)
 						      tx_error_task);
 	struct macb		*bp = queue->bp;
 	u32			queue_index;
-	u32			packets = 0;
-	u32			bytes = 0;
 	struct macb_tx_skb	*tx_skb;
 	struct macb_dma_desc	*desc;
 	struct sk_buff		*skb;
@@ -1332,10 +1330,8 @@ static void macb_tx_error_task(struct work_struct *work)
 					    skb->data);
 				bp->dev->stats.tx_packets++;
 				queue->stats.tx_packets++;
-				packets++;
 				bp->dev->stats.tx_bytes += skb->len;
 				queue->stats.tx_bytes += skb->len;
-				bytes += skb->len;
 			}
 		} else {
 			/* "Buffers exhausted mid-frame" errors may only happen
@@ -1352,8 +1348,13 @@ static void macb_tx_error_task(struct work_struct *work)
 		macb_tx_unmap(bp, tx_skb, 0);
 	}
 
-	netdev_tx_completed_queue(netdev_get_tx_queue(bp->dev, queue_index),
-				  packets, bytes);
+	/* Every in-flight frame has just been freed, so reset the byte queue
+	 * limits accounting rather than completing it. Frames the hardware
+	 * never marked used contribute no bytes, and
+	 * netdev_tx_completed_queue() returns early when bytes is zero, which
+	 * would leave the queue stopped by BQL with an empty ring.
+	 */
+	netdev_tx_reset_queue(netdev_get_tx_queue(bp->dev, queue_index));
 
 	/* Set end of TX queue */
 	desc = macb_tx_desc(queue, 0);
