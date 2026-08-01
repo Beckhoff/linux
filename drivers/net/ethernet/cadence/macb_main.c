@@ -4587,8 +4587,16 @@ static int macb_setup_tc(struct net_device *dev, enum tc_setup_type type,
 static void macb_tx_timeout(struct net_device *dev, unsigned int q)
 {
 	struct macb *bp = netdev_priv(dev);
+	struct macb_queue *queue = &bp->queues[q];
 
-	macb_tx_restart(&bp->queues[q]);
+	/* macb_tx_restart() only re-issues TSTART, and skips even that when
+	 * the hardware queue pointer already matches tx_head, which is the
+	 * state a wedged queue is left in. Recover through the error path
+	 * instead: it halts transmission, reports the queued frames,
+	 * reprograms TBQP, clears the transmit status and restarts.
+	 */
+	queue_writel(queue, IDR, MACB_TX_INT_FLAGS);
+	schedule_work(&queue->tx_error_task);
 }
 
 static const struct net_device_ops macb_netdev_ops = {
