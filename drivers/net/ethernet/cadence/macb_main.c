@@ -1259,47 +1259,18 @@ static dma_addr_t macb_get_addr(struct macb *bp, struct macb_dma_desc *desc)
 	return addr;
 }
 
-static void macb_tx_error_task(struct work_struct *work)
+/* Reclaim one queue's ring and point both the driver and the hardware back at
+ * its base. Split out of macb_tx_error_task() because the reset there is
+ * controller-wide: it has to be applied to every queue, not just the one that
+ * reported the error.
+ */
+static void macb_tx_reinit_one_queue(struct macb *bp, unsigned int queue_index)
 {
-	struct macb_queue	*queue = container_of(work, struct macb_queue,
-						      tx_error_task);
-	struct macb		*bp = queue->bp;
-	u32			queue_index;
+	struct macb_queue	*queue = &bp->queues[queue_index];
 	struct macb_tx_skb	*tx_skb;
 	struct macb_dma_desc	*desc;
 	struct sk_buff		*skb;
 	unsigned int		tail;
-	unsigned long		flags;
-
-	queue_index = queue - bp->queues;
-	netdev_vdbg(bp->dev, "macb_tx_error_task: q = %u, t = %u, h = %u\n",
-		    queue_index, queue->tx_tail, queue->tx_head);
-
-	/* Prevent the queue NAPI TX poll from running, as it calls
-	 * macb_tx_complete(), which in turn may call netif_wake_subqueue().
-	 * As explained below, we have to halt the transmission before updating
-	 * TBQP registers so we call netif_tx_stop_all_queues() to notify the
-	 * network engine about the macb/gem being halted.
-	 */
-	napi_disable(&queue->napi_tx);
-	spin_lock_irqsave(&bp->lock, flags);
-
-	/* Make sure nobody is trying to queue up new packets */
-	netif_tx_stop_all_queues(bp->dev);
-
-	/* Stop transmission now
-	 * (in case we have just queued new packets)
-	 * macb/gem must be halted to write TBQP register
-	 */
-	if (macb_halt_tx(bp))
-		netdev_err(bp->dev, "BUG: halt tx timed out\n");
-
-	/* Halting transmission is not enough to make TBQP writable: the write
-	 * is dropped while transmit is enabled, leaving the hardware pointer
-	 * wherever it stopped. Disable transmit for the reprogramming below
-	 * and re-enable it before restarting.
-	 */
-	macb_writel(bp, NCR, macb_readl(bp, NCR) & ~MACB_BIT(TE));
 
 	/* Treat frames in TX queue including the ones that caused the error.
 	 * Free transmit buffers in upper layer.
@@ -1370,9 +1341,61 @@ static void macb_tx_error_task(struct work_struct *work)
 	queue->tx_head = 0;
 	queue->tx_tail = 0;
 
+	queue_writel(queue, IER, MACB_TX_INT_FLAGS);
+}
+
+static void macb_tx_error_task(struct work_struct *work)
+{
+	struct macb_queue	*queue = container_of(work, struct macb_queue,
+						      tx_error_task);
+	struct macb		*bp = queue->bp;
+	u32			queue_index;
+	unsigned int		q;
+	unsigned long		flags;
+
+	queue_index = queue - bp->queues;
+	netdev_vdbg(bp->dev, "macb_tx_error_task: q = %u, t = %u, h = %u\n",
+		    queue_index, queue->tx_tail, queue->tx_head);
+
+	/* Prevent the queue NAPI TX poll from running, as it calls
+	 * macb_tx_complete(), which in turn may call netif_wake_subqueue().
+	 * As explained below, we have to halt the transmission before updating
+	 * TBQP registers so we call netif_tx_stop_all_queues() to notify the
+	 * network engine about the macb/gem being halted.
+	 */
+	for (q = 0; q < bp->num_queues; q++)
+		napi_disable(&bp->queues[q].napi_tx);
+	spin_lock_irqsave(&bp->lock, flags);
+
+	/* Make sure nobody is trying to queue up new packets */
+	netif_tx_stop_all_queues(bp->dev);
+
+	/* Stop transmission now
+	 * (in case we have just queued new packets)
+	 * macb/gem must be halted to write TBQP register
+	 */
+	if (macb_halt_tx(bp))
+		netdev_err(bp->dev, "BUG: halt tx timed out\n");
+
+	/* Halting transmission is not enough to make TBQP writable: the write
+	 * is dropped while transmit is enabled, leaving the hardware pointer
+	 * wherever it stopped. Disable transmit for the reprogramming below
+	 * and re-enable it before restarting.
+	 */
+	macb_writel(bp, NCR, macb_readl(bp, NCR) & ~MACB_BIT(TE));
+
+	/* Disabling the transmitter above resets the transmit pointer of every
+	 * queue to its own ring base, not just this one, and TSTART after a halt
+	 * restarts them all from there. Reinitialise every queue so the software
+	 * pointers match: a queue left with its old tx_head and tx_tail resumes
+	 * at a descriptor the driver has already reaped, the used bit stops it
+	 * immediately, and it never transmits again.
+	 */
+	for (q = 0; q < bp->num_queues; q++)
+		macb_tx_reinit_one_queue(bp, q);
+
 	/* Housework before enabling TX IRQ */
 	macb_writel(bp, TSR, macb_readl(bp, TSR));
-	queue_writel(queue, IER, MACB_TX_INT_FLAGS);
 
 	/* Transmit was disabled above so TBQP could be reprogrammed */
 	macb_writel(bp, NCR, macb_readl(bp, NCR) | MACB_BIT(TE));
@@ -1382,7 +1405,16 @@ static void macb_tx_error_task(struct work_struct *work)
 	macb_writel(bp, NCR, macb_readl(bp, NCR) | MACB_BIT(TSTART));
 
 	spin_unlock_irqrestore(&bp->lock, flags);
-	napi_enable(&queue->napi_tx);
+
+	/* macb_tx_poll() masks TCOMP and calls napi_schedule() to catch a
+	 * completion that raced the unmask. Disabling the NAPI above discards
+	 * that reschedule, and with TCOMP masked nothing would ever complete
+	 * again, so poll each queue once.
+	 */
+	for (q = 0; q < bp->num_queues; q++) {
+		napi_enable(&bp->queues[q].napi_tx);
+		napi_schedule(&bp->queues[q].napi_tx);
+	}
 }
 
 static bool ptp_one_step_sync(struct sk_buff *skb)
