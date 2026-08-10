@@ -179,6 +179,20 @@ static dma_addr_t macb_tx_dma(struct macb_queue *queue, unsigned int index)
 	return queue->tx_ring_dma + offset;
 }
 
+/* The descriptor the hardware transmit pointer refers to. TBQP holds an
+ * absolute address, so the ring base has to come off before it means anything
+ * as an index.
+ */
+static unsigned int macb_tbqp_desc_idx(struct macb_queue *queue)
+{
+	struct macb *bp = queue->bp;
+
+	return macb_tx_ring_wrap(bp,
+				 (queue_readl(queue, TBQP) -
+				  lower_32_bits(queue->tx_ring_dma)) /
+				 macb_dma_desc_get_size(bp));
+}
+
 static unsigned int macb_rx_ring_wrap(struct macb *bp, unsigned int index)
 {
 	return index & (bp->rx_ring_size - 1);
@@ -2579,6 +2593,26 @@ static netdev_tx_t macb_start_xmit(struct sk_buff *skb, struct net_device *dev)
 	}
 
 	spin_lock_irqsave(&queue->tx_ptr_lock, flags);
+
+	/* The controller advances the transmit pointer past a descriptor whose
+	 * used bit it read, so an idle ring leaves it parked ahead of tx_head,
+	 * on a descriptor the driver is not about to write. Frames queued from
+	 * tx_head then sit behind the hardware and are never sent.
+	 *
+	 * Nothing is outstanding while the ring is empty, so move the ring
+	 * pointers to the hardware rather than the other way round: the frame
+	 * below lands on the descriptor the controller is already reading.
+	 * Writing TBQP instead would not work here, as the write is dropped
+	 * while the transmitter is running.
+	 */
+	if (queue->tx_head == queue->tx_tail) {
+		unsigned int hw_idx = macb_tbqp_desc_idx(queue);
+
+		if (macb_tx_ring_wrap(bp, queue->tx_head) != hw_idx) {
+			queue->tx_head = hw_idx;
+			queue->tx_tail = hw_idx;
+		}
+	}
 
 	/* This is a hard error, log it. */
 	if (CIRC_SPACE(queue->tx_head, queue->tx_tail,
