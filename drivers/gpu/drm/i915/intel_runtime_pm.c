@@ -485,8 +485,21 @@ void intel_runtime_pm_enable(struct intel_runtime_pm *rpm)
 	 *  function will be unsupported in case PCIe endpoint function is in D3.
 	 *  Let's keep i915 autosuspend control 'on' till we fix all known issue
 	 *  with lmem access in D3.
+	 *
+	 *  On PREEMPT_RT don't enable it either. Runtime suspend tears the
+	 *  display core down and runtime resume rebuilds it, and both halves
+	 *  contain long sections that cannot be preempted: the display IRQ
+	 *  reset spends hundreds of microseconds on MMIO reads with interrupts
+	 *  disabled, and dmc_load_program() re-uploads the whole DMC firmware
+	 *  payload with preemption disabled. On top of that the suspend path
+	 *  arms the DRM connector poll, because HPD cannot be delivered with
+	 *  the display power well down, and that poll takes a display power
+	 *  reference and resumes the device again, so an idle headless machine
+	 *  keeps cycling through both sections on its own. Leave the PCI core
+	 *  default (runtime PM forbidden) in place instead; userspace can still
+	 *  opt in per device via power/control in sysfs.
 	 */
-	if (!IS_DGFX(i915))
+	if (!IS_DGFX(i915) && !IS_ENABLED(CONFIG_PREEMPT_RT))
 		pm_runtime_allow(kdev);
 
 	/*
