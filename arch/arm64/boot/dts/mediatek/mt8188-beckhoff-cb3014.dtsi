@@ -199,6 +199,8 @@
 		#size-cells = <0>;
 		ethphy0: ethphy0@0 {
 			reg = <0x0>;
+			eee-broken-100tx;
+			eee-broken-1000t;
 		};
 	};
 };
