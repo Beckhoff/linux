@@ -313,6 +313,18 @@
 			eth4_addr: eth-mac-addr@7C{
 				reg = <0x7C 0x06>; // cell-name: "eth4_addr"
 			};
+
+			asset_tag: asset-tag@104{
+				reg = <0x104 0x20>; // cell-name: "asset_tag"
+			};
+
+			ram_size: ram-size@164{
+				reg = <0x164 0x08>; // cell-name: "ram_size"
+			};
+
+			boot_order: boot-order@16C{
+				reg = <0x16C 0x0C>; // cell-name: "boot_order"
+			};
 		};
 	};
 };
