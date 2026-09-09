@@ -158,9 +158,6 @@
 	mediatek,mac-wol;
 	status = "okay";
 
-	snps,reset-gpio = <&pio 147 GPIO_ACTIVE_LOW>;
-	snps,reset-delays-us = <0 10000 10000>;
-
 	mdio {
 		compatible = "snps,dwmac-mdio";
 		#address-cells = <1>;
