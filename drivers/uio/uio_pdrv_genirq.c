@@ -190,7 +190,7 @@ static int uio_pdrv_genirq_probe(struct platform_device *pdev)
 	for (i = 0; i < pdev->num_resources; ++i) {
 		struct resource *r = &pdev->resource[i];
 
-		if (r->flags != IORESOURCE_MEM)
+		if (resource_type(r) != IORESOURCE_MEM)
 			continue;
 
 		if (uiomem >= &uioinfo->mem[MAX_UIO_MAPS]) {
