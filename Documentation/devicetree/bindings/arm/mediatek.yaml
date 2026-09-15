@@ -436,12 +436,29 @@ properties:
           - enum:
               - mediatek,mt8365-evk
           - const: mediatek,mt8365
+      - description: Beckhoff SM0101 SoM with MT8370 and its carrier boards
+        items:
+          - enum:
+              - beckhoff,mt8370-sm0101
+              - beckhoff,mt8370-sm0101-cb3014
+              - beckhoff,mt8370-sm0101-ehm686
+          - const: beckhoff,sm0101
+          - const: mediatek,mt8370
+          - const: mediatek,mt8188
       - items:
           - enum:
               - ezurio,mt8370-tungsten-smarc
               - grinn,genio-510-sbc
               - mediatek,mt8370-evk
           - const: mediatek,mt8370
+          - const: mediatek,mt8188
+      - description: Beckhoff SM0101 SoM with MT8390 and its carrier boards
+        items:
+          - enum:
+              - beckhoff,mt8390-sm0101-cb3014
+              - beckhoff,mt8390-sm0101-ehm686
+          - const: beckhoff,sm0101
+          - const: mediatek,mt8390
           - const: mediatek,mt8188
       - items:
           - enum:
