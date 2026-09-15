@@ -1,0 +1,17 @@
+// SPDX-License-Identifier: GPL-2.0 OR MIT
+/*
+ * Copyright (C) 2025 Beckhoff Automation GmbH & Co. KG
+ */
+
+/dts-v1/;
+
+
+#include "mt8370.dtsi"
+#include "mt8188-beckhoff-ehm686.dtsi"
+
+
+/ {
+	model = "Beckhoff EHM686 MT8370";
+	compatible = "beckhoff,mt8370-sm0101-ehm686", "beckhoff,sm0101", "mediatek,mt8370", "mediatek,mt8188";
+
+};
