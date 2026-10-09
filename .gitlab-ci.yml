@@ -48,6 +48,10 @@ build:
         BHF_CI_LINUX_VARIANT:
           - bhf
           - bhf-desktop
+  rules:
+    - if: $BHF_CI_SKIP_DESKTOP == "y" && $BHF_CI_LINUX_VARIANT == "bhf-desktop"
+      when: never
+    - when: on_success
   script:
     - ./build-packages.sh binary
 
@@ -91,7 +95,10 @@ test:
 
 publish:
   stage: .post
-  needs: ["build", "build-src"]
+  needs:
+    - job: build
+      optional: true
+    - build-src
   script:
     - bdpg push --skip-changelog-check ./linux-headers-*.deb ./linux-image-*.deb ./linux-*.dsc
   when: manual
