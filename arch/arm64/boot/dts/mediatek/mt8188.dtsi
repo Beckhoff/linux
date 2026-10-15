@@ -2068,6 +2068,10 @@
 				reg = <0 0x700>;
 				clocks = <&topckgen CLK_TOP_CFGREG_F_PCIE_PHY_REF>;
 				clock-names = "ref";
+				nvmem-cells = <&pcie_tphy_intr>,
+					      <&pcie_tphy_rx_imp>,
+					      <&pcie_tphy_tx_imp>;
+				nvmem-cell-names = "intr", "rx_imp", "tx_imp";
 				#phy-cells = <1>;
 			};
 		};
@@ -2234,6 +2238,21 @@
 			reg = <0 0x11f20000 0 0x1000>;
 			#address-cells = <1>;
 			#size-cells = <1>;
+
+			pcie_tphy_tx_imp: pcie-tphy-tx-imp@180,1 {
+				reg = <0x180 0x1>;
+				bits = <0 5>;
+			};
+
+			pcie_tphy_rx_imp: pcie-tphy-rx-imp@180,2 {
+				reg = <0x180 0x2>;
+				bits = <5 5>;
+			};
+
+			pcie_tphy_intr: pcie-tphy-intr@181 {
+				reg = <0x181 0x1>;
+				bits = <2 6>;
+			};
 
 			dp_calib_data: dp-calib@1a0 {
 				reg = <0x1a0 0xc>;
