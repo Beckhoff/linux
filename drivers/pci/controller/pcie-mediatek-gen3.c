@@ -1108,6 +1108,17 @@ static int mtk_pcie_power_up(struct mtk_gen3_pcie *pcie)
 		return err;
 	}
 
+	/*
+	 * MAC power on and enable transaction layer clocks. This has to happen
+	 * before phy_init(): on mt8188 the T-PHY calibration registers ignore
+	 * writes while the MAC is held in reset.
+	 */
+	err = reset_control_deassert(pcie->mac_reset);
+	if (err) {
+		dev_err(dev, "failed to deassert MAC\n");
+		goto err_phy_init;
+	}
+
 	err = phy_init(pcie->phy);
 	if (err) {
 		dev_err(dev, "failed to initialize PHY\n");
@@ -1119,9 +1130,6 @@ static int mtk_pcie_power_up(struct mtk_gen3_pcie *pcie)
 		dev_err(dev, "failed to power on PHY\n");
 		goto err_phy_on;
 	}
-
-	/* MAC power on and enable transaction layer clocks */
-	reset_control_deassert(pcie->mac_reset);
 
 	pm_runtime_enable(dev);
 	pm_runtime_get_sync(dev);
@@ -1137,11 +1145,11 @@ static int mtk_pcie_power_up(struct mtk_gen3_pcie *pcie)
 err_clk_init:
 	pm_runtime_put_sync(dev);
 	pm_runtime_disable(dev);
-	reset_control_assert(pcie->mac_reset);
 	phy_power_off(pcie->phy);
 err_phy_on:
 	phy_exit(pcie->phy);
 err_phy_init:
+	reset_control_assert(pcie->mac_reset);
 	reset_control_bulk_assert(pcie->soc->phy_resets.num_resets,
 				  pcie->phy_resets);
 
