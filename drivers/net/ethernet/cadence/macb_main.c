@@ -4596,10 +4596,21 @@ static void macb_tx_timeout(struct net_device *netdev, unsigned int q)
 	macb_tx_restart(&bp->queues[q]);
 }
 
+/* GEM serves TX queues in strict priority order, the highest queue first */
+static u16 macb_select_queue(struct net_device *netdev, struct sk_buff *skb,
+			     struct net_device *sb_dev)
+{
+	if (netdev_get_num_tc(netdev))
+		return netdev_pick_tx(netdev, skb, sb_dev);
+
+	return 0;
+}
+
 static const struct net_device_ops macb_netdev_ops = {
 	.ndo_open		= macb_open,
 	.ndo_stop		= macb_close,
 	.ndo_start_xmit		= macb_start_xmit,
+	.ndo_select_queue	= macb_select_queue,
 	.ndo_set_rx_mode	= macb_set_rx_mode,
 	.ndo_get_stats64	= macb_get_stats,
 	.ndo_eth_ioctl		= macb_ioctl,
