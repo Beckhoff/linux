@@ -951,40 +951,10 @@
 	clock-frequency = <400000>;
 	status = "okay";
 
-	/*
-	 * lvds-bridge@20 {
-		pinctrl-names = "default";
-		pinctrl-0 = <&disp_en_pins_default>;
-		compatible = "nxp,ptn3460";
-		reg = <0x20>;
-		powerdown-gpios = <&pio 121 GPIO_ACTIVE_HIGH>;
-		reset-gpios = <&gpio_sr 7 GPIO_ACTIVE_LOW>; // Dummy value Driver will fail if not set.
-		//edid-emulation = <7>;
-
-		ports {
-			#address-cells = <1>;
-			#size-cells = <0>;
-			port@1 {
-				reg = <1>;
-				bridge_in: endpoint {
-					remote-endpoint = <&edp_out>;
-				};
-			};
-
-			port@0 {
-				reg = <0>;
-				bridge_out: endpoint {
-					remote-endpoint = <&panel_in>;
-				};
-			};
-		};
-	};
-	*/
-
 	eeprom@50 {
 		status = "okay";
-		compatible = "atmel,24c32";
-		pagesize = <32>;
+		compatible = "atmel,24c16";
+		pagesize = <16>;
 		reg = <0x50>;
 	};
 
