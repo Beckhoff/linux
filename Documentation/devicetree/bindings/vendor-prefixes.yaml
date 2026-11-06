@@ -243,6 +243,8 @@ patternProperties:
     description: Compass Electronics Group, LLC
   "^beagle,.*":
     description: BeagleBoard.org Foundation
+  "^beckhoff,.*":
+    description: Beckhoff Automation GmbH & Co. KG
   "^belling,.*":
     description: Shanghai Belling Co., Ltd.
   "^bestar,.*":
