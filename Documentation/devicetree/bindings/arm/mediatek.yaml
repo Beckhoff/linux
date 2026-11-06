@@ -439,8 +439,10 @@ properties:
       - description: Beckhoff SM0101 SoM with MT8370 and its carrier boards
         items:
           - enum:
+              - beckhoff,mt8370-sm0101
               - beckhoff,mt8370-sm0101-cb3014
               - beckhoff,mt8370-sm0101-cb9214
+              - beckhoff,mt8370-sm0101-ehm686
           - const: beckhoff,sm0101
           - const: mediatek,mt8370
           - const: mediatek,mt8188
@@ -456,6 +458,7 @@ properties:
           - enum:
               - beckhoff,mt8390-sm0101-cb3014
               - beckhoff,mt8390-sm0101-cb9214
+              - beckhoff,mt8390-sm0101-ehm686
           - const: beckhoff,sm0101
           - const: mediatek,mt8390
           - const: mediatek,mt8188
