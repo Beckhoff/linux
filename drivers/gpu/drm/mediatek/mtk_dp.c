@@ -134,6 +134,8 @@ struct mtk_dp {
 	struct device *codec_dev;
 	/* protect the plugged_cb as it's used in both bridge ops and audio */
 	struct mutex update_plugged_status_lock;
+	/* serialises the AUX/PHY power, the link training and 'enabled' */
+	struct mutex power_lock;
 };
 
 struct mtk_dp_data {
@@ -1990,6 +1992,7 @@ static irqreturn_t mtk_dp_hpd_event_thread(int hpd, void *dev)
 		if (mtk_dp->bridge.dev)
 			drm_helper_hpd_irq_event(mtk_dp->bridge.dev);
 
+		mutex_lock(&mtk_dp->power_lock);
 		if (!mtk_dp->train_info.cable_plugged_in) {
 			mtk_dp_disable_sdp_aui(mtk_dp);
 			memset(&mtk_dp->info.audio_cur_cfg, 0,
@@ -2018,6 +2021,7 @@ static irqreturn_t mtk_dp_hpd_event_thread(int hpd, void *dev)
 
 			mtk_dp->enabled = true;
 		}
+		mutex_unlock(&mtk_dp->power_lock);
 	}
 
 	if (status & MTK_DP_THREAD_HPD_EVENT)
@@ -2144,11 +2148,13 @@ mtk_dp_bdg_detect(struct drm_bridge *bridge, struct drm_connector *connector)
 {
 	struct mtk_dp *mtk_dp = mtk_dp_from_bridge(bridge);
 	enum drm_connector_status ret = connector_status_disconnected;
-	bool enabled = mtk_dp->enabled;
+	bool enabled;
 
 	if (!mtk_dp->train_info.cable_plugged_in)
 		return ret;
 
+	mutex_lock(&mtk_dp->power_lock);
+	enabled = mtk_dp->enabled;
 	if (!enabled)
 		mtk_dp_aux_panel_poweron(mtk_dp, true);
 
@@ -2165,6 +2171,7 @@ mtk_dp_bdg_detect(struct drm_bridge *bridge, struct drm_connector *connector)
 
 	if (!enabled)
 		mtk_dp_aux_panel_poweron(mtk_dp, false);
+	mutex_unlock(&mtk_dp->power_lock);
 
 	return ret;
 }
@@ -2173,10 +2180,12 @@ static const struct drm_edid *mtk_dp_edid_read(struct drm_bridge *bridge,
 					       struct drm_connector *connector)
 {
 	struct mtk_dp *mtk_dp = mtk_dp_from_bridge(bridge);
-	bool enabled = mtk_dp->enabled;
+	bool enabled;
 	const struct drm_edid *drm_edid;
 	struct mtk_dp_audio_cfg *audio_caps = &mtk_dp->info.audio_cur_cfg;
 
+	mutex_lock(&mtk_dp->power_lock);
+	enabled = mtk_dp->enabled;
 	if (!enabled) {
 		drm_atomic_bridge_chain_pre_enable(bridge, connector->state->state);
 		mtk_dp_aux_panel_poweron(mtk_dp, true);
@@ -2223,6 +2232,7 @@ static const struct drm_edid *mtk_dp_edid_read(struct drm_bridge *bridge,
 		mtk_dp_aux_panel_poweron(mtk_dp, false);
 		drm_atomic_bridge_chain_post_disable(bridge, connector->state->state);
 	}
+	mutex_unlock(&mtk_dp->power_lock);
 
 	return drm_edid;
 }
@@ -2387,6 +2397,7 @@ static void mtk_dp_bridge_atomic_enable(struct drm_bridge *bridge,
 		return;
 	}
 
+	mutex_lock(&mtk_dp->power_lock);
 	if (mtk_dp->data->bridge_type == DRM_MODE_CONNECTOR_eDP) {
 		mtk_dp_aux_panel_poweron(mtk_dp, true);
 
@@ -2394,9 +2405,12 @@ static void mtk_dp_bridge_atomic_enable(struct drm_bridge *bridge,
 		ret = mtk_dp_training(mtk_dp);
 		if (ret) {
 			drm_err(mtk_dp->drm_dev, "Training failed, %d\n", ret);
-			goto power_off_aux;
+			goto power_off_aux_locked;
 		}
+
+		mtk_dp->enabled = true;
 	}
+	mutex_unlock(&mtk_dp->power_lock);
 
 	ret = mtk_dp_video_config(mtk_dp);
 	if (ret)
@@ -2415,16 +2429,18 @@ static void mtk_dp_bridge_atomic_enable(struct drm_bridge *bridge,
 		       sizeof(mtk_dp->info.audio_cur_cfg));
 	}
 
-	if (mtk_dp->data->bridge_type == DRM_MODE_CONNECTOR_eDP)
-		mtk_dp->enabled = true;
-
 	mtk_dp_update_plugged_status(mtk_dp);
 
 	return;
 power_off_aux:
+	mutex_lock(&mtk_dp->power_lock);
+power_off_aux_locked:
+	if (mtk_dp->data->bridge_type == DRM_MODE_CONNECTOR_eDP)
+		mtk_dp->enabled = false;
 	mtk_dp_update_bits(mtk_dp, MTK_DP_TOP_PWR_STATE,
 			   DP_PWR_STATE_BANDGAP_TPLL,
 			   DP_PWR_STATE_MASK);
+	mutex_unlock(&mtk_dp->power_lock);
 }
 
 static void mtk_dp_bridge_atomic_disable(struct drm_bridge *bridge,
@@ -2433,8 +2449,10 @@ static void mtk_dp_bridge_atomic_disable(struct drm_bridge *bridge,
 	struct mtk_dp *mtk_dp = mtk_dp_from_bridge(bridge);
 
 	if (mtk_dp->data->bridge_type == DRM_MODE_CONNECTOR_eDP) {
+		mutex_lock(&mtk_dp->power_lock);
 		mtk_dp->enabled = false;
 		mtk_dp_aux_panel_poweron(mtk_dp, false);
+		mutex_unlock(&mtk_dp->power_lock);
 	}
 
 	mtk_dp_update_plugged_status(mtk_dp);
@@ -2753,6 +2771,10 @@ static int mtk_dp_probe(struct platform_device *pdev)
 
 	mtk_dp->dev = dev;
 	mtk_dp->data = (struct mtk_dp_data *)of_device_get_match_data(dev);
+
+	ret = devm_mutex_init(dev, &mtk_dp->power_lock);
+	if (ret)
+		return ret;
 
 	ret = mtk_dp_dt_parse(mtk_dp, pdev);
 	if (ret)
