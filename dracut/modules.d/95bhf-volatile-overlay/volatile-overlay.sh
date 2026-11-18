@@ -24,5 +24,14 @@ if findmnt --types=nfs,nfs4 --mountpoint=/sysroot > /dev/null; then
 	printf 'SRC=overlay TARGET=/ ROOT=/ OPTS=_netdev\n' >> /run/mount/utab
 fi
 
+# systemd-remount-fs applies the mount options from /etc/fstab to / and the
+# API filesystems. With the volatile overlay, / is an overlayfs that doesn't
+# match the fstab entry of the real root, so remounting it fails. Mask the
+# unit at runtime, the same way `systemctl --runtime mask` would. /run
+# survives switch-root, so the mask applies to the real system.
+info "[bhf-volatile-overlay]: masking systemd-remount-fs.service"
+mkdir --parents /run/systemd/system
+ln --force --symbolic /dev/null /run/systemd/system/systemd-remount-fs.service
+
 info "[bhf-volatile-overlay]: setting up volatile rootfs"
 /usr/lib/systemd/systemd-volatile-root overlay /sysroot
